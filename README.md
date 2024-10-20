@@ -7,6 +7,18 @@
 ```
 npm i
 ```
+```
+composer install
+```
+
+# Create the .env file
+
+- To create the .env file for local development, copy the .env.example and modify accordingly
+- Then, enter this command in the terminal
+
+```
+php artisan key:generate
+```
 
 # Running the file
 
