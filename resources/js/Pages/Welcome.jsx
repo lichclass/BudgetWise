@@ -1,10 +1,19 @@
-import { Head } from '@inertiajs/react';
+import { useState } from "react";
+import { Head } from "@inertiajs/react";
+import Sidebar from "@/Components/Sidebar/OpenSidebar.jsx";
 
 function Welcome() {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
-        <div>
+        <div className="flex gap-8 bg-slate-900">
             <Head title="Welcome" />
-            <h1 className='text-4xl text-center font-bold p-3'>Welcome Page</h1>
+            <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
+            {/* Your main content goes here */}
         </div>
     );
 }
