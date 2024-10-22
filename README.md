@@ -10,6 +10,13 @@ npm i
 
 # Running the file
 
+- Turn on XAMPP
+- If you don't have the database yet, do this command first
+
+```
+php artisan migrate
+```
+
 ```
 php artisan serve
 ```
