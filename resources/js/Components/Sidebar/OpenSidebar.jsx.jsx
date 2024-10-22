@@ -1,7 +1,9 @@
 import React from "react";
-import styles from "./SidebarStyles.module.css";
+import styles from "../../../css/SidebarStyles.module.css"
 import icons from "./SidebarIcons.jsx";
-
+import { useRoute } from "../../../../vendor/tightenco/ziggy";
+import { useForm } from "@inertiajs/react";
+ 
 //anchors for now
 const menuItems = [
     { icon: icons.homeIcon, label: "Home", destination: "#" },
@@ -10,9 +12,23 @@ const menuItems = [
     { icon: icons.settingsIcon, label: "Settings", destination: "#" },
 ];
 
-function Sidebar({ isOpen, toggleSidebar }) {
+function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave }) {
+
+    const { post, processing } = useForm();
+     
+    const route = useRoute();
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        post(route('logout'));
+    }
+
     return (
-        <div className={`relative h-screen ${styles.backgroundGradient} border-r border-gray-300 border-opacity-40 rounded-r-lg flex flex-col transition-all duration-300 ease-in-out ${isOpen ? 'w-72' : 'w-28'}`}>
+        <div 
+            className={`relative h-screen ${styles.backgroundGradient} border-r border-gray-300 border-opacity-40 rounded-r-lg flex flex-col transition-all duration-300 ease-in-out ${isOpen ? 'w-72' : 'w-28'}`}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+        >
             
             {/* Header */}
             <div className="flex justify-center items-center pb-2 w-full h-28 bg-slate-900 border-b border-gray-300 border-opacity-70 rounded-tr-lg">
@@ -28,20 +44,23 @@ function Sidebar({ isOpen, toggleSidebar }) {
                         <li key={index} className="flex items-center">
                             <a href={item.destination} className="flex items-center gap-5 group">
                                 <img src={item.icon} alt={`${item.label}_icon`} className="transition-transform duration-300 ease-in-out group-hover:scale-110" />
-                                <h1 className={`text-xl text-sky-100 font-semibold opacity-65 transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 overflow-hidden whitespace-nowrap'}`}>
+                                <h1 className={`text-xl text-sky-100 font-semibold transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 overflow-hidden whitespace-nowrap'}`}>
                                     {item.label}
                                 </h1>
                             </a>
                         </li>
                     ))}
                 </ul>
-
-                <a href="#" className="mb-12 flex items-center gap-5 group">
-                    <img src={icons.logoutIcon} alt="logout_icon" className="transition-transform duration-300 ease-in-out group-hover:scale-110"/>
-                    <h1 className={`text-xl text-sky-100 font-semibold transition-all duration-300 ease-in-out ${isOpen ? 'opacity-65 translate-x-0' : 'opacity-0 -translate-x-4 overflow-hidden whitespace-nowrap'}`}>
-                        Logout
-                    </h1>
-                </a>
+                
+                {/* Logout */}
+                <form onSubmit={handleLogout}>
+                    <button className="mb-12 flex items-center gap-5 group" disabled={processing}>
+                        <img src={icons.logoutIcon} alt="logout_icon" className="transition-transform duration-300 ease-in-out group-hover:scale-110"/>
+                        <h1 className={`text-xl text-sky-100 font-semibold transition-all duration-300 ease-in-out ${isOpen ? 'opacity-65 translate-x-0' : 'opacity-0 -translate-x-4 overflow-hidden whitespace-nowrap'}`}>
+                            Logout
+                        </h1>
+                    </button>
+                </form>
             </div>
 
             <img src={isOpen ? icons.decorOpen : icons.decorClosed} className="absolute inset-x-0 bottom-0 pointer-events-none transition-opacity duration-300 ease-in-out" alt="Decor"/>

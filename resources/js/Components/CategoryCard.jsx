@@ -3,6 +3,7 @@ import { Card, Space } from "antd";
 import AddCatBtn from "./AddCatBtn";
 import EditCatBtn from "./EditCatBtn";
 
+// Function to format numbers as financial values
 function formatFinancialNumber(amount) {
     // Convert the amount to a number
     const num = Number(amount);
@@ -33,7 +34,7 @@ function formatFinancialNumber(amount) {
 }
 
 
-function CategoryCard1({ category, currSym, amount }) {
+function CategoryCard({ category, currSym, amount }) {
 
     return (
         <Card
@@ -65,4 +66,4 @@ function CategoryCard1({ category, currSym, amount }) {
     );
 }
 
-export default CategoryCard1;
+export default CategoryCard;

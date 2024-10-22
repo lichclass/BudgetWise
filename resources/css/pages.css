@@ -1,0 +1,21 @@
+.landing-bg {
+    background-color: #081113;
+}
+
+.landing-bg .landing-bg-overlay {
+    background-image: url(../../public/build/assets/Landing-Page_BG-Overlay.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.auth-bg {
+    background-image: url(../../public/build/assets/BG_Light-Blue.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.auth-bg .auth-welcome-bg {
+    background-image: url(../../public/build/assets/FG_Blur.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}

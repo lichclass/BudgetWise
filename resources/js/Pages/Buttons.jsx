@@ -9,7 +9,7 @@ import GetStartBtnBack from "@/Components/GetStartBtnBack";
 import GoBackBtn from "@/Components/GoBackBtn";
 import LedgersDropdown from "@/Components/LedgersDropdown";
 import CreateLedgerBtn from "@/Components/CreateLedgerBtn";
-import MonthPickerBtn from "@/Components/MonthPickerBtn";
+// import MonthPickerBtn from "@/Components/MonthPickerBtn";
 import AddCatBtn from "@/Components/AddCatBtn"
 import EditCatBtn from "@/Components/EditCatBtn"
 import ChangePassBtn from "@/Components/ChangePassBtn";
@@ -36,7 +36,7 @@ function Buttons() {
             <GoBackBtn />
         </div>
         <div className="p-10 bg-lime-500 flex justify-end space-x-4">
-            <MonthPickerBtn />
+            {/* <MonthPickerBtn /> */}
             <LedgersDropdown />
             <CreateLedgerBtn />
         </div>
