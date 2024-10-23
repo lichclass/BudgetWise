@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class StoreTransactionsRequest extends FormRequest
 {
@@ -11,6 +13,7 @@ class StoreTransactionsRequest extends FormRequest
      */
     public function authorize(): bool
     {
+
         return false;
     }
 
@@ -22,7 +25,10 @@ class StoreTransactionsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'amount' => ['required', 'numeric'],
+            'transaction_description' => ['string', 'max:255'],
+            'transaction_date' => ['required', 'date'],
+            'transaction_type' => ['required', Rule::in(['income', 'expense'])],
         ];
     }
 }
