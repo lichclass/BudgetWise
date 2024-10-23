@@ -19,7 +19,9 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::inertia('/home', 'Home')->name('home');
+Route::middleware(['auth'])->group(function () {
+    Route::inertia('/home', 'Home')->name('home')->middleware('check.ledger');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::inertia('/starter', 'Starter')->name('starter');
 });

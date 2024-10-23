@@ -9,9 +9,19 @@ class Ledgers extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'ledger_id'; // Custom primary key
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'user_id',
+        'ledger_name',
+        'description',
+        'total_income',
+        'total_expenses',
+        'balance',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

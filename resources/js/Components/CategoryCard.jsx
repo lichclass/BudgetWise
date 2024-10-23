@@ -1,40 +1,27 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Space } from "antd";
 import AddCatBtn from "./AddCatBtn";
 import EditCatBtn from "./EditCatBtn";
+import { downscale } from "@/utilityFunctions";
 
-// Function to format numbers as financial values
-function formatFinancialNumber(amount) {
-    // Convert the amount to a number
-    const num = Number(amount);
-    
-    // If the input is not a number, return a default value
-    if (isNaN(num)) return "0.00";
+function CategoryCard({ category, amount }) {
 
-    // Format number with two decimal places for numbers less than or equal to 1000
-    if (num <= 1000) {
-        return num.toFixed(2);
-    }
+    const formaterr = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'PHP',
+        minimumFractionDigits: 2
+    });
 
-    // Format larger numbers using suffixes
-    const suffixes = ["", "K", "M", "B"];
-    let suffixIndex = 0;
-    let formattedValue = num;
+    const [fontSize, setFontSize] = useState();
 
-    // Divide by 1000 until the number is less than 1000
-    while (formattedValue >= 1000 && suffixIndex < suffixes.length - 1) {
-        formattedValue /= 1000;
-        suffixIndex++;
-    }
+    useEffect(() => {
+        const expectedMaxLength = 6; // Example expected maximum length
+        const baseFontSize = 64; // Example base font size
+        const minFontSize = 16; // Example minimum font size
 
-    // Return formatted value with one decimal place if there's a decimal part, otherwise as an integer
-    return formattedValue % 1 !== 0
-        ? `${formattedValue.toFixed(1)}${suffixes[suffixIndex]}` // One decimal place if it's not a whole number
-        : `${formattedValue.toFixed(0)}${suffixes[suffixIndex]}`; // No decimal place if it's a whole number
-}
-
-
-function CategoryCard({ category, currSym, amount }) {
+        const newFontSize = downscale(amount.toString().length, expectedMaxLength, baseFontSize, minFontSize);
+        setFontSize(newFontSize);
+    }, [amount]);
 
     return (
         <Card
@@ -54,9 +41,11 @@ function CategoryCard({ category, currSym, amount }) {
         >
             <p
                 className="text-center text-4xl font-bold text-white break-words py-10 overflow-hidden whitespace-normal"
+                style={{
+                    fontSize: `${fontSize}px`,
+                }}
             >
-                {currSym}
-                {formatFinancialNumber(amount)}
+                {formaterr.format(amount)}
             </p>
             <Space className="flex flex-shrink-0 flex-grow-0 space-x-2">
                 <AddCatBtn />

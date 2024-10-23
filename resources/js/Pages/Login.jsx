@@ -81,7 +81,10 @@ function Login() {
                     </div>
 
                     {/* Submit Button */}
-                    <GreenBtnLg text='Sign-In' />
+                    <GreenBtnLg 
+                        text='Sign-In'
+                        disabled={processing} 
+                    />
 
                 </form>
 
