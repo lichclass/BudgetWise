@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id('category_id');
-            $table->foreignId('user_id')->constrained('users','user_id');
+            $table->foreignId('user_id')->constrained('users','user_id')->nullable();
             $table->string('category_name');
             $table->string('description');
             $table->boolean('is_default')->default(false); 

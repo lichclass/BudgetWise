@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transactions;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreTransactionsRequest;
 use App\Http\Requests\UpdateTransactionsRequest;
 
@@ -14,23 +15,37 @@ class TransactionsController extends Controller
      */
     public function index()
     {
-        //
+        $transactions = Transactions::all(); //temporary
+        return view('transactions.index', ['transactions' => $transactions]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(StoreTransactionsRequest $request)
     {
-        //
+        //Validate
+
+
+        //Create a new transaction
+
+        //Redirect to the transactions page
     }
 
     /**
      * Store a newly created resource in storage.
      */
+    
+     /*StoreTransactionsRequest $request*/
     public function store(StoreTransactionsRequest $request)
     {
-        //
+        //validate the request
+        $fields = $request->validated();
+
+        //Create a new transaction
+        //Transactions::ledger()->create($fields);
+
+        //Redirect to the transactions page
     }
 
     /**
