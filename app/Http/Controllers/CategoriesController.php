@@ -15,7 +15,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+       //
     }
 
     /**
@@ -31,16 +31,13 @@ class CategoriesController extends Controller
      */
     public function store(StoreCategoriesRequest $request)
     {
-        //validate
-        // $fields = $request->validated();
+        // validate
+        $fields = $request->validated();
 
-        sleep(3);
+        // store in the database
+        Categories::create([ 'user_id' => Auth::id(), ...$fields ]);
 
-        // Auth::user()->categories()->create($fields);
-        // // $user->categories()->create($fields);
-        // Categories::create([ 'user_id' => Auth::id(), ...$fields ]);
-
-        // //redirect
+        // redirect
         return redirect()->route('landing');
     }
 

@@ -17,7 +17,10 @@ class CategoriesFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'category_name' => $this->faker->word,
+            'description' => $this->faker->sentence,
+            'is_default' => true,
+            'category_type' => 'expense', // Default type, can be overridden
         ];
     }
 }

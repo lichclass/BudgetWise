@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\BudgetsController;
+use App\Http\Controllers\StarterController;
 use App\Models\Budgets;
 use App\Models\Categories;
 use Illuminate\Foundation\Application;
@@ -15,8 +16,6 @@ Route::inertia('/test', 'Test')->name('test');
 
 // Route for Landing Page
 Route::inertia('/', 'Landing')->name('landing');
-
-
 
 
 Route::middleware('guest')->group(function () {
@@ -35,7 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('budgets', BudgetsController::class);
     Route::resource('category', CategoriesController::class);
 
-    Route::inertia('/starter', 'Starter')->name('starter');
+    Route::get('/starter', [StarterController::class, 'showCategories'])->name('starter');
 });
 
 

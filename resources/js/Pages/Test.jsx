@@ -3,6 +3,7 @@ import BalanceCard from '@/Components/BalanceCard';
 import CategoryCard from '@/Components/CategoryCard';
 import TransactCat from '@/Components/TransactCat';
 import BudgetCat from '@/Components/BudgetCat';
+import ArrayTest from '@/Components/ArrayTest';
 
 function Test() {
 
@@ -18,7 +19,7 @@ function Test() {
                 }
             </div>
 
-            <BalanceCard balance={1000} />
+            {/* <BalanceCard balance={1000} />
             <CategoryCard
                  category="Food"
                  amount={500}
@@ -54,7 +55,10 @@ function Test() {
                     amount={500}
                     isSet={false}
                 />
-            </div> 
+            </div>  */}
+
+
+            <ArrayTest />                   
 
 
         </>
