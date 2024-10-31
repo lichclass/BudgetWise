@@ -4,6 +4,7 @@ import CategoryCard from '@/Components/CategoryCard';
 import TransactCat from '@/Components/TransactCat';
 import BudgetCat from '@/Components/BudgetCat';
 import ArrayTest from '@/Components/ArrayTest';
+import Navbar from '@/Components/Navbar';
 
 function Test() {
 
@@ -11,13 +12,13 @@ function Test() {
 
     return (
         <>
-            <div className='text-4xl text-white text-center'>
+            {/* <div className='text-4xl text-white text-center'>
                 {
                     auth.user 
                         ? <h1>Is Logged in</h1>
                         : <h1>Is not Logged in</h1>
                 }
-            </div>
+            </div> */}
 
             {/* <BalanceCard balance={1000} />
             <CategoryCard
@@ -58,7 +59,8 @@ function Test() {
             </div>  */}
 
 
-            <ArrayTest />                   
+            {/* <ArrayTest />                    */}
+            <Navbar />
 
 
         </>
