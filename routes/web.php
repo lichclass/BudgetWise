@@ -34,7 +34,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('budgets', BudgetsController::class);
     Route::resource('category', CategoriesController::class);
 
-    Route::get('/starter', [StarterController::class, 'showCategories'])->name('starter');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/starter', [StarterController::class, 'showCategories'])->name('starter')->middleware('check.ledger');
 });
 
 

@@ -6,6 +6,7 @@ import GetStartBtnCont from "@/Components/GetStartBtnCont";
 import { useState } from "react";
 import AuthInputField from "@/Components/AuthInputField";
 import { useForm } from '@inertiajs/react'
+import { TiDelete } from "react-icons/ti"
 
 const config = {
     step1: {
@@ -85,18 +86,27 @@ function Starter({ categories }) {
     // Handles the change of new category
     const handleCategoryChange = (e) => {
         const value = e.target.value;
-        console.log("Checkbox value:", value);
         if (e.target.checked) {
+
+            // Check if the category is already selected
+            if(data.selectedCategories.includes(value) || data.newCategoriesSelected.find((category) => category.category_id === value)) {
+                return;
+            }
             setData('selectedCategories', [...data.selectedCategories, value]);
             const newCategory = newCategories.find((category) => category.category_id === value);
             if (newCategory) {
                 setData('newCategoriesSelected', [...data.newCategoriesSelected, newCategory]);
             }
+
         } else {
-            const updatedSelectedCategories = data.selectedCategories.filter((category) => category !== value);
-            const updatedNewCategoriesSelected = data.newCategoriesSelected.filter((category) => category.category_id !== value);
-            setData('selectedCategories', updatedSelectedCategories);
-            setData('newCategoriesSelected', updatedNewCategoriesSelected);
+            const filteredSelectedCategories = data.selectedCategories.filter((category) => category !== value);
+            const filteredNewCategoriesSelected = data.newCategoriesSelected.filter((category) => category.category_id !== value);
+
+            setData((prev) => ({
+                ...prev,
+                selectedCategories: filteredSelectedCategories,
+                newCategoriesSelected: filteredNewCategoriesSelected,
+            }));
         }
     };
 
@@ -122,8 +132,15 @@ function Starter({ categories }) {
     const handleDeleteItem = (id) => {
         setCategories((prev) => prev.filter((category) => category.category_id !== id));
         setNewCategories((prev) => prev.filter((category) => category.category_id !== id));
-        setData('selectedCategories', data.selectedCategories.filter((category) => category !== id));
-        setData('newCategoriesSelected', data.newCategoriesSelected.filter((category) => category.category_id !== id));
+
+        const filteredSelectedCategories = data.selectedCategories.filter((category) => category !== id);
+        const filteredNewCategoriesSelected = data.newCategoriesSelected.filter((category) => category.category_id !== id);
+
+        setData((prev) => ({
+            ...prev,
+            selectedCategories: filteredSelectedCategories,
+            newCategoriesSelected: filteredNewCategoriesSelected,
+        }));
     }
     
     const currentStep = config[`step${step}`];
@@ -183,10 +200,8 @@ function Starter({ categories }) {
                         />
                     </div>
                 )}
-                {step === 3 && (
-                    <>
                     {/* Choose your categories section */}
-                    <div className="w-50 p-3">
+                    <div className={`w-50 p-3 ${step === 3 ? 'block' : 'hidden'}`}>
                         <div className="py-3 space-x-4 flex">
                             <button
                                 className={currentTabArray === 'expense' ? btnActive : btnInactive}
@@ -204,10 +219,13 @@ function Starter({ categories }) {
         
                         {/* Category List */}
                         <div className="my-2 p-8 flex flex-wrap gap-x-5 gap-y-6 border rounded-md shadow-sm border-slate-400">
-                            {defaultCategories
-                                .filter(category => category.category_type === currentTabArray)
+                            {
+                                defaultCategories
                                 .map((category) => (
-                                    <div key={category.category_id} className="flex-shrink-0 flex-grow-0 hover:scale-105 transition-transform duration-150">
+                                    <div 
+                                        key={category.category_id} 
+                                        className={`flex-shrink-0 flex-grow-0 hover:scale-105 transition-transform duration-150 ${category.category_type === currentTabArray ? 'block' : 'hidden'}`}
+                                    >
                                         <input
                                             type="checkbox"
                                             value={category.category_id}
@@ -215,21 +233,26 @@ function Starter({ categories }) {
                                             className="hidden peer"
                                             onChange={handleCategoryChange}
                                         />
-                                        {
-                                            category.is_default ? null : (
-                                                <button
-                                                    className="btn"
-                                                    onClick={() => handleDeleteItem(category.category_id)}
-                                                >
-                                                    Delete
-                                                </button>
-                                            )
-                                        }
-                                        <label htmlFor={`checkbox-${category.category_id}`} className={checkboxLabelStyle}>
-                                            {category.category_id}. {category.category_name}
+                                        <label 
+                                            htmlFor={`checkbox-${category.category_id}`} 
+                                            className={`${checkboxLabelStyle} flex justify-between space-x-2`}
+                                        >
+                                            <span>
+                                                {category.category_name}
+                                            </span>
+                                            {
+                                                category.is_default ? null : (
+                                                    <button
+                                                        onClick={() => handleDeleteItem(category.category_id)}
+                                                    >
+                                                        <TiDelete className="text-2xl hover:text-slate-600 transition-colors"/>
+                                                    </button>
+                                                )
+                                            }
                                         </label>
                                     </div>
                                 ))}
+
                             <div className="flex-shrink-0 flex-grow-0 hover:scale-105 transition-transform">
                                 <button
                                     type="button"
@@ -261,7 +284,7 @@ function Starter({ categories }) {
                                 <div className="modal-action">
                                     <div className='flex space-x-5'>
                                         <button
-                                            className="text-teal-800 font-bold px-5 py-2 rounded-xl border border-teal-800 hover:scale-110 transition"
+                                            className="text-teal-800 font-bold px-5 py-2 rounded-xl bo</div>rder border-teal-800 hover:scale-110 transition"
                                             onClick={handleAddCategory}
                                         >
                                             Add
@@ -277,8 +300,6 @@ function Starter({ categories }) {
                             </div>
                         </dialog>
                     )}
-                    </>
-                )}
 
                 {/* Back and Continue */}
                 <div className="space-x-3 flex relative mb-8 lg:fixed lg:bottom-14 lg:mb-0">
