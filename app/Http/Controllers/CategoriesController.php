@@ -6,6 +6,7 @@ use App\Models\Categories;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoriesRequest;
 use App\Http\Requests\UpdateCategoriesRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesController extends Controller
 {
@@ -14,7 +15,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+       //
     }
 
     /**
@@ -22,7 +23,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -30,7 +31,14 @@ class CategoriesController extends Controller
      */
     public function store(StoreCategoriesRequest $request)
     {
-        //
+        // validate
+        $fields = $request->validated();
+
+        // store in the database
+        Categories::create([ 'user_id' => Auth::id(), ...$fields ]);
+
+        // redirect
+        return redirect()->route('landing');
     }
 
     /**

@@ -13,6 +13,7 @@ function AuthInputField({ label, htmlFor, type, name, placeholder, value, onChan
                 }}
                 value={value}
                 onChange={onChange}
+                maxLength={255}
             />
             {errorDisplay && <span className='text-sm text-red-500'>{errorDisplay}</span>}
         </div>

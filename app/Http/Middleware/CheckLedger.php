@@ -19,10 +19,20 @@ class CheckLedger
     {
         $user = Auth::user();
 
-        if ($user && $user->ledgers->isEmpty()) {
-            return redirect()->route('starter');
+        if ($user) {
+            if ($user->ledgers->isEmpty()) {
+                // User without ledgers: Redirect to /starter and prevent access to other pages
+                if (!$request->is('starter*')) {
+                    return redirect()->route('starter');
+                }
+            } else {
+                // User with ledgers: Redirect to /home and prevent access to /starter
+                if ($request->is('starter*')) {
+                    return redirect()->route('home');
+                }
+            }
         }
-        
+
         return $next($request);
     }
 }

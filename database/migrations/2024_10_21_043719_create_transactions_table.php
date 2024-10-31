@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id('reference_id');
             $table->foreignId('ledger_id')->constrained('ledgers', 'ledger_id');
             $table->foreignId('category_id')->constrained('categories', 'category_id');
-            $table->decimal('amount', 12, 2);    
+            $table->decimal('amount', 12, 2); 
+            $table->string('transaction_description')->nullable();   
             $table->date('transaction_date');
             $table->enum('transaction_type', ['expense', 'income']);
             $table->boolean('is_deleted')->default(false);  

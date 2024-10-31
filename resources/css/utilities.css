@@ -6,3 +6,29 @@ input:-webkit-autofill:active {
     -webkit-text-fill-color: black !important;
     caret-color: black; /* Ensure the caret color is set to auto */
 }
+
+.steps .step:after {
+    height: 3.5rem !important;
+    width: 3.5rem !important;
+    background-color: rgb(247 254 231) !important;
+    border: 3px solid #BCBCBC;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.steps .step:before {
+    width: 3px !important;
+    background-color: #BCBCBC !important;
+    font-weight: bold;
+    height: 6rem !important;
+}
+
+.steps .step-primary + .step-primary:before,
+  .steps .step-primary:after {
+    color: #5498A7 !important;
+    border-color: #5498A7 !important;
+}
+
+.steps .step-primary + .step-primary:before {
+    background-color: #5498A7 !important;
+}

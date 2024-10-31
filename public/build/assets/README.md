@@ -1,1 +1,0 @@
-# Store the images here (png, jpg, gif, etc)

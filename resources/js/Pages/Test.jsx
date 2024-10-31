@@ -3,7 +3,6 @@ import BalanceCard from '@/Components/BalanceCard';
 import CategoryCard from '@/Components/CategoryCard';
 import TransactCat from '@/Components/TransactCat';
 import BudgetCat from '@/Components/BudgetCat';
-import GoalsCard from '@/Components/GoalsCard';
 
 function Test() {
 
@@ -11,7 +10,7 @@ function Test() {
 
     return (
         <>
-            <div className='text-4xl text-white text-center'>
+            {/* <div className='text-4xl text-white text-center'>
                 {
                     auth.user 
                         ? <h1>Is Logged in</h1>
@@ -19,15 +18,13 @@ function Test() {
                 }
             </div>
 
-            <GoalsCard/>
-
-            <BalanceCard balance={1000} />
+            {/* <BalanceCard balance={1000} />
             <CategoryCard
                  category="Food"
                  amount={500}
             />
 
-            <div className='flex flex-col bg-sky-900 rounded-2xl p-8 w-1/2 gap-2 m-4'>
+            <div className='flex flex-col bg-sky-900 rounded-2xl p-8 w-1/2 gap-2 m-4 h-52 overflow-auto'>
                 <TransactCat
                     category="Food"
                     amount={500}
@@ -57,7 +54,11 @@ function Test() {
                     amount={500}
                     isSet={false}
                 />
-            </div> 
+            </div>  */}
+
+
+            {/* <ArrayTest />                    */}
+            <Navbar />
 
 
         </>
