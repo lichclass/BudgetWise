@@ -3,6 +3,7 @@ import BalanceCard from '@/Components/BalanceCard';
 import CategoryCard from '@/Components/CategoryCard';
 import TransactCat from '@/Components/TransactCat';
 import BudgetCat from '@/Components/BudgetCat';
+import GoalsCard from '@/Components/GoalsCard';
 
 function Test() {
 
@@ -17,6 +18,8 @@ function Test() {
                         : <h1>Is not Logged in</h1>
                 }
             </div>
+
+            <GoalsCard/>
 
             <BalanceCard balance={1000} />
             <CategoryCard
