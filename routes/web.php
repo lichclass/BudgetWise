@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/starter', [StarterController::class, 'showCategories'])->name('starter')->middleware('check.ledger');
+    Route::post('/starter', [StarterController::class, 'submit'])->name('starter.submit');
 });
 
 

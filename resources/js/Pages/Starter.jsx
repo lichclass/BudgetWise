@@ -167,7 +167,7 @@ function Starter({ categories }) {
         console.log("Ledger Name: ", data.ledgerName);
         console.log("Selected Categories: ", data.selectedCategories);
         console.log("New Selected Categories: ", data.newCategoriesSelected);
-        // Handle form submission logic here
+        post(route('starter.submit'));
     };
 
     return (
