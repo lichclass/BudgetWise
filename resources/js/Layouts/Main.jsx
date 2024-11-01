@@ -33,14 +33,14 @@ function Main({ navbarMsg, children, isSettings=false }) {
     return (
         <div className="flex w-screen">
             
-            <div className="w-auto z-20 border-2 border-red-600 border-dashed">
+            <div className="w-auto z-20">
                 <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
             </div>
             <div className="flex flex-col flex-grow">
-                <div className={`w-full z-10 border-2 border-red-600 border-dashed ${isSettings ? "hidden" : ""}`}>
+                <div className={`w-full z-10 ${isSettings ? "hidden" : ""}`}>
                     <Navbar text={navbarMsg} />
                 </div>
-                <div className="w-full p-6 z-0 border-2 border-red-600 border-dashed text-white">
+                <div className="w-full p-6 z-0  text-white">
                     <div 
                         className="rounded-lg p-3"
                         style={{
