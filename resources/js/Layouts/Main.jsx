@@ -36,18 +36,18 @@ function Main({ navbarMsg, children, isSettings=false }) {
             <div className="w-auto z-20">
                 <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
             </div>
-            <div className="flex flex-col flex-grow">
+            <div className="flex flex-col flex-grow w-1/12">
                 <div className={`w-full z-10 ${isSettings ? "hidden" : ""}`}>
                     <Navbar text={navbarMsg} />
                 </div>
-                <div className="w-full p-6 z-0  text-white">
+                <div className="p-6 z-0 text-white">
                     <div 
                         className="rounded-lg p-3"
                         style={{
                             backgroundColor: "rgba(26, 66, 87, 0.28)"
                         }}
                     >
-                       {children}
+                       {children}   
                     </div>
                 </div>
             </div>
