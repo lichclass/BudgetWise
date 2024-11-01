@@ -23,7 +23,6 @@ class StoreCategoriesRequest extends FormRequest
     {
         return [
             'category_name' => ['required', 'string', 'max:255'],
-            'description' => ['string', 'max:255'], //Is this Nullable?
         ];
     }
 }

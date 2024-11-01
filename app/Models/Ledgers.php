@@ -14,7 +14,6 @@ class Ledgers extends Model
     protected $fillable = [
         'user_id',
         'ledger_name',
-        'description',
         'total_income',
         'total_expenses',
         'balance',
