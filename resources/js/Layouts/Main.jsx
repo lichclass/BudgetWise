@@ -3,7 +3,8 @@ import { usePage } from "@inertiajs/react";
 import Sidebar from "@/Components/Sidebar/OpenSidebar.jsx";
 import Navbar from "@/Components/Navbar";
 
-function Main({ navbarMsg, children }) {
+function Main({ navbarMsg, children, isSettings=false }) {
+
     const [isOpen, setIsOpen] = useState(false);
     const { auth } = usePage().props;
 
@@ -30,17 +31,28 @@ function Main({ navbarMsg, children }) {
     }, []);
 
     return (
-        <>
-            <div className="absolute z-20">
+        <div className="flex w-screen">
+            
+            <div className="w-auto z-20 border-2 border-red-600 border-dashed">
                 <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
             </div>
-            <div className="absolute z-10">
-                <Navbar text={navbarMsg} />
+            <div className="flex flex-col flex-grow">
+                <div className={`w-full z-10 border-2 border-red-600 border-dashed ${isSettings ? "hidden" : ""}`}>
+                    <Navbar text={navbarMsg} />
+                </div>
+                <div className="w-full p-6 z-0 border-2 border-red-600 border-dashed text-white">
+                    <div 
+                        className="rounded-lg p-3"
+                        style={{
+                            backgroundColor: "rgba(26, 66, 87, 0.28)"
+                        }}
+                    >
+                       {children}
+                    </div>
+                </div>
             </div>
-            <div className="pl-32 z-0">
-                {children}
-            </div>
-        </>
+
+        </div>
     );
 }
 

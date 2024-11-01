@@ -1,7 +1,7 @@
 function Navbar({ text }) {
     return (
         <nav 
-            className="flex justify-between items-center px-44 pr-20 relative w-screen h-[6.2rem] border-b border-gray-300 border-opacity-70"
+            className="flex justify-between items-center px-16 h-[6.2rem] border-b border-gray-300 border-opacity-70"
             style={{
                 backgroundColor: '#07131E',
                 color: 'rgba(232, 234, 230, 0.70)',
