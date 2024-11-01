@@ -11,7 +11,7 @@ class StoreLedgersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreLedgersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'ledger_name' => ['required', 'string'],
+            'total_income' => ['required', 'numeric'],
+            'total_expenses' => ['required', 'numeric'],
+            'balance' => ['required', 'numeric'],
         ];
     }
 }

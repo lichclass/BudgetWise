@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id('ledger_id');
             $table->foreignId('user_id')->constrained('users', 'user_id'); 
             $table->string('ledger_name');
-            $table->string('description');
-            $table->decimal('total_income', 12, 2);
-            $table->decimal('total_expenses', 12, 2);
-            $table->decimal('balance', 12, 2);
+            $table->decimal('total_income', 12, 2)->default(0);
+            $table->decimal('total_expenses', 12, 2)->default(0);
+            $table->decimal('balance', 12, 2)->default(0);
             $table->timestamps();
         });
     }
