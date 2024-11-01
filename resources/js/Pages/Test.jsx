@@ -3,8 +3,6 @@ import BalanceCard from '@/Components/BalanceCard';
 import CategoryCard from '@/Components/CategoryCard';
 import TransactCat from '@/Components/TransactCat';
 import BudgetCat from '@/Components/BudgetCat';
-import ArrayTest from '@/Components/ArrayTest';
-import Navbar from '@/Components/Navbar';
 
 function Test() {
 
@@ -18,7 +16,7 @@ function Test() {
                         ? <h1>Is Logged in</h1>
                         : <h1>Is not Logged in</h1>
                 }
-            </div> */}
+            </div>
 
             {/* <BalanceCard balance={1000} />
             <CategoryCard
