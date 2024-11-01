@@ -2,15 +2,16 @@ import Main from '@/Layouts/Main'
 import { usePage } from '@inertiajs/react'
 import { Head } from '@inertiajs/react'
 
-function Home() {
+function Transactions() {
 
     const { auth } = usePage().props;
+    const { transactions } = usePage().props;
 
     return (
         <>
-        <Head title="Home" />
+        <Head title="Transactions" />
 
-        <Main navbarMsg={`Welcome back, ${auth.user.username}`}>
+        <Main navbarMsg={`Transactions`}>
             
         </Main>
         </>
@@ -18,4 +19,4 @@ function Home() {
 
 }
 
-export default Home;
+export default Transactions;

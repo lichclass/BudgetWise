@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreTransactionsRequest;
 use App\Http\Requests\UpdateTransactionsRequest;
 
+use Inertia\Inertia;
+
 class TransactionsController extends Controller
 {
     /**
@@ -16,7 +18,9 @@ class TransactionsController extends Controller
     public function index()
     {
         $transactions = Transactions::all(); //temporary
-        return view('transactions.index', ['transactions' => $transactions]);
+        return Inertia::render('Transactions', [
+            'transactions' => $transactions,        
+        ]);
     }
 
     /**

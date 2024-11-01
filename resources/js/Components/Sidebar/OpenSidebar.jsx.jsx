@@ -4,19 +4,19 @@ import icons from "./SidebarIcons.jsx";
 import { useRoute } from "../../../../vendor/tightenco/ziggy";
 import { useForm } from "@inertiajs/react";
  
-//anchors for now
-const menuItems = [
-    { icon: icons.homeIcon, label: "Home", destination: "#" },
-    { icon: icons.transactionsIcon, label: "Transactions", destination: "#" },
-    { icon: icons.budgetIcon, label: "Budget", destination: "#" },
-    { icon: icons.settingsIcon, label: "Settings", destination: "#" },
-];
 
 function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave }) {
 
     const { post, processing } = useForm();
      
     const route = useRoute();
+
+    const menuItems = [
+        { icon: icons.homeIcon, label: "Home", destination: route('home') },
+        { icon: icons.transactionsIcon, label: "Transactions", destination: route('transactions.index') },
+        { icon: icons.budgetIcon, label: "Budget", destination: "#" },
+        { icon: icons.settingsIcon, label: "Settings", destination: "#" },
+    ];
 
     const handleLogout = (e) => {
         e.preventDefault();
