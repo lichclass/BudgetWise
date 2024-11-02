@@ -26,32 +26,33 @@ function Main({ navbarMsg, children, isSettings=false }) {
         return () => {
             document.documentElement.style.removeProperty('--fallback-b1');
             document.body.style.backgroundColor = "";
+            document.body.style.backgroundImage = ""; // Reset the background image
         };
     }, []);
 
+
     return (
-        <div className="flex w-screen min-h-screen">
-            
+        <div className="flex w-screen h-screen"> 
             <div className="w-auto z-20">
-                <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
+                <Sidebar
+                    isOpen={isOpen}
+                    toggleSidebar={toggleSidebar}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                />
             </div>
             <div className="flex flex-col flex-grow w-1/12">
                 <div className={`sticky top-0 w-full z-10 ${isSettings ? "hidden" : ""}`}>
                     <Navbar text={navbarMsg} />
                 </div>
-                <div className="p-6 z-0 text-white">
-                    <div 
-                        className="rounded-lg p-3"
-                        style={{
-                            backgroundColor: "rgba(26, 66, 87, 0.28)"
-                        }}
-                    >
-                       {children}   
+                <div className="p-6 z-0 text-white h-full overflow-y-auto flex-grow">
+                    <div className="rounded-lg py-8 px-12 h-full bg-[rgba(26,66,87,0.28)]">
+                        {children}
                     </div>
                 </div>
             </div>
-
         </div>
+
     );
 }
 

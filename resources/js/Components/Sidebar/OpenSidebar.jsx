@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "../../../css/SidebarStyles.module.css"
 import icons from "./SidebarIcons.jsx";
-import { useRoute } from "../../../../vendor/tightenco/ziggy";
+import { useRoute } from "../../../../vendor/tightenco/ziggy/src/js";
 import { useForm } from "@inertiajs/react";
- 
+
 
 function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave }) {
 
     const { post, processing } = useForm();
-     
+
     const route = useRoute();
 
     const menuItems = [
@@ -24,16 +24,16 @@ function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave }) {
     }
 
     return (
-        <div 
-            className={`sticky top-0 left-0 h-screen ${styles.backgroundGradient} border-r border-gray-300 border-opacity-40 rounded-r-lg flex flex-col transition-all duration-300 ease-in-out ${isOpen ? 'w-72' : 'w-28'}`}
+        <div
+            className={`relative h-screen ${styles.backgroundGradient} border-r border-gray-300 border-opacity-40 rounded-r-lg flex flex-col transition-all duration-300 ease-in-out ${isOpen ? 'w-[294px]' : 'w-[111px]'}`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
-            
+
             {/* Header */}
             <div className="flex justify-center items-center pb-2 w-full h-28 bg-slate-900 border-b border-gray-300 border-opacity-70 rounded-tr-lg">
                 <button onClick={toggleSidebar} className="transition-transform duration-300 ease-in-out">
-                    <img src={isOpen ? icons.iconOpen : icons.iconClosed} alt="BW_logo" className="transition-opacity duration-300 ease-in-out hover:scale-105"/>
+                    <img src={isOpen ? icons.iconOpen : icons.iconClosed} alt="BW_logo" className="transition-opacity duration-300 ease-in-out hover:scale-105" />
                 </button>
             </div>
 
@@ -51,11 +51,11 @@ function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave }) {
                         </li>
                     ))}
                 </ul>
-                
+
                 {/* Logout */}
                 <form onSubmit={handleLogout}>
                     <button className="mb-12 flex items-center gap-5 group" disabled={processing}>
-                        <img src={icons.logoutIcon} alt="logout_icon" className="transition-transform duration-300 ease-in-out group-hover:scale-110"/>
+                        <img src={icons.logoutIcon} alt="logout_icon" className="transition-transform duration-300 ease-in-out group-hover:scale-110" />
                         <h1 className={`text-xl text-sky-100 font-semibold transition-all duration-300 ease-in-out ${isOpen ? 'opacity-65 translate-x-0' : 'opacity-0 -translate-x-4 overflow-hidden whitespace-nowrap'}`}>
                             Logout
                         </h1>
@@ -63,7 +63,7 @@ function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave }) {
                 </form>
             </div>
 
-            <img src={isOpen ? icons.decorOpen : icons.decorClosed} className="absolute inset-x-0 bottom-0 pointer-events-none transition-opacity duration-300 ease-in-out" alt="Decor"/>
+            <img src={isOpen ? icons.decorOpen : icons.decorClosed} className="absolute inset-x-0 bottom-0 pointer-events-none transition-transform duration-300 ease-in-out" alt="Decor" />
         </div>
     );
 }

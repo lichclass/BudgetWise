@@ -30,7 +30,7 @@ function LedgersDropdown({ ledgers = [ {name: "You don't have any ledgers"} ] })
                     overlayClassName='custom-dd'
                     overlayStyle={{
                         backgroundColor: '#32676F',
-                        paddingTop: '10px',
+                        paddingTop: '0px',
                         borderRadius: '10px',
                         zIndex: '40',
                     }}
