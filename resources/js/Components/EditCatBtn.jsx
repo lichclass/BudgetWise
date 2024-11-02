@@ -4,9 +4,9 @@ import { Space } from 'antd'
 function EditCatBtn() {
     return (
         <button 
-            className="text-white bg-transparent text-sm font-bold flex items-center justify-center px-3 py-2 rounded-lg border hover:bg-white hover:text-slate-700 transition"
+            className="text-white bg-transparent text-sm font-bold flex items-center justify-center px-3 py-2 rounded-lg border border-white border-opacity-60 hover:bg-white hover:text-slate-700 transition"
         >
-            <FaRegEdit className='text-md mr-1'/>
+            <FaRegEdit className='text-md text-opacity-90 mr-1'/>
             Edit
         </button>
     );

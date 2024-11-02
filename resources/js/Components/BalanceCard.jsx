@@ -23,10 +23,9 @@ function BalanceCard({ balance }) {
 
     return (
         <div
-            className="shadow-xl m-4 w-72 rounded-2xl text-white p-6 pb-7 hover:transform space-y-2
-                       hover:scale-105 transition-transform duration-300"
+            className="shadow-xl w-full rounded-2xl text-white border border-white/40 p-6 pb-8 space-y-2
+                       hover:border-white/80 transition-all duration-300"
             style={{
-                border: "1px solid rgba(255, 255, 255, 0.4)",
                 background:
                     "linear-gradient(259deg, rgba(74, 167, 200, 0.12) -9.8%, rgba(13, 33, 47, 0.12) 119.45%)",
             }}
