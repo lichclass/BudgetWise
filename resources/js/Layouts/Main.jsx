@@ -23,7 +23,6 @@ function Main({ navbarMsg, children, isSettings=false }) {
     useEffect(() => {
         document.documentElement.style.setProperty('--fallback-b1', '#07131E');
         document.body.style.backgroundColor = "#07131E";
-        console.log('useeffect rendered');
         return () => {
             document.documentElement.style.removeProperty('--fallback-b1');
             document.body.style.backgroundColor = "";
@@ -31,13 +30,13 @@ function Main({ navbarMsg, children, isSettings=false }) {
     }, []);
 
     return (
-        <div className="flex w-screen">
+        <div className="flex w-screen min-h-screen">
             
             <div className="w-auto z-20">
                 <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
             </div>
             <div className="flex flex-col flex-grow w-1/12">
-                <div className={`w-full z-10 ${isSettings ? "hidden" : ""}`}>
+                <div className={`sticky top-0 w-full z-10 ${isSettings ? "hidden" : ""}`}>
                     <Navbar text={navbarMsg} />
                 </div>
                 <div className="p-6 z-0 text-white">
