@@ -32,7 +32,7 @@ function Main({ navbarMsg, children, isSettings=false }) {
 
 
     return (
-        <div className="flex w-screen h-screen"> 
+        <div className="flex w-screen min-h-screen"> 
             <div className="w-auto z-20">
                 <Sidebar
                     isOpen={isOpen}

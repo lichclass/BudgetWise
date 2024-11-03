@@ -25,7 +25,7 @@ function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave }) {
 
     return (
         <div
-            className={`relative h-screen ${styles.backgroundGradient} border-r border-gray-300 border-opacity-40 rounded-r-lg flex flex-col transition-all duration-300 ease-in-out ${isOpen ? 'w-[294px]' : 'w-[111px]'}`}
+            className={`sticky left-0 top-0  h-screen ${styles.backgroundGradient} border-r border-gray-300 border-opacity-40 rounded-r-lg flex flex-col transition-all duration-300 ease-in-out ${isOpen ? 'w-[294px]' : 'w-[111px]'}`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
