@@ -1,8 +1,7 @@
 function BudgetTable(){
 
     return(
-        <div className="h-60 w-full border border-gray-600 shadow-xl m-4 rounded-lg hover:transform space-y-2
-        hover:scale-105 transition-transform duration-300 flex-col">
+        <div className="h-60 w-11/12 md:w-full border border-gray-600 shadow-xl m-4 rounded-lg hover:transform space-y-2 flex-col">
     
                 <div className="border-b border-gray-600 text-white h-10 rounded-t-lg text-1xl font-extrabold justify-between py-2 px-16 flex flex-row"
                 style={{

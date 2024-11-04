@@ -20,7 +20,7 @@ return (
 
         <Main navbarMsg={'Budget'}>
             {
-                 <div className="h-full w-full flex flex-row">   
+                 <div className="h-full md:w-full flex flex-row">   
              
                      {/*Main Content*/}   
                  <div className="h-full w-full m-0 relative flex flex-col rounded-xl">
@@ -32,10 +32,10 @@ return (
                      </div>
              
                  {/* Top */}
-                     <div className="h-64 border border-gray-600 flex flex-row m-6 pt-2 px-0 rounded-t-xl">
+                     <div className="h-64 md:border md:border-gray-600 flex flex-col md:flex-row m-6 pt-2 px-0 rounded-t-xl">
                          
                      {/* Left */}
-                         <div className="w-1/2 border border-gray-600 border-l-0 border-t-0 border-b-0 border-r-1 flex flex-row justify-between -mt-2 pt-3 px-6">
+                         <div className="w-full md:w-1/2 border border-gray-600 md:border-l-0 md:border-t-0 md:border-b-0 md:border-r-1 rounded-none flex flex-row justify-between -mt-2 pt-3 px-6">
                          
                           {/* Meter */}
                              <div>
@@ -43,14 +43,14 @@ return (
                              </div>
              
                           {/* Legend */}
-                             <div>
+                             <div className="w-1/2 flex flex-wrap">
                                  <LegendBtn></LegendBtn>
                              </div>
              
                          </div>
              
                        {/* Right */}
-                         <div className="w-1/2 flex flex-col -mt-2 pt-4 px-5 rounded-tr-xl"
+                         <div className="w-full md:w-1/2 border border-gray-600 md:border-0 flex flex-col mt-9 md:-mt-2 pt-4 px-5 rounded-none md:rounded-tr-xl"
                          style={{
                             backgroundColor: "rgba(26, 66, 87, 0.28)"
                         }}>
@@ -58,7 +58,7 @@ return (
                              <MonthlyBudget></MonthlyBudget>
              
                                   {/* Expenses Overview */}
-                             <div className="h-full w-full pt-2 flex flex-col">
+                             <div className="h-full md:w-full pt-2 flex flex-col">
                                  <BudgetCat category="Food" amount={1000} isSet={true} />
                              </div>
              
@@ -67,7 +67,7 @@ return (
                      </div>
              
                      {/* Bottom */}
-                     <div className="h-72 border border-gray-600 flex -mt-6 mb-6 mx-6 pt-1 px-2 rounded-b-xl">    
+                     <div className="h-72 w-full md:w-auto border border-gray-600 flex flex-col md:flex-row mt-40 md:-mt-6 mb-6 mx-6 pt-1 px-2 rounded-none md:rounded-b-xl">    
                          <BudgetTable></BudgetTable>
                      </div>
              
