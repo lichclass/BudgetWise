@@ -7,6 +7,9 @@ import ExpensesCard from '@/Components/ExpensesCard';
 import LegendBtn from '@/Components/LegendBtn';
 import MonthlyBudget from '@/Components/MonthlyBudgetCard';
 
+// Temporary
+import BudgetCat from "@/Components/BudgetCat";
+
 function Budget(){
     const { auth } = usePage().props;
     const { budget } = usePage().props;
@@ -56,8 +59,7 @@ return (
              
                                   {/* Expenses Overview */}
                              <div className="h-full w-full pt-2 flex flex-col">
-                                 <ExpensesCard></ExpensesCard>
-                                 <ExpensesCard></ExpensesCard>
+                                 <BudgetCat category="Food" amount={1000} isSet={true} />
                              </div>
              
                          </div>
