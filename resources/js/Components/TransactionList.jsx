@@ -1,13 +1,13 @@
 import TransactCat from "./TransactCat";
 import { FaCalendarAlt } from "react-icons/fa";
 
-function TransactionList() {
+function TransactionList({ selectedDate }) {
     return (
         <div className="flex flex-col h-full space-y-2">
 
             {/* Date */}
             <div className="py-3 px-4 flex justify-between items-center">
-                <span className="text-3xl font-extrabold">Wed, Oct 10</span>
+                <span className="text-3xl font-extrabold">{selectedDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</span>
                 <FaCalendarAlt className="text-2xl opacity-70"/>
             </div>
 

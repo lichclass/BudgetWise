@@ -1,5 +1,6 @@
 import Calendar from 'react-calendar';
 import '../../css/customCalendar.css'
+import { useState } from 'react';
 
 const data = [
     {
@@ -34,8 +35,8 @@ const data = [
     },
 ]
 
-function TransactionCalendar({ transactions }) {
-
+function TransactionCalendar({ transactions, onDateChange }) {
+    const [selectedDate, setSelectedDate] = useState(new Date());
 
     // Function to render custom content in tiles
     const renderTileContent = ({ date, view }) => {
@@ -52,6 +53,11 @@ function TransactionCalendar({ transactions }) {
         return null;
     };
 
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+        onDateChange(date);
+    }
+
     return (
         <div 
             className='rounded-xl px-3 flex-grow'
@@ -59,7 +65,11 @@ function TransactionCalendar({ transactions }) {
                 backgroundColor: 'rgba(8, 20, 31, 0.40)'
             }}
         >
-            <Calendar tileContent={renderTileContent}/>
+            <Calendar 
+                tileContent={renderTileContent}
+                onChange={handleDateChange}
+                value={selectedDate}
+            />
         </div>
     );
 }

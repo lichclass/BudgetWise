@@ -3,12 +3,19 @@ import { Head, usePage } from "@inertiajs/react";
 import TransactionCalendar from "@/Components/TransactionCalendar";
 import TransactionList from "@/Components/TransactionList";
 import TransactionChart from "@/Components/TransactionChart";
+import { useState } from "react";
 
 
 function Transactions() {
     // Disregard this lang sa
     const { auth } = usePage().props;
     const { transactions } = usePage().props;
+
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    }
 
     const total_expenses = 1000;
     const total_income = 1000;
@@ -33,7 +40,7 @@ function Transactions() {
                             }}
                         >
                             {/* Calendar */}
-                            <TransactionCalendar />
+                            <TransactionCalendar onDateChange={handleDateChange} />
 
                             {/* Summary */}
                             <div className="flex justify-between py-2 px-16">
@@ -60,7 +67,9 @@ function Transactions() {
                                 backgroundColor: "#195676"
                             }}
                         >
-                            <TransactionList />
+                            <TransactionList 
+                                selectedDate={selectedDate}
+                            />
                         </div>
 
                     </div>

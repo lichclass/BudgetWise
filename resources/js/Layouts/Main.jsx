@@ -46,7 +46,7 @@ function Main({ navbarMsg, children, isSettings=false }) {
                     <Navbar text={navbarMsg} />
                 </div>
                 <div className="p-6 z-0 text-white h-full overflow-y-auto flex-grow">
-                    <div className="rounded-lg py-8 px-12 h-full bg-[rgba(26,66,87,0.28)]">
+                    <div className="rounded-lg py-8 px-0 md:px-12 h-full bg-[rgba(26,66,87,0.28)]">
                         {children}
                     </div>
                 </div>
