@@ -20,7 +20,7 @@ class LedgersController extends Controller
         //pass all the ledgers based on user id
         $ledgers = Ledgers::where('user_id', Auth::id())->get();
       
-        return Inertia::render('Test', [
+        return Inertia::render('Home', [
             'ledgers' => $ledgers
         ]);
     }

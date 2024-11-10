@@ -8,7 +8,7 @@ import Main from "@/Layouts/Main";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
 
-function Test() {
+function Test({ ledgers }) {
     const [isModalAOpen, setIsModalAOpen] = useState(false);
     const [isModalBOpen, setIsModalBOpen] = useState(false);
     const [isModalCOpen, setIsModalCOpen] = useState(false);
@@ -36,6 +36,8 @@ function Test() {
     const handleCancel_C = () => {
         setIsModalCOpen(false);
     }
+
+    console.log(ledgers);
 
     return (
         <>

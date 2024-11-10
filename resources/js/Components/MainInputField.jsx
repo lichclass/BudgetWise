@@ -1,20 +1,30 @@
-function MainInputField({ label, htmlFor, type, name, placeholder, value, onChange, errorDisplay, isReadOnly }) {
+function MainInputField({ label, labelSize="text-lg", sub_label="", htmlFor, type, name, placeholder, value, onChange, errorDisplay, isReadOnly=false }) {
     return (
-        <div className='flex flex-col space-y-3'>
-            <label 
-                htmlFor={htmlFor} 
-                className='text-2xl font-bold'
-                style={{
-                    color: "rgba(229, 239, 221, 0.95)"
-                }}
-            >
-                {label}
-            </label>
+        <div className='flex flex-col space-y-2'>
+            <div className="flex justify-between items-end">
+                <label 
+                    htmlFor={htmlFor} 
+                    className={`${labelSize} font-bold`}
+                    style={{
+                        color: "rgba(229, 239, 221, 0.95)"
+                    }}
+                >
+                    {label}
+                </label>
+                <span 
+                    className="text-white text-sm"
+                    style={{
+                        color: "#E8EAE6"
+                    }}
+                >
+                    {sub_label}
+                </span>
+            </div>
             <input 
                 type={type}
                 id={htmlFor}
                 name={name} 
-                className={`py-3 px-8 rounded-lg shadow-sm w-full main-input-field`} 
+                className={`py-3 px-4 rounded-lg shadow-sm w-full main-input-field`} 
                 placeholder={placeholder}
                 style={{
                     color: isReadOnly ? "#90A4AE" : "#ffffff",

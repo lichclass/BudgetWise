@@ -113,15 +113,11 @@ function Home({ categories, goals, ledgers }) {
     const { data, setData, post } = useForm({
         ledger_id: activeLedger.ledger_id,
     });
-
-    // useEffect(() => {
-    //     if (ledger == null) {
-    //         post(route('set-current-ledger'));
-    //     }
-    // }, [ledger]);
     
     console.log("Ledger ID (current)", data.ledger_id);
     console.log("Ledger ID: ", ledger);
+
+    console.log(ledgers);
 
     const handleSearch = (value) => {
         setSearchTerm(value);

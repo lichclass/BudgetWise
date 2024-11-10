@@ -5,6 +5,7 @@ import MainInputField from '@/Components/MainInputField';
 import ChangePassBtn from '@/Components/ChangePassBtn';
 import GreenBtnMed from '@/Components/GreenBtnMed';
 import DeleteBtn from '@/Components/DeleteBtn';
+import ModalB from '@/Layouts/ModalB';
 
 function Settings() {
 
@@ -13,6 +14,16 @@ function Settings() {
     const [username, setUsername] = useState(auth.user.username);
     const [editEmail, setEditEmail] = useState(false);
     const [editUsername, setEditUsername] = useState(false);
+
+    const [isChangePassModalOpen, setIsChangePassModalOpen] = useState(false);
+
+    const showChangePassModal = () => {
+        setIsChangePassModalOpen(true);
+    }
+
+    const handleCancelChangePassModal = () => {
+        setIsChangePassModalOpen(false);
+    }
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -96,7 +107,7 @@ function Settings() {
                 </div>
                 
                 <div className='py-10 mr-44 flex justify-between'>
-                    <ChangePassBtn />
+                    <ChangePassBtn onClick={showChangePassModal} />
                     <GreenBtnMed text="Save" width={"w-44"}/>
                 </div>
 
@@ -117,7 +128,42 @@ function Settings() {
                     </select>
                     <DeleteBtn text="Delete Account" width={"w-44"}/>
                 </div>
-                
+
+                {/* Change Password Modal */}
+                <button onClick={showChangePassModal}>
+                    Open Modal
+                </button>
+                <ModalB
+                    title="Change Password"
+                    isModalOpen={isChangePassModalOpen}
+                    handleCancel={handleCancelChangePassModal}
+                >
+                    <MainInputField 
+                        label="Current Password"
+                        htmlFor="current-password"
+                        type="password"
+                        name="current-password"
+                        placeholder="Enter your current password"
+                    />
+
+                    <MainInputField 
+                        label="New Password"
+                        htmlFor="New-password"
+                        type="password"
+                        name="current-password"
+                        placeholder="Enter your current password"
+                    />
+
+                    <MainInputField 
+                        label="Confirm Password"
+                        sub_label='*Must be at least 8 characters long'
+                        htmlFor="confirm-password"
+                        type="password"
+                        name="confirm-password"
+                        placeholder="Enter your current password"
+                    />
+
+                </ModalB>
 
             </Main>
         
