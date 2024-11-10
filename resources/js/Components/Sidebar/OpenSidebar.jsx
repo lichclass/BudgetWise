@@ -15,7 +15,7 @@ function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave }) {
         { icon: icons.homeIcon, label: "Home", destination: route('home') },
         { icon: icons.transactionsIcon, label: "Transactions", destination: route('transactions.index') },
         { icon: icons.budgetIcon, label: "Budget", destination: route('budgets.index') },
-        { icon: icons.settingsIcon, label: "Settings", destination: "#" },
+        { icon: icons.settingsIcon, label: "Settings", destination: route('settings') },
     ];
 
     const handleLogout = (e) => {

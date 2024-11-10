@@ -37,6 +37,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('budgets', BudgetsController::class);
     Route::resource('category', CategoriesController::class);
 
+    Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
+
 });
 
 Route::middleware(['auth'])->group(function () {

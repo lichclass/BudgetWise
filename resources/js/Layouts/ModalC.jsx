@@ -1,44 +1,35 @@
-import { useState } from 'react'
-import { Button, Divider, Modal } from 'antd'
+import DeleteBtn from '@/Components/DeleteBtn'
+import GreenBtnMed from '@/Components/GreenBtnMed'
+import { Modal } from 'antd'
+import { IoCloseOutline } from 'react-icons/io5'
 
-function ModalC({ title, subtitle, children }) {
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
+function ModalC({ title, subtitle, children, isModalOpen, handleCancel }) {
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
-                Open Modal
-            </Button> 
             <Modal
                 title={
                     <>
-                    <h1 className='text-2xl font-bold'>{title}</h1>
-                    <span>{ subtitle }</span>
+                        <h1 className="text-2xl font-bold" style={{ color: "rgba(232, 234, 230, 0.86)"}} >{title}</h1>
+                        <span className='text-sm' style={{ color: "rgba(232, 234, 230, 0.86)"}}>{subtitle}</span>
                     </>
                 }
+                closeIcon={<IoCloseOutline className="text-white text-5xl" style={{ color: "rgba(232, 234, 230, 0.86)" }} />}
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={
-                    <div className='flex justify-center space-x-4 py-2'>
-                        <Button className='w-1/2' type="primary"  danger>
-                            Delete
-                        </Button>
-                        <Button className='w-1/2'>
-                            Save
-                        </Button>
+                    <div className="flex justify-between space-x-4 py-2 w-full">
+                        <DeleteBtn text="Delete" to="/" width="w-1/2" />
+                        <GreenBtnMed
+                            text="Save"
+                            width="w-1/2"
+                            onClick={handleCancel}
+                        />
                     </div>
                 }
+                className='main-modal-style'
             >
-                <Divider />
+                <hr className='my-5 border-white opacity-60' />
                 {children}
             </Modal>
         </>

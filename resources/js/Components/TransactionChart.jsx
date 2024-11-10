@@ -1,18 +1,20 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
-    BarElement,
+    LineElement,
+    PointElement,
     CategoryScale,
     LinearScale,
     Title,
     Tooltip,
     Legend,
 } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels"
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(
-    BarElement,
+    LineElement,
+    PointElement,
     CategoryScale,
     LinearScale,
     Title,
@@ -20,25 +22,6 @@ ChartJS.register(
     Legend,
     ChartDataLabels
 );
-
-// Custom plugin to draw background behind each bar
-const backgroundPlugin = {
-    id: 'backgroundPlugin',
-    beforeDatasetsDraw: (chart) => {
-        const { ctx, chartArea: { left, right, top, bottom }, scales: { x, y } } = chart;
-        ctx.save();
-        chart.data.datasets.forEach((dataset, datasetIndex) => {
-            chart.getDatasetMeta(datasetIndex).data.forEach((bar, index) => {
-                const barWidth = bar.width;
-                const barX = bar.x - barWidth / 2;
-                const backgroundColor = dataset.label === "Expenses" ? 'rgba(255, 99, 132, 0.2)' : 'rgba(75, 192, 192, 0.2)';
-                ctx.fillStyle = backgroundColor; // Conditional background color
-                ctx.fillRect(barX, top, barWidth, bottom - top);
-            });
-        });
-        ctx.restore();
-    }
-};
 
 const transactionData = [
     {
@@ -114,16 +97,18 @@ function TransactionChart() {
             {
                 label: "Expenses",
                 data: groupedArray.map(item => item.total_expenses),
-                backgroundColor: "rgb(255, 99, 132)",
-                borderColor: "rgba(255, 99, 132, 0.2)",
+                backgroundColor: "rgba(255, 99, 132, 0.5)",
+                borderColor: "rgb(255, 99, 132)",
                 borderWidth: 1,
+                fill: true,
             },
             {
                 label: "Income",
                 data: groupedArray.map(item => item.total_income),
-                backgroundColor: "rgb(75, 192, 192)",
-                borderColor: "rgba(75, 192, 192, 0.2)",
+                backgroundColor: "rgba(75, 192, 192, 0.5)",
+                borderColor: "rgb(75, 192, 192)",
                 borderWidth: 1,
+                fill: true,
             },
         ],
     };
@@ -141,10 +126,8 @@ function TransactionChart() {
             },
             datalabels: {
                 color: "white", // Set data label text color to white
-                anchor: 'end',
-                align: function(contxet) {
-                    return contxet.dataset.data[contxet.dataIndex] > 0 ? 'bottom' : 'top';
-                },
+                anchor: 'start',
+                align: 'top',
                 formatter: function(value) {
                     return value.toLocaleString();
                 }
@@ -166,7 +149,7 @@ function TransactionChart() {
 
     return (
         <div className="relative w-full h-80">
-            <Bar data={data} options={options} plugins={[backgroundPlugin]}/>
+            <Line data={data} options={options} />
         </div>
     );
 }
