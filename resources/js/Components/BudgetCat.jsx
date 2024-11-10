@@ -12,6 +12,7 @@ function BudgetCat({ category, amount, isSet }) {
         minimumFractionDigits: 2
     });
 
+    const [budgetAmount, setBudgetAmount] = useState('');
     const [isSetBudgetModalOpen, setisSetBudgetModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -58,10 +59,9 @@ function BudgetCat({ category, amount, isSet }) {
                                     htmlFor="budget_amount"
                                     type="number"
                                     name="budget_amount"
-                                    placeholder="Enter Amount"
-                                    value={amount}
-                                    onChange=""
-                                    errorDisplay=""
+                                    placeholder={amount}
+                                    value={budgetAmount}
+                                    onChange={(e) => setBudgetAmount(e.target.value)}
                                 />                                    
                             </div>
                         </EditBudgetModal>
@@ -92,9 +92,8 @@ function BudgetCat({ category, amount, isSet }) {
                                     type="number"
                                     name="budget_amount"
                                     placeholder="Enter Amount"
-                                    value=""
-                                    onChange=""
-                                    errorDisplay=""
+                                    value={budgetAmount}
+                                    onChange={(e) => setBudgetAmount(e.target.value)}
                                 />                                    
                             </div>
 
