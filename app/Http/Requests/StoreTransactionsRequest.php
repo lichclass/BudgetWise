@@ -14,7 +14,7 @@ class StoreTransactionsRequest extends FormRequest
     public function authorize(): bool
     {
 
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class StoreTransactionsRequest extends FormRequest
         return [
             'amount' => ['required', 'numeric'],
             'transaction_description' => ['string', 'max:255'],
-            'transaction_date' => ['required', 'date'],
+            'transaction_date' => ['required', 'date', 'default:'.now()->toDateString()],
             'transaction_type' => ['required', Rule::in(['income', 'expense'])],
         ];
     }
