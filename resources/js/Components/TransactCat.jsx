@@ -17,7 +17,7 @@ function TransactCat({ category, amount, time, description, isIncome}) {
         // can remove hover scale and can add setCollapsed here instead
         <div className={`bg-[#0F3A51] rounded-2xl shadow-sm transition-all duration-200 hover:scale-105`}> 
             
-            <div className="flex justify-between items-center px-5 py-4">
+            <div className="flex justify-between items-center px-5 py-2">
                 <div className="flex items-center gap-0 sm:gap-3">
                     <span className="text-white text-sm sm:text-base">{category}</span>
                     {collapsed ? (

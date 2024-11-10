@@ -1,41 +1,33 @@
-import { useState } from 'react'
-import { Button, Divider, Modal } from 'antd'
+import { Modal } from 'antd'
+import GreenBtnMed from '@/Components/GreenBtnMed'
+import { IoCloseOutline } from "react-icons/io5";
 
-function ModalB({ title, subtitle, children }) {
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
+function ModalB({ title="test", subtitle="", children, isModalOpen, handleCancel, large=false }) {
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
-                Open Modal
-            </Button> 
             <Modal
                 title={
                     <>
-                    <h1 className='text-2xl font-bold'>{title}</h1>
-                    <span>{ subtitle }</span>
+                        <h1 className="text-2xl font-bold" style={{ color: "rgba(232, 234, 230, 0.86)"}} >{title}</h1>
+                        <span className='text-sm' style={{ color: "rgba(232, 234, 230, 0.86)"}}>{ subtitle }</span>
                     </>
                 }
+                closeIcon={<IoCloseOutline className="text-white text-5xl" style={{ color: "rgba(232, 234, 230, 0.86)" }} />}
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={
-                    <div className='flex justify-center space-x-4 py-2'>
-                        <Button className='w-full' type="primary">
-                            Submit
-                        </Button>
+                    <div className="flex justify-between space-x-4 py-2 w-full">
+                        <GreenBtnMed
+                            text="Submit"
+                            width="w-full"
+                        />
                     </div>
                 }
+                className='main-modal-style md:w-full'
+                {...large ? { width: '60rem' } : ""}
             >
-                <Divider />
+                <hr className='my-5 border-white opacity-60' />
                 {children}
             </Modal>
         </>

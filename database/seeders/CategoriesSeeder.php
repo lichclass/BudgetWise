@@ -34,7 +34,6 @@ class CategoriesSeeder extends Seeder
         foreach ($categories as $category) {
             Categories::create([
                 'category_name' => $category['name'],
-                'description' => null,
                 'is_default' => true,
                 'category_type' => $category['type'],
             ]);

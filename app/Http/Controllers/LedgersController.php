@@ -6,6 +6,9 @@ use App\Models\Ledgers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLedgersRequest;
 use App\Http\Requests\UpdateLedgersRequest;
+use Illuminate\Support\Facades\Auth;
+
+use Inertia\Inertia;
 
 class LedgersController extends Controller
 {
@@ -14,7 +17,12 @@ class LedgersController extends Controller
      */
     public function index()
     {
-        //
+        //pass all the ledgers based on user id
+        $ledgers = Ledgers::where('user_id', Auth::id())->get();
+      
+        return Inertia::render('Home', [
+            'ledgers' => $ledgers
+        ]);
     }
 
     /**

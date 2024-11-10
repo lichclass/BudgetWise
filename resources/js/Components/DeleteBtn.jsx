@@ -1,17 +1,15 @@
-import { Button } from 'antd'
-
 function DeleteBtn({ to, text, width }) {
     return (
-        <Button
+        <button
             type='link'
             href={to}
-            className={`text-white font-bold py-8 px-4 rounded text-lg w-${width} text-center hover:text-white !important`}
+            className={`text-white py-3 px-4 rounded text-md ${width} text-center hover:scale-105 transition-transform duration-300`}
             style={{
-                background: '#D46060',
+                background: '#D44242',
             }}
         >
             {text}
-        </Button>
+        </button>
     )
 }
 

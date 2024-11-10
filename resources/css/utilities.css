@@ -1,13 +1,15 @@
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+input:-webkit-autofill:active 
+{
     -webkit-box-shadow: 0 0 0 1000px white inset !important; /* Increase the size to ensure it covers the background */
     -webkit-text-fill-color: black !important;
     caret-color: black; /* Ensure the caret color is set to auto */
 }
 
-.steps .step:after {
+.steps .step:after 
+{
     height: 3.5rem !important;
     width: 3.5rem !important;
     background-color: rgb(247 254 231) !important;
@@ -16,7 +18,8 @@ input:-webkit-autofill:active {
     font-size: 1.2rem;
 }
 
-.steps .step:before {
+.steps .step:before 
+{
     width: 3px !important;
     background-color: #BCBCBC !important;
     font-weight: bold;
@@ -24,11 +27,30 @@ input:-webkit-autofill:active {
 }
 
 .steps .step-primary + .step-primary:before,
-  .steps .step-primary:after {
+  .steps .step-primary:after 
+{
     color: #5498A7 !important;
     border-color: #5498A7 !important;
 }
 
-.steps .step-primary + .step-primary:before {
+.steps .step-primary + .step-primary:before 
+{
     background-color: #5498A7 !important;
 }
+
+.main-input-field::placeholder,
+.main-input-field::-webkit-input-placeholder
+{
+    color: #90A4AE;
+}
+
+.main-modal-style .ant-modal-content
+{
+    background-color: #1E2A38;
+}
+
+.main-modal-style .ant-modal-header
+{
+    background-color: #1E2A38;
+}
+

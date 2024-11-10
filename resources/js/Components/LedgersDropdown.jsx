@@ -4,15 +4,16 @@ import { FaRegEdit } from 'react-icons/fa';
 import { useState, useRef, useLayoutEffect } from 'react';
 
 
-function LedgersDropdown({ ledgers = [ {name: "You don't have any ledgers"} ] }) {
+function LedgersDropdown({ ledgers = [ {name: "You don't have any ledgers"} ], activeLedger, onLedgerChange }) {
+
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const buttonRef = useRef(null);
 
     const items = ledgers.map((ledger) => ({
-        key: ledger.id,
-        label: ledger.name,
+        key: ledger.ledger_id,
+        label: ledger.ledger_name,
         onClick: () => {
-            console.log(ledger.id);
+            onLedgerChange(ledger);
         },
     }));
 
@@ -38,7 +39,7 @@ function LedgersDropdown({ ledgers = [ {name: "You don't have any ledgers"} ] })
                     <button ref={buttonRef}>
                         <a href="#" className="text-lime-50">
                             <Space>
-                                Ledgers
+                                {activeLedger.ledger_name}
                                 {isDropdownOpen ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
                             </Space>
                         </a>

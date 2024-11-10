@@ -3,8 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\LedgersController;
 use App\Http\Controllers\BudgetsController;
 use App\Http\Controllers\StarterController;
+use App\Http\Controllers\HomeController;
 use App\Models\Budgets;
 use App\Models\Categories;
 use Illuminate\Foundation\Application;
@@ -28,12 +30,16 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::inertia('/home', 'Home')->name('home')->middleware('check.ledger');
+    Route::get('/home', [LedgersController::class, 'index'])->name('home');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
 
     Route::resource('transactions', TransactionsController::class);
     Route::resource('budgets', BudgetsController::class);
     Route::resource('category', CategoriesController::class);
 
+    Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
 });
 
 Route::middleware(['auth'])->group(function () {

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use App\Models\Ledgers;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -29,6 +30,13 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+
+        // if(!$request->session()->has('ledger')) {
+        //     $request->session()->put('ledger', Ledgers::first()->id);
+        // } else {
+        //     $request->session()->put('ledger', $request->session()->get('ledger'));
+        // }
+        
         return [
             ...parent::share($request),
             'auth' => [
@@ -37,6 +45,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
             ],
+            'ledger' => $request->session()->get('ledger'),
         ];
     }
 }

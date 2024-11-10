@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBudgetsRequest;
 use App\Http\Requests\UpdateBudgetsRequest;
 
+use Inertia\Inertia;
+
 class BudgetsController extends Controller
 {
     /**
@@ -14,7 +16,10 @@ class BudgetsController extends Controller
      */
     public function index()
     {
-        //
+        $budgets = Budgets::all(); //temporary
+        return Inertia::render('Budget', [
+            'budgets' => $budgets
+        ]);
     }
 
     /**

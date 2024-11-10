@@ -11,7 +11,7 @@ function SearchBar({ onSearch }) {
     };
 
     return (
-        <div className="relative w-[406px] h-[39px] flex-shrink-0">
+        <div className="relative sm:w-[406px] h-[39px] flex-shrink-0">
             <input
                 type="text"
                 value={searchTerm}
