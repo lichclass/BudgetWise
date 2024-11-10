@@ -6,6 +6,7 @@ import ChangePassBtn from '@/Components/ChangePassBtn';
 import GreenBtnMed from '@/Components/GreenBtnMed';
 import DeleteBtn from '@/Components/DeleteBtn';
 import ModalB from '@/Layouts/ModalB';
+import ModalA from '@/Layouts/ModalA';
 
 function Settings() {
 
@@ -16,6 +17,8 @@ function Settings() {
     const [editUsername, setEditUsername] = useState(false);
 
     const [isChangePassModalOpen, setIsChangePassModalOpen] = useState(false);
+    const [isDeleteAccModalOpen, setIsDeleteAccModalOpen] = useState(false);
+    const [isCreateNewAccModalOpen, setIsCreateNewAccModalOpen] = useState(false);
 
     const showChangePassModal = () => {
         setIsChangePassModalOpen(true);
@@ -23,6 +26,22 @@ function Settings() {
 
     const handleCancelChangePassModal = () => {
         setIsChangePassModalOpen(false);
+    }
+
+    const showDeleteAccModal = () => {
+        setIsDeleteAccModalOpen(true);
+    }
+
+    const handleCancelDeleteAccModal = () => {
+        setIsDeleteAccModalOpen(false);
+    }
+
+    const showCreateNewAccModal = () => {
+        setIsCreateNewAccModalOpen(true);
+    }
+
+    const handleCancelCreateNewAccModal = () => {
+        setIsCreateNewAccModalOpen(false);
     }
 
     const handleEmailChange = (e) => {
@@ -130,39 +149,62 @@ function Settings() {
                 </div>
 
                 {/* Change Password Modal */}
-                <button onClick={showChangePassModal}>
-                    Open Modal
-                </button>
                 <ModalB
                     title="Change Password"
                     isModalOpen={isChangePassModalOpen}
                     handleCancel={handleCancelChangePassModal}
                 >
-                    <MainInputField 
-                        label="Current Password"
-                        htmlFor="current-password"
-                        type="password"
-                        name="current-password"
-                        placeholder="Enter your current password"
-                    />
+                    <div className='space-y-5'>
+                        <MainInputField 
+                            label="Current Password"
+                            htmlFor="current-password"
+                            type="password"
+                            name="current-password"
+                            placeholder="Enter your current password"
+                        />
 
-                    <MainInputField 
-                        label="New Password"
-                        htmlFor="New-password"
-                        type="password"
-                        name="current-password"
-                        placeholder="Enter your current password"
-                    />
+                        <MainInputField 
+                            label="New Password"
+                            htmlFor="New-password"
+                            type="password"
+                            name="current-password"
+                            placeholder="Enter your current password"
+                        />
 
-                    <MainInputField 
-                        label="Confirm Password"
-                        sub_label='*Must be at least 8 characters long'
-                        htmlFor="confirm-password"
-                        type="password"
-                        name="confirm-password"
-                        placeholder="Enter your current password"
-                    />
+                        <MainInputField 
+                            label="Confirm Password"
+                            sub_label='*Must be at least 8 characters long'
+                            htmlFor="confirm-password"
+                            type="password"
+                            name="confirm-password"
+                            placeholder="Enter your current password"
+                        />
+                    </div>
 
+                </ModalB>
+
+                {/* Delete Account Modal */}
+                <button onClick={showDeleteAccModal}>
+                    Open Modal For delete
+                </button>
+                <ModalA
+                    title='Delete Account'
+                    content='Are you sure you want to delete your account? All your data will be lost'
+                    isModalOpen={isDeleteAccModalOpen}
+                    handleCancel={handleCancelDeleteAccModal}
+                />
+
+                {/* Create New Account Modal */}
+                <button onClick={showCreateNewAccModal}>
+                    Open Modal For create new account
+                </button>
+                <ModalB
+                    title="Create New Account"
+                    subtitle="Ex. lichclass"
+                    isModalOpen={isCreateNewAccModalOpen}
+                    handleCancel={handleCancelCreateNewAccModal}
+                >
+                    
                 </ModalB>
 
             </Main>
