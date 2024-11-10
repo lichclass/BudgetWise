@@ -62,6 +62,7 @@ class UsersController extends Controller
      */
     public function destroy(User $users)
     {
-        //
+        $users->delete();
+        return redirect()->back();
     }
 }

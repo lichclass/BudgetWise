@@ -1,5 +1,5 @@
 import { usePage, useForm } from "@inertiajs/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRoute } from "../../../vendor/tightenco/ziggy/src/js";
 import BalanceCard from "@/Components/BalanceCard";
 import Main from "@/Layouts/Main";
@@ -80,54 +80,39 @@ const goals_sample = [
         updated_at: "2021-09-15T07:00:00.000000Z"
     }
 ];
-const ledgers_sample = [
-    {
-        ledger_id: 1,
-        user_id: 1,
-        ledger_name: "Personal",
-        total_income: 0,
-        total_expenses: 0,
-        balance: 200,
-        created_at: "2021-09-15T07:00:00.000000Z",
-        updated_at: "2021-09-15T07:00:00.000000Z"
-    },
-    {
-        ledger_id: 2,
-        user_id: 1,
-        ledger_name: "School",
-        total_income: 0,
-        total_expenses: 0,
-        balance: 500,
-        created_at: "2021-09-15T07:00:00.000000Z",
-        updated_at: "2021-09-15T07:00:00.000000Z"
-    }
-];
 
 
-function Home({ categories, goals, ledgers }) {
+function Home({ transactions, categories, goals, ledgers }) {
     const { auth, ledger } = usePage().props;
     const [searchTerm, setSearchTerm] = useState("");
-    const [activeLedger, setActiveLedger] = useState(ledgers_sample[0]);
+    const [activeLedger, setActiveLedger] = useState(ledger);
     const route = useRoute();
+    const isInitialRender = useRef(true);
+
+    console.log(categories);
 
     const { data, setData, post } = useForm({
-        ledger_id: activeLedger.ledger_id,
+        ledger: activeLedger,
     });
-    
-    console.log("Ledger ID (current)", data.ledger_id);
-    console.log("Ledger ID: ", ledger);
 
-    console.log(ledgers);
+    // Run this effect only when `activeLedger` changes after the initial render
+    useEffect(() => {
+        if (isInitialRender.current) {
+            isInitialRender.current = false; // Set initial render flag to false
+        } else {
+            // Only post if it's not the initial render
+            post(route('set-current-ledger'));
+        }
+    }, [activeLedger]);
 
     const handleSearch = (value) => {
         setSearchTerm(value);
     };
 
     const handleLedgerChange = (ledger) => {
+        setData('ledger', ledger);
         setActiveLedger(ledger);
-        setData('ledger_id', ledger.ledger_id);
-        post(route('set-current-ledger'));
-    }
+    };
 
     return (
         <>
@@ -141,15 +126,12 @@ function Home({ categories, goals, ledgers }) {
                         <SearchBar onSearch={handleSearch} />
 
                         <div className="flex justify-center md:justify-end gap-4">
-                            {/* <DateBtn />
-                            <div className="flex gap-4"> */}
-                                <CreateLedgerBtn />
-                                <LedgersDropdown 
-                                    ledgers={ledgers_sample}
-                                    activeLedger={activeLedger}
-                                    onLedgerChange={handleLedgerChange}
-                                />
-                            {/* </div> */}
+                            <CreateLedgerBtn />
+                            <LedgersDropdown 
+                                ledgers={ledgers}
+                                activeLedger={activeLedger}
+                                onLedgerChange={handleLedgerChange}
+                            />
                         </div>
                     </div>
 
@@ -175,10 +157,10 @@ function Home({ categories, goals, ledgers }) {
                         {/* Right Side */}
                         <div className="flex flex-col gap-10 lg:gap-3 flex-grow py-3">
                             <BalanceCard balance={activeLedger.balance} />
-                            <GoalsCardList 
+                            {/* <GoalsCardList 
                                 goals={goals_sample} 
                                 selectedLedger={activeLedger}
-                            />
+                            /> */}
                         </div>
                     </div>
                 </div>

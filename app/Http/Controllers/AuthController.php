@@ -38,6 +38,11 @@ class AuthController extends Controller
             return back()->with('message', 'Invalid login credentials');
         }
 
+        // Put the first ledger in the session
+        $user = Auth::user();
+        $first_ledger = $user->ledgers->first();
+        $request->session()->put('ledger', $first_ledger);
+
         // Redirect the user
         return redirect()->route('home');
     }

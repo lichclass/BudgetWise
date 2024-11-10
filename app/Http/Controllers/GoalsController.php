@@ -62,6 +62,7 @@ class GoalsController extends Controller
      */
     public function destroy(Goals $goals)
     {
-        //
+        $goal->delete();
+        return redirect()->route('home');
     }
 }

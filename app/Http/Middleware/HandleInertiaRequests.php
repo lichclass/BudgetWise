@@ -30,12 +30,6 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-
-        // if(!$request->session()->has('ledger')) {
-        //     $request->session()->put('ledger', Ledgers::first()->id);
-        // } else {
-        //     $request->session()->put('ledger', $request->session()->get('ledger'));
-        // }
         
         return [
             ...parent::share($request),

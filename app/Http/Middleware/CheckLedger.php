@@ -27,6 +27,7 @@ class CheckLedger
                 }
             } else {
                 // User with ledgers: Redirect to /home and prevent access to /starter
+
                 if ($request->is('starter*')) {
                     return redirect()->route('home');
                 }

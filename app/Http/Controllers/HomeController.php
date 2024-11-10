@@ -9,9 +9,8 @@ class HomeController extends Controller
 {
     public function setCurrentLedger(Request $request)
     {
-        \Log::info('Request data:', $request->all());
-        $ledgerId = $request->input('ledger_id');
-        $request->session()->put('ledger', $ledgerId);
+        $ledger = $request->input('ledger');
+        $request->session()->put('ledger', $ledger);
         return redirect()->back();
     }
 }

@@ -38,16 +38,6 @@ function CategoryList({ type, categories, searchTerm, selectedLedger }) {
 
     return (
         <>
-            <style jsx>{`
-                .hide-scrollbar::-webkit-scrollbar {
-                    display: none;
-                }
-
-                .hide-scrollbar {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            `}</style>
 
             <div className="flex flex-col w-full">
                 {/* Header */}

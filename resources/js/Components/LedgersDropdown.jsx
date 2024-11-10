@@ -1,7 +1,7 @@
-import { Dropdown, Space, Button } from 'antd';
+import { Dropdown, Space } from 'antd';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import { FaRegEdit } from 'react-icons/fa';
-import { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef } from 'react';
 
 
 function LedgersDropdown({ ledgers = [ {name: "You don't have any ledgers"} ], activeLedger, onLedgerChange }) {
