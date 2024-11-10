@@ -9,6 +9,7 @@ use App\Http\Requests\StoreTransactionsRequest;
 use App\Http\Requests\UpdateTransactionsRequest;
 
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionsController extends Controller
 {
@@ -17,9 +18,10 @@ class TransactionsController extends Controller
      */
     public function index()
     {
-        $transactions = Transactions::all(); //temporary
-        return Inertia::render('Transactions', [
-            'transactions' => $transactions,        
+        //change based on transaction view
+        $ledger_categories = Ledgers_Categories_View::where('ledger_owner', Auth::id())->get();
+        return Inertia::render('LedgerCategories', [
+            'ledger_categories' => $ledger_categories,        
         ]);
     }
 
@@ -29,11 +31,16 @@ class TransactionsController extends Controller
     public function create(StoreTransactionsRequest $request)
     {
         //Validate
-
+        $fields = $request->validated();
+        $ledgerId = $request->input('ledger_id'); //update using session ledger or inertia
 
         //Create a new transaction
+        $transaction = new Transactions($fields);
+        $transaction->ledger()->associate($ledgerId);
+        $transaction->save();
 
         //Redirect to the transactions page
+        return redirect()->route('transactions.index'); //update later
     }
 
     /**

@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ledgers;
 use App\Models\Goals;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGoalsRequest;
 use App\Http\Requests\UpdateGoalsRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User_Goals_View;
+
+use Inertia\Inertia;
+
 
 class GoalsController extends Controller
 {
@@ -14,7 +20,20 @@ class GoalsController extends Controller
      */
     public function index()
     {
-        //
+        $user_goals = User_Goals_View::where('user_id', Auth::id())->get();
+        return Inertia::render('Home', [
+            'goals' => $user_goals,        
+        ]);
+        // $ledgers = Ledgers::where('user_id', Auth::id())->get();
+
+        // $goals=[];
+        // foreach($ledgers as $ledger) {
+        //     $goals = array_merge($goals, Goals::where('ledger_id', $ledger->ledger_id)->get()->toArray());
+        // }
+        
+        // return Inertia::render('Test', [
+        //     'goalsList' => $goals
+        // ]);
     }
 
     /**
