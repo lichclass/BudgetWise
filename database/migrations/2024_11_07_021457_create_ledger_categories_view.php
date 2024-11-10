@@ -16,7 +16,7 @@ return new class extends Migration
             SELECT 
                 l.ledger_id,
                 u.user_id AS ledger_owner,
-                c.user_id,
+                c.user_id AS category_owner,
                 c.category_id,
                 c.category_name,
                 c.is_default,
