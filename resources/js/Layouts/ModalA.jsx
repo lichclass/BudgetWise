@@ -14,7 +14,7 @@ function ModalA({ title="test", content="test", isModalOpen, handleCancel }) {
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={
-                    <div className="flex justify-between space-x-4 py-2 w-full">
+                    <div className="flex justify-between space-x-4 pb-2 pt-14 w-full">
                         <DeleteBtn text="Delete" to="/" width="w-1/2" />
                         <GreenBtnCancel
                             text="Cancel"
@@ -25,7 +25,7 @@ function ModalA({ title="test", content="test", isModalOpen, handleCancel }) {
                 }
                 className="main-modal-style text-white"
             >
-                <hr className='my-5 border-white opacity-60' />
+                <hr className='my-5 border-white opacity-60 pt-8' />
                 <div className="flex flex-col text-center items-center px-16">
                     <PiWarningCircle className="text-8xl" style={{ color: "#E5EFDD" }} />
                     <span className="text-lg">{content}</span>

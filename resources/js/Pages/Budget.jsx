@@ -59,7 +59,8 @@ return (
              
                                   {/* Expenses Overview */}
                              <div className="h-full md:w-full pt-2 flex flex-col">
-                                 <BudgetCat category="Food" amount={1000} isSet={true} />
+                                    <BudgetCat category="Food" amount={1000} isSet={true} />
+                                    <BudgetCat category="Transportation" amount={0} isSet={false} />
                              </div>
              
                          </div>
