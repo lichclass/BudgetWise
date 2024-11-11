@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('ledger_id')->constrained('ledgers', 'ledger_id');
             $table->string('title');
             $table->decimal('target_income', total: 12, places: 2);
-            $table->decimal('current_saving', total: 12, places: 2);
-            $table->date('target_date');
+            $table->decimal('current_saving', total: 12, places: 2)->default(0);
+            $table->date('target_date')->nullable();
             $table->timestamps();
         });
     }
