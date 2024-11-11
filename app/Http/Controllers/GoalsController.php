@@ -50,6 +50,10 @@ class GoalsController extends Controller
     public function store(StoreGoalsRequest $request)
     {
         //
+        dd($request); //debugging
+        $fields = $request->validated();
+        $goal = Goals::create($fields);
+        return redirect()->back();
     }
 
     /**
@@ -71,17 +75,29 @@ class GoalsController extends Controller
     /**
      * Update the specified resource in storage.
      */
+   
     public function update(UpdateGoalsRequest $request, Goals $goals)
-    {
-        //
+    {   
+        dd($request, $goals);
+        $fields = $request->validated();
+        $goals->update($fields);
+        return redirect()->route('home');
     }
 
+    // public function withdraw()
+    // {
+
+    // }
+    // public function add()
+    // {
+
+    // }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Goals $goals)
     {
-        $goal->delete();
+        $goals->delete();
         return redirect()->route('home');
     }
 }

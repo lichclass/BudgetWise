@@ -11,7 +11,7 @@ class StoreGoalsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreGoalsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'ledger_id' => ['required', 'numeric'],
+            'title' => ['required', 'string'],
+            'target_amount' => ['required', 'numeric'],
+            'target_date' => ['nullable', 'date']
         ];
     }
 }
