@@ -37,6 +37,10 @@ class AuthController extends Controller
         if (!Auth::attempt($fields, $request->remember)) {
             return back()->with('message', 'Invalid login credentials');
         }
+        
+        if(Auth::user()->ledgers->isEmpty()){
+            return redirect()->route('starter');
+        }
 
         // Put the first ledger in the session
         $user = Auth::user();

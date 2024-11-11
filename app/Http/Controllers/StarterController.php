@@ -63,6 +63,9 @@ class StarterController extends Controller
            Ledger_categories::create($Ledger_categoryFields);
         }
 
+        $user = Auth::user();
+        $first_ledger = $user->ledgers->first();
+        $request->session()->put('ledger', $first_ledger);
 
         return redirect()->route('home');
     }
