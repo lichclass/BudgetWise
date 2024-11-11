@@ -157,10 +157,10 @@ function Home({ transactions, categories, goals, ledgers }) {
                         {/* Right Side */}
                         <div className="flex flex-col gap-10 lg:gap-3 flex-grow py-3">
                             <BalanceCard balance={activeLedger.balance} />
-                            {/* <GoalsCardList 
+                            <GoalsCardList 
                                 goals={goals_sample} 
                                 selectedLedger={activeLedger}
-                            /> */}
+                            />
                         </div>
                     </div>
                 </div>

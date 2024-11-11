@@ -14,25 +14,25 @@ function BudgetTable(){
                 </div>
 
                 <div className="object-center text-white text-center  py-2 px-14 justify-between flex flex-row">
-                        <div classname="flex flex-col">
+                        <div className="flex flex-col">
                             <p>Items Here</p>
                             <p>Items Here</p>
                             <p>Items Here</p>
                         </div>
 
-                        <div classname="flex flex-col">
+                        <div className="flex flex-col">
                             <p>Items Here</p>
                             <p>Items Here</p>
                             <p>Items Here</p>
                         </div>
 
-                        <div classname="flex flex-col">
+                        <div className="flex flex-col">
                             <p>Items Here</p>
                             <p>Items Here</p>
                             <p>Items Here</p>
                         </div>
 
-                        <div classname="flex flex-col">
+                        <div className="flex flex-col">
                             <p>Items Here</p>
                             <p>Items Here</p>
                             <p>Items Here</p>
