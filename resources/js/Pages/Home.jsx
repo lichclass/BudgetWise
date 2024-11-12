@@ -67,6 +67,7 @@ const cat_sample = [
         category_type: "expense"
     }
 ];
+
 const goals_sample = [
     {
         goal_id: 1,
@@ -74,8 +75,19 @@ const goals_sample = [
         user_id: 1,
         title: "Buy a new phone",
         target_income: 20000,
-        current_saving: 0,
+        current_saving: 10000,
         target_date: "2024-11-30",
+        created_at: "2021-09-15T07:00:00.000000Z",
+        updated_at: "2021-09-15T07:00:00.000000Z"
+    },
+    {
+        goal_id: 2,
+        ledger_id: 1,
+        user_id: 1,
+        title: "Buy a coffee machine",
+        target_income: 5000,
+        current_saving: 3500,
+        target_date: null,
         created_at: "2021-09-15T07:00:00.000000Z",
         updated_at: "2021-09-15T07:00:00.000000Z"
     }

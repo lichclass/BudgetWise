@@ -51,6 +51,7 @@ function BudgetCat({ category, amount, isSet }) {
                             subtitle={category}
                             isModalOpen={isEditModalOpen}
                             handleCancel={handleEditCancel}
+                            deleteTitle={category}
                             deleteContent="Are you sure you want to delete this budget category?"
                         >
                              <div className="flex flex-col pt-3 pb-7">
@@ -73,7 +74,7 @@ function BudgetCat({ category, amount, isSet }) {
                     </div>
                 ) : (
                     <div>
-                        <button className="border border-[#A9ADAE] text-xs text-[#E8EAE6] text-opacity-75 rounded-full px-2 py-1 transition-all duration-200 ease-in-out hover:border-white hover:text-white" onClick={setisSetBudgetModalOpen}>
+                            <button className="border border-[#A9ADAE] text-xs text-[#E8EAE6] text-opacity-75 rounded-full px-2 py-1 transition-all duration-200 ease-in-out hover:border-white hover:text-white" onClick={showSetBudgetModal}>
                         + Add Budget
                         </button>
                             

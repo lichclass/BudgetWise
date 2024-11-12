@@ -5,16 +5,33 @@ import EditGoalsModal from "@/Layouts/ModalC";
 import AddBalanceModal from "@/Layouts/ModalB";
 import WithdrawBalanceModal from "@/Layouts/ModalB";
 import { useState } from "react";
+import InputField from "@/Components/MainInputField";
+import { Checkbox } from 'antd';
 
-// I made another one as to not disrupt the original GoalsCard.jsx file
-
-function GoalsItem({ title, completion, isDeadlineSet, deadline }) {
+function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline}) {
     const buttonStyle =
         "text-white text-opacity-70 bg-transparent text-xs flex items-center justify-center rounded-md border border-white border-opacity-30 px-2 py-3 hover:bg-white hover:text-slate-700 transition h-4 gap-1 whitespace-nowrap";
+
+    const formaterr = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'PHP',
+        minimumFractionDigits: 2
+    });
 
     const [isEditGoalsModalOpen, setIsEditGoalsModalOpen] = useState(false);
     const [isAddBalanceModalOpen, setIsAddBalanceModalOpen] = useState(false);
     const [isWithdrawBalanceModalOpen, setIsWithdrawBalanceModalOpen] = useState(false);
+
+    const [goalName, setGoalName] = useState('');
+    const [goalLimit, setGoalLimit] = useState('');
+    const [goalDate, setGoalDate] = useState('');
+    const [isDeadlineInputSet, setDeadlineInputEnable] = useState(isDeadlineSet);
+
+    const [addAmt, setAddAmt] = useState('');
+    const [withdrawAmt, setWithdrawAmt] = useState('');
+
+
+    const completion = (current / target) * 100;
 
     // Edit Modal
     const showEditGoalsModal = () => {
@@ -50,17 +67,64 @@ function GoalsItem({ title, completion, isDeadlineSet, deadline }) {
                         <FaEdit className="text-white text-opacity-80 transition-all duration-200 ease-in-out hover:scale-110" />
                     </button> 
 
-                    {/* Edit Modal */} 
+                    {/* Edit Modal */}
                     <EditGoalsModal
                         title="Edit Goal"
                         isModalOpen={isEditGoalsModalOpen}
                         handleCancel={handleEditGoalsCancel}
+                        deleteTitle="Goal"
                         deleteContent="Are you sure you want to delete this goal?"
                     >
-                    </EditGoalsModal>
-                </div>
+                        <div className="flex flex-col gap-4 pb-5">
 
-                {/* Progress Bar */}
+                            <InputField
+                                label="Goal Name"
+                                htmlFor="goal_name"
+                                type="text"
+                                name="goal_name"
+                                placeholder={title}
+                                value={goalName || title}
+                                onChange={(e) => setGoalName(e.target.value)}
+                            />
+
+                            <InputField
+                                label="Amount Limit"
+                                htmlFor="goal_limit"
+                                type="number"
+                                name="goal_limit"
+                                placeholder={target}
+                                value={goalLimit || target}
+                                onChange={(e) => setGoalLimit(e.target.value)}
+                            />
+
+                            <div className="flex flex-col gap-2">
+                                <InputField
+                                    label="Date"
+                                    htmlFor="goal_date"
+                                    type="date"
+                                    name="goal_date"
+                                    value={goalDate || targetDate}
+                                    onChange={(e) => setGoalDate(e.target.value)}
+                                    isReadOnly={!isDeadlineInputSet}
+                                />
+
+                                <Checkbox
+                                    name='setDeadline'
+                                    className='text-md font-semibold text-gray-300'
+                                    checked={isDeadlineInputSet}
+                                    onChange={(e) => setDeadlineInputEnable(e.target.checked)}
+                                >
+                                    Set Deadline
+                                </Checkbox>
+                            </div>
+
+                        </div>
+                        
+                    </EditGoalsModal>
+
+                </div>
+                
+                    {/* Progress Bar */}
                 <div className="w-full h-6 rounded-full bg-[#0A1C29] bg-opacity-25 flex items-center">
                     <div
                         className={`h-6 bg-blue-600 ${
@@ -68,31 +132,7 @@ function GoalsItem({ title, completion, isDeadlineSet, deadline }) {
                         } bg-gradient-to-r from-[#79BAA8] to-[#195676]`}
                         style={{ width: `${completion}%` }}
                     ></div>
-                    {/* <p className="absolute">{completion}%</p> */}
                 </div>
-
-                {/* Deadline, Add, & Withdraw */}
-                {/* <div className="flex flex-row-reverse justify-between items-center gap-2 flex-nowrap">
-
-                    <div className="flex gap-1">
-                        <button className={`${buttonStyle}`}>
-                            <FaPlus className="text-xs" />
-                            <p className={`font-thin`}>Add Money</p>
-                        </button>
-
-                        <button className={`${buttonStyle}`}>
-                            <FaMinus className="text-xs" />
-                            <p className={`font-thin`}>Withdraw</p>
-                        </button>
-                    </div>
-
-                    <p className="text-[#E8EAE69E] font-thin text-sm">
-                        {completion < 100
-                            ? (isDeadlineSet ? "Days Remaining: " + deadline : "No Deadline Set")
-                            : "Goal Completed!"}
-                    </p>
-
-                </div> */}
 
                 <div className="flex flex-col-reverse sm:flex-row-reverse justify-between items-center gap-5">
                     <div className="flex gap-1">
@@ -110,6 +150,25 @@ function GoalsItem({ title, completion, isDeadlineSet, deadline }) {
                             handleCancel={handleAddBalanceCancel}
                             large={false}
                         > 
+                            
+                            <div className="flex flex-col gap-4 pb-5">
+
+                                <div className="flex justify-center gap-2 p-4">
+                                    <h1 className="text-white text-2xl">Ledger Balance: </h1>
+                                    <h1 className="text-white text-2xl font-bold">{formaterr.format(current)}</h1>
+                                </div>
+
+                                <InputField
+                                    label="Amount"
+                                    htmlFor="amount_added"
+                                    type="number"
+                                    name="amount_added"
+                                    placeholder="Enter amount"
+                                    value={withdrawAmt}
+                                    onChange={(e) => setWithdrawAmt(e.target.value)}
+                                />
+                            </div>
+
                         </AddBalanceModal>
 
                         <button className={`${buttonStyle}`} onClick={showWithdrawBalanceModal}>
@@ -127,6 +186,26 @@ function GoalsItem({ title, completion, isDeadlineSet, deadline }) {
                             large={false}
                             isGoalsWithdraw={true}
                         > 
+                            
+                            <div className="flex flex-col gap-4 pb-5">
+                                
+                                <div className="flex justify-center gap-2 p-4">
+                                    <h1 className="text-white text-2xl">Goal Balance: </h1>
+                                    {/* 'current' is used for now as ledger balance is not passed properly from home */}
+                                    <h1 className="text-white text-2xl font-bold">{formaterr.format(current)}</h1> 
+                                </div>
+
+                                <InputField
+                                    label="Amount"
+                                    htmlFor="amount_added"
+                                    type="number"
+                                    name="amount_added"
+                                    placeholder="Enter amount"
+                                    value={withdrawAmt}
+                                    onChange={(e) => setWithdrawAmt(e.target.value)}
+                                />
+                            </div>
+
                         </WithdrawBalanceModal>
 
 

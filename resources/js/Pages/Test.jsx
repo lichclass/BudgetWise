@@ -5,10 +5,15 @@ import GoalsItem from "@/Components/GoalsItem";
 import { IoIosAdd } from "react-icons/io";
 import { Checkbox } from 'antd';
 import CreateGoalsModal from "@/Layouts/ModalB";
+import InputField from "@/Components/MainInputField";
 
 function Test({ ledgers }) {
 
     const [isCreateGoalsModalOpen, setIsCreateGoalsModalOpen] = useState(false);
+    const [goalName, setGoalName] = useState('');
+    const [goalLimit, setGoalLimit] = useState('');
+    const [goalDate, setGoalDate] = useState('');
+    const [isDeadlineSet, setDeadlineEnable] = useState(false);
 
     const showCreateGoalsModal = () => {
         setIsCreateGoalsModalOpen(true);
@@ -18,12 +23,16 @@ function Test({ ledgers }) {
         setIsCreateGoalsModalOpen(false);
     }
 
+    // const enableDeadline = () => {
+    //     setDeadlineEnable(true);
+    // }
+
     return (
         <>
             <Head title="Test" />
 
             <Main navbarMsg={"Test"}>
-                
+
                 <div className="flex flex-col gap-4 my-8">
                     <GoalsItem
                         title="Buy a new phone"
@@ -49,15 +58,54 @@ function Test({ ledgers }) {
                         isModalOpen={isCreateGoalsModalOpen}
                         handleCancel={handleCreateGoalsCancel}
                         large={false}
-                    > 
+                    >
+
+                        <div className="flex flex-col gap-4 pb-5">
+                            <InputField
+                                label="Goal Name"
+                                htmlFor="goal_name"
+                                type="text"
+                                name="goal_name"
+                                placeholder="Enter a goal name"
+                                value={goalName}
+                                onChange={(e) => setGoalName(e.target.value)}
+                            />
+
+                            <InputField
+                                label="Amount Limit"
+                                htmlFor="goal_limit"
+                                type="number"
+                                name="goal_limit"
+                                placeholder="Set amount limit"
+                                value={goalLimit}
+                                onChange={(e) => setGoalLimit(e.target.value)}
+                            />
+
+                            <div className="flex flex-col gap-2">
+                                <InputField
+                                    label="Date"
+                                    htmlFor="goal_date"
+                                    type="date"
+                                    name="goal_date"
+                                    placeholder="dd/mm/yy"
+                                    value={goalDate}
+                                    onChange={(e) => setGoalDate(e.target.value)}
+                                    isReadOnly={isDeadlineSet}
+                                />
+
+                                <Checkbox
+                                    name='setDeadline'
+                                    className='text-md font-light text-gray-100'
+                                >
+                                    Set Deadline
+                                </Checkbox>
+                            </div>
+
+                        </div>
+
+
                     </CreateGoalsModal>
 
-                    <Checkbox
-                        name='remember'
-                        className='text-md font-semibold text-teal-800'
-                    >
-                        Remember Me
-                    </Checkbox>
                 </div>
             </Main>
 
