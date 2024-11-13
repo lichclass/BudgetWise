@@ -1,96 +1,67 @@
-import GreenBtnLg from "@/Components/GreenBtnLg";
-import GreenBtnMed from "@/Components/GreenBtnMed";
-import GreenBtnCancel from "@/Components/GreenBtnCancel";
-import ModalA from "@/Layouts/ModalA";
-import ModalB from "@/Layouts/ModalB";
-import ModalC from "@/Layouts/ModalC";
 import Main from "@/Layouts/Main";
-import { Head } from "@inertiajs/react";
-import { useState } from "react";
+import { usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
+import BudgetTable from '@/Components/BudgetTable';
+import ExpensesCard from '@/Components/ExpensesCard';
+import LegendCard from '@/Components/LegendBtn';
+import MonthlyBudget from '@/Components/MonthlyBudgetCard';
 
-function Test({ ledgers }) {
-    const [isModalAOpen, setIsModalAOpen] = useState(false);
-    const [isModalBOpen, setIsModalBOpen] = useState(false);
-    const [isModalCOpen, setIsModalCOpen] = useState(false);
+// Temporary
+import BudgetCat from "@/Components/BudgetCat";
 
-    const showModal_A = () => {
-        setIsModalAOpen(true);
-    }
+function Budget(){
+    const { auth } = usePage().props;
+    const { budget } = usePage().props;
 
-    const handleCancel_A = () => {
-        setIsModalAOpen(false);
-    };
+return (
+    <>
+        <Head title="Budget"/>
 
-    const showModal_B = () => {
-        setIsModalBOpen(true);
-    };
+        <Main navbarMsg={'Budget'}>
+            <div className="flex flex-col gap-3 lg:gap-0 h-full px-4 overflow-auto">
+                {/* Top */}
+                <div className="flex flex-col lg:flex-row gap-3 lg:gap-0">
+                    {/* Pie */}
+                    <div className="flex flex-col md:flex-row gap-3 justify-evenly items-center px-12 py-16 w-full lg:w-1/2 border lg:rounded-tl-xl">
+                        <h1 className="text-xl font-bold"> Pie Graph Here </h1>
+                        <div className="w-4/5 md:w-2/5"><LegendCard /></div>
+                    </div>
 
-    const handleCancel_B = () => {
-        setIsModalBOpen(false);
-    };
-
-    const showModal_C = () => {
-        setIsModalCOpen(true);
-    }
-
-    const handleCancel_C = () => {
-        setIsModalCOpen(false);
-    }
-
-    console.log(ledgers);
-
-    return (
-        <>
-            <Head title="Test" />
-
-            <Main navbarMsg={"Test"}>
-                <div className="space-x-5">
-
-                    {/* For Modal A */}
-                    <button onClick={showModal_A}>
-                        Open Modal
-                    </button>
-                    <ModalA 
-                        title="Delete Ledger" 
-                        content="Are you sure?" 
-                        isModalOpen={isModalAOpen} 
-                        handleCancel={handleCancel_A}
-                    />
-
-                    {/* For Modal B */}
-                    <button onClick={showModal_B}>
-                        Open Modal
-                    </button>
-                    <ModalB 
-                        title="Create a Goal"
-                        subtitle="Ex. Buy a new car"
-                        isModalOpen={isModalBOpen}
-                        handleCancel={handleCancel_B}
-                        large={true}
-                    > 
-                    </ModalB>
-
-                    {/* For Modal C */}
-                    <button onClick={showModal_C}>
-                        Open Modal
-                    </button>
-                    <ModalC 
-                        title="Edit Budget"
-                        subtitle="Food & Drink"
-                        isModalOpen={isModalCOpen}
-                        handleCancel={handleCancel_C}
-                    />
-
-                    <GreenBtnLg text={"Large"}/>
-                    <GreenBtnMed text="Medium"/>
-                    <GreenBtnCancel text={"Cancel"}/>
+                    {/* Monthly Budget */}
+                    <div className="flex flex-col gap-2 w-full lg:w-1/2 p-7 border lg:rounded-tr-xl overflow-auto bg-[#143445]">
+                        <MonthlyBudget
+                            monthlyBudget = {90000}
+                            dailyBudget = {20}
+                         />
+             
+                        {/* Expenses Overview */}
+                        <div className="h-full md:w-full pt-2 flex flex-col gap-3">
+                                <BudgetCat category="Food" amount={1000} isSet={true} />
+                                <BudgetCat category="Transportation" amount={0} isSet={false} />
+                                <BudgetCat category="Utilities" amount={0} isSet={false} />
+                                <BudgetCat category="Rent" amount={0} isSet={false} />
+                                <BudgetCat category="Health" amount={0} isSet={false} />
+                                <BudgetCat category="Education" amount={0} isSet={false} />
+                                <BudgetCat category="Entertainment" amount={0} isSet={false} />
+                         </div>
+                    </div>
                 </div>
-            </Main>
 
+                {/* Bottom */}
 
-        </>
-    )
+                {/* Table */}
+                <div className="border lg:rounded-b-xl p-7">
+                    <BudgetTable budget={budget}/>
+                </div>
 
+            </div>
+
+                
+            
+        </Main>
+
+    </>
+);
 }
 
-export default Test;
+export default Budget;

@@ -1,8 +1,9 @@
 import { Modal } from 'antd'
 import GreenBtnMed from '@/Components/GreenBtnMed'
 import { IoCloseOutline } from "react-icons/io5";
+import DeleteBtn from "@/Components/DeleteBtn";
 
-function ModalB({ title="test", subtitle="", children, isModalOpen, handleCancel, large=false }) {
+function ModalB({ title="test", subtitle="", children, isModalOpen, handleCancel, large=false, isGoalsWithdraw=false}) {
 
     return (
         <>
@@ -18,10 +19,19 @@ function ModalB({ title="test", subtitle="", children, isModalOpen, handleCancel
                 onCancel={handleCancel}
                 footer={
                     <div className="flex justify-between space-x-4 py-2 w-full">
-                        <GreenBtnMed
-                            text="Submit"
-                            width="w-full"
-                        />
+                        {isGoalsWithdraw == false ?
+                            <GreenBtnMed
+                                text="Submit"
+                                width="w-full"
+                            /> 
+                            
+                            : 
+
+                            <DeleteBtn text="Withdraw" to="/" width="w-full"/>
+                        }
+                        
+
+
                     </div>
                 }
                 className='main-modal-style md:w-full'

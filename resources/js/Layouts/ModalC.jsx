@@ -5,7 +5,7 @@ import { Modal } from 'antd'
 import { IoCloseOutline } from 'react-icons/io5'
 import { useState } from 'react'
 
-function ModalC({ title, subtitle, children, isModalOpen, handleCancel, deleteContent, large=false }) {
+function ModalC({ title, subtitle, children, isModalOpen, handleCancel, deleteTitle, deleteContent, large=false }) {
 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isSetBudgetModalOpen, setisSetBudgetModalOpen] = useState(false);
@@ -42,7 +42,7 @@ function ModalC({ title, subtitle, children, isModalOpen, handleCancel, deleteCo
                     <div className="flex justify-between space-x-4 py-2 w-full">
                         <DeleteBtn text="Delete" to="/" width="w-1/2" onClick={showDeleteModal} />
                         <DeleteModal
-                            title={`Delete ${subtitle}`}
+                            title={`Delete ${deleteTitle}`}
                             content={deleteContent}
                             isModalOpen={isDeleteModalOpen}
                             handleCancel={handleDeleteCancel}
