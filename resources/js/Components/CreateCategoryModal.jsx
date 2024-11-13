@@ -3,12 +3,12 @@ import MainInputField from '@/Components/MainInputField';
 import { Checkbox } from 'antd';
 import DropDownField from '@/Components/DropDownField';
 
-function CreateCategoryModal({isModalOpen, handleCancel}){
+function CreateCategoryModal({ type, isModalOpen, handleCancel}){
     return(
         <>
             <ModalB
                 title="Create Category"
-                subtitle="Ex. Food & Drink"
+                subtitle={ type === "expense" ? "Expense" : "Income" }
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
             >

@@ -9,6 +9,8 @@ function EditCatModal({isModalOpen, handleCancel}){
                 subtitle="Food & Drink"
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
+                deleteTitle="Category"
+                deleteContent="Are you sure you want to delete this category?"
             >
 
                     <div className="space-y-5 > * mb-8">

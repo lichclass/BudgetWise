@@ -1,5 +1,5 @@
 import { usePage, useForm } from "@inertiajs/react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, createContext } from "react";
 import { useRoute } from "../../../vendor/tightenco/ziggy/src/js";
 import BalanceCard from "@/Components/BalanceCard";
 import Main from "@/Layouts/Main";
@@ -16,16 +16,16 @@ const cat_sample = [
         ledger_id: 1,
         ledger_owner: 1,
         user_id: 1,
-        category_id: 16,
+        category_id: 12,
         category_name: "Allowance",
-        is_default: 0,
+        is_default: 1,
         category_type: "income"
     },
     {
         ledger_id: 1,
         ledger_owner: 1,
         user_id: null,
-        category_id: 1,
+        category_id: 3,
         category_name: "Food & Drinks",
         is_default: 1,
         category_type: "expense"
@@ -45,14 +45,14 @@ const cat_sample = [
         user_id: 1,
         category_id: 16,
         category_name: "Salary",
-        is_default: 0,
+        is_default: 1,
         category_type: "income"
     },
     {
         ledger_id: 2,
         ledger_owner: 1,
         user_id: null,
-        category_id: 1,
+        category_id: 6,
         category_name: "Goof & Drinks",
         is_default: 1,
         category_type: "expense"
@@ -61,7 +61,7 @@ const cat_sample = [
         ledger_id: 2,
         ledger_owner: 1,
         user_id: null,
-        category_id: 2,
+        category_id: 5,
         category_name: "Skincare",
         is_default: 1,
         category_type: "expense"
@@ -93,15 +93,19 @@ const goals_sample = [
     }
 ];
 
+export const LedgerContext = createContext();
+export const CategoryContext = createContext();
+export const TransactionsContext = createContext();
+
 
 function Home({ transactions, categories, goals, ledgers }) {
+    
     const { auth, ledger } = usePage().props;
     const [searchTerm, setSearchTerm] = useState("");
     const [activeLedger, setActiveLedger] = useState(ledger);
     const route = useRoute();
     const isInitialRender = useRef(true);
 
-    console.log(categories);
 
     const { data, setData, post } = useForm({
         ledger: activeLedger,
@@ -117,9 +121,7 @@ function Home({ transactions, categories, goals, ledgers }) {
         }
     }, [activeLedger]);
 
-    const handleSearch = (value) => {
-        setSearchTerm(value);
-    };
+    const handleSearch = (value) => setSearchTerm(value);
 
     const handleLedgerChange = (ledger) => {
         setData('ledger', ledger);
@@ -133,12 +135,15 @@ function Home({ transactions, categories, goals, ledgers }) {
 
             <Main navbarMsg={`Welcome back, ${auth.user.username}`}>
                 <div className="flex flex-col h-full gap-3 px-4">
+
                     {/* Top */}
                     <div className="flex flex-col items-center lg:flex-row justify-between gap-10 lg:gap-3 mb-3">
                         <SearchBar onSearch={handleSearch} />
 
                         <div className="flex justify-center md:justify-end gap-4">
-                            <CreateLedgerBtn />
+                            <CategoryContext.Provider value={cat_sample}>
+                                <CreateLedgerBtn />
+                            </CategoryContext.Provider>
                             <LedgersDropdown 
                                 ledgers={ledgers}
                                 activeLedger={activeLedger}
@@ -147,7 +152,7 @@ function Home({ transactions, categories, goals, ledgers }) {
                         </div>
                     </div>
 
-                    {/* Bottom */}
+                    {/* Body */}
                     <div className="flex flex-col lg:flex-row h-full overflow-auto gap-3 lg:gap-10">
                         {/* Left Side */}
                         <div className="flex flex-col lg:w-2/3">

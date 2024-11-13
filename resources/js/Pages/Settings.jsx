@@ -20,38 +20,15 @@ function Settings() {
     const [isDeleteAccModalOpen, setIsDeleteAccModalOpen] = useState(false);
     const [isCreateNewAccModalOpen, setIsCreateNewAccModalOpen] = useState(false);
 
-    const showChangePassModal = () => {
-        setIsChangePassModalOpen(true);
-    }
-
-    const handleCancelChangePassModal = () => {
-        setIsChangePassModalOpen(false);
-    }
-
-    const showDeleteAccModal = () => {
-        setIsDeleteAccModalOpen(true);
-    }
-
-    const handleCancelDeleteAccModal = () => {
-        setIsDeleteAccModalOpen(false);
-    }
-
-    const showCreateNewAccModal = () => {
-        setIsCreateNewAccModalOpen(true);
-    }
-
-    const handleCancelCreateNewAccModal = () => {
-        setIsCreateNewAccModalOpen(false);
-    }
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    }
-
-    const handleUsernameChange = (e) => {
-        setUsername(e.target.value);
-    }
-
+    const showChangePassModal = () => setIsChangePassModalOpen(true);
+    const handleCancelChangePassModal = () => setIsChangePassModalOpen(false);
+    const showDeleteAccModal = () => setIsDeleteAccModalOpen(true);
+    const handleCancelDeleteAccModal = () => setIsDeleteAccModalOpen(false);
+    const showCreateNewAccModal = () => setIsCreateNewAccModalOpen(true);
+    const handleCancelCreateNewAccModal = () => setIsCreateNewAccModalOpen(false);
+    const handleEmailChange = (e) => setEmail(e.target.value);
+    const handleUsernameChange = (e) => setUsername(e.target.value);
+    
     const handleEmailEdit = () => {
         if(editEmail) {
             setEmail(auth.user.email);

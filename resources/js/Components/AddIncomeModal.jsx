@@ -1,12 +1,12 @@
 import ModalB from "@/Layouts/ModalB";
 import MainInputField from '@/Components/MainInputField';
 
-function AddIncomeModal({isModalOpen, handleCancel}){
+function AddIncomeModal({ name, isModalOpen, handleCancel}){
     return(
         <>
             <ModalB 
                 title="Add Income"
-                subtitle="Salary"
+                subtitle={name}
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
             >

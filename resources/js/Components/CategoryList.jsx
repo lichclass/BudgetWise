@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import CategoryCard from "./CategoryCard";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { FaPlus } from "react-icons/fa";
+import AddCategoryBtn from "./AddCategoryBtn";
 
 function CategoryList({ type, categories, searchTerm, selectedLedger }) {
     const carouselRef = useRef(null);
@@ -40,6 +40,7 @@ function CategoryList({ type, categories, searchTerm, selectedLedger }) {
         <>
 
             <div className="flex flex-col w-full">
+
                 {/* Header */}
                 <div className="flex items-center gap-2">
                     <hr className="w-1/6 border-t-1 border-gray-300 my-4 border-opacity-30" />
@@ -47,12 +48,11 @@ function CategoryList({ type, categories, searchTerm, selectedLedger }) {
                         {type === "expense" ? "Expense" : "Income"}
                     </h1>
                     <hr className="w-full border-t-1 border-gray-300 my-4 border-opacity-30" />
-                    <button className="text-white text-opacity-70 bg-transparent text-xs flex items-center justify-center rounded-lg shadow-sm border border-white border-opacity-30 px-5 py-3 hover:bg-white hover:text-slate-700 transition h-4 gap-1 whitespace-nowrap">
-                        <FaPlus className="text-xs" />
-                        <p className={`font-thin`}>Add Category</p>
-                    </button>
+                    {/* Add Category Button */}
+                    <AddCategoryBtn type={type} />
                 </div>
 
+                {/* Body */}
                 <div className="flex items-center gap-5 h-[285px]">
                     <button onClick={scrollLeft}>
                         <IoIosArrowBack className="text-4xl text-white opacity-55 hover:opacity-65 hover:scale-110 active:opacity-100 transition-transform duration-300 ease-in-out" />
@@ -66,7 +66,7 @@ function CategoryList({ type, categories, searchTerm, selectedLedger }) {
                             filteredCategories.map((category, index) => (
                                 <div key={index} className="snap-center">
                                     <CategoryCard
-                                        category={category.category_name}
+                                        category={category}
                                         amount={100}
                                     />
                                 </div>
@@ -77,10 +77,12 @@ function CategoryList({ type, categories, searchTerm, selectedLedger }) {
                             </div>
                         )}
                     </div>
-
+                    
                     <button onClick={scrollRight}>
                         <IoIosArrowForward className="flex text-4xl text-white opacity-55 hover:opacity-65 hover:scale-110 active:opacity-100 transition-transform duration-300 ease-in-out" />
                     </button>
+
+
                 </div>
             </div>
         </>
