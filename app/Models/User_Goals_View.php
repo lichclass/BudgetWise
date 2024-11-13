@@ -8,8 +8,8 @@ class User_Goals_View extends Model
 {
     protected $table = 'user_goals_view'; // Replace with the actual view or table name if needed
 
-    public $incrementing = true; // Assuming goal_id is an auto-increment primary key
-    public $timestamps = true; // Enable timestamps
+    public $incrementing = false; // Assuming goal_id is an auto-increment primary key
+    public $timestamps = false; // Disable timestamps
 
     protected $fillable = [
         'goal_id',

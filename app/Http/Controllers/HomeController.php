@@ -64,7 +64,16 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
-    public function addGoalMoney(Request $request, Goals $goals){
-        //to be added
+    public function addGoalMoney(Request $request, Goals $goals, Ledgers $ledger){
+        dd($request, $goals, $ledger)
+;       $addMoneyField = $request->validate([
+            'balance' => ['required', 'numeric'],
+        ])
+;       $ledger->balance -= $addMoneyField['balance']
+;       $ledger->save()
+;       $goals->current_savings += $addMoneyField['balance']
+;       $goals->save()
+;       return redirect()->route('home')
+;
     }
 }

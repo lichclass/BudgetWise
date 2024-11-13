@@ -25,6 +25,7 @@ class StoreTransactionsRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'ledger_id' => ['required', 'numeric'],
             'amount' => ['required', 'numeric'],
             'transaction_description' => ['string', 'max:255'],
             'transaction_date' => ['required', 'date', 'default:'.now()->toDateString()],
