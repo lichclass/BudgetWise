@@ -29,8 +29,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::inertia('/home', 'Home')->name('home')->middleware('check.ledger');
-    Route::get('/home', [LedgersController::class, 'index'])->name('home');
+    Route::inertia('/home', 'Home')->name('home');
+    Route::get('/home', [LedgersController::class, 'index'])->name('home')->middleware('check.ledger');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
