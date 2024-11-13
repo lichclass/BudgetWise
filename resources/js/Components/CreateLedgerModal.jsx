@@ -176,6 +176,7 @@ function CreateLedgerModal({ isModalOpen, handleCancel }) {
 
                     {/* Category Lists */}
                     <div className="my-2 p-8 flex flex-wrap gap-x-5 gap-y-6 border rounded-md shadow-sm border-slate-400">
+                        {/* NOTE: Make this into a component */}
                         {defaultCategories.map((category) => (
                             <div
                                 key={category.category_id}
