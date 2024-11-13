@@ -23,8 +23,6 @@ function Main({ navbarMsg, children, isSettings=false }) {
     useEffect(() => {
         document.documentElement.style.setProperty('--fallback-b1', '#07131E');
         document.body.style.backgroundColor = "#07131E";
-        // document.body.style.backgroundImage = "linear-gradient(67deg, #07131E 30%, rgba(45, 97, 104, 0.15) 130.07%)";
-        console.log('useeffect rendered');
         return () => {
             document.documentElement.style.removeProperty('--fallback-b1');
             document.body.style.backgroundColor = "";

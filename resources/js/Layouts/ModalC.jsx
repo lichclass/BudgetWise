@@ -5,7 +5,7 @@ import { Modal } from 'antd'
 import { IoCloseOutline } from 'react-icons/io5'
 import { useState } from 'react'
 
-function ModalC({ title, subtitle, children, isModalOpen, handleCancel, deleteContent }) {
+function ModalC({ title, subtitle, children, isModalOpen, handleCancel, deleteContent, large=false }) {
 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isSetBudgetModalOpen, setisSetBudgetModalOpen] = useState(false);
@@ -56,6 +56,7 @@ function ModalC({ title, subtitle, children, isModalOpen, handleCancel, deleteCo
                     </div>
                 }
                 className='main-modal-style'
+                {...large ? { width: '50rem' } : ""}
             >
                 <hr className='my-5 border-white opacity-60' />
                 {children}

@@ -29,6 +29,11 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/starter', [StarterController::class, 'showCategories'])->name('starter')->middleware('check.ledger');
+    Route::post('/starter', [StarterController::class, 'submit'])->name('starter.submit');
+});
+
+Route::middleware(['auth'])->group(function () {
     Route::inertia('/home', 'Home')->name('home')->middleware('check.ledger');
     Route::get('/home', [LedgersController::class, 'index'])->name('home');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -40,11 +45,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('category', CategoriesController::class);
 
     Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/starter', [StarterController::class, 'showCategories'])->name('starter')->middleware('check.ledger');
-    Route::post('/starter', [StarterController::class, 'submit'])->name('starter.submit');
 });
 
 

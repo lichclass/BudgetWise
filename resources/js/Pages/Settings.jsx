@@ -145,7 +145,15 @@ function Settings() {
                         <option value="usd">USD</option>
                         <option value="eur">EUR</option>
                     </select>
-                    <DeleteBtn text="Delete Account" width={"w-44"}/>
+                    <button
+                        className={`text-white py-3 px-4 rounded text-md w-44 text-center hover:scale-105 transition-transform duration-300`}
+                        style={{
+                            background: '#D44242',
+                        }}
+                        onClick={showDeleteAccModal}
+                    >
+                        Delete Account
+                    </button>
                 </div>
 
                 {/* Change Password Modal */}
@@ -184,9 +192,6 @@ function Settings() {
                 </ModalB>
 
                 {/* Delete Account Modal */}
-                <button onClick={showDeleteAccModal}>
-                    Open Modal For delete
-                </button>
                 <ModalA
                     title='Delete Account'
                     content='Are you sure you want to delete your account? All your data will be lost'
@@ -194,18 +199,6 @@ function Settings() {
                     handleCancel={handleCancelDeleteAccModal}
                 />
 
-                {/* Create New Account Modal */}
-                <button onClick={showCreateNewAccModal}>
-                    Open Modal For create new account
-                </button>
-                <ModalB
-                    title="Create New Account"
-                    subtitle="Ex. lichclass"
-                    isModalOpen={isCreateNewAccModalOpen}
-                    handleCancel={handleCancelCreateNewAccModal}
-                >
-                    
-                </ModalB>
 
             </Main>
         

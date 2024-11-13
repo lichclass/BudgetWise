@@ -21,7 +21,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         // Redirect the user
-        return redirect()->route('home');
+        return redirect()->route('starter');
         
     }
 
@@ -40,15 +40,15 @@ class AuthController extends Controller
         
         if(Auth::user()->ledgers->isEmpty()){
             return redirect()->route('starter');
+        } else {
+            // Put the first ledger in the session
+            $user = Auth::user();
+            $first_ledger = $user->ledgers->first();
+            $request->session()->put('ledger', $first_ledger);
+
+            // Redirect the user
+            return redirect()->route('home');
         }
-
-        // Put the first ledger in the session
-        $user = Auth::user();
-        $first_ledger = $user->ledgers->first();
-        $request->session()->put('ledger', $first_ledger);
-
-        // Redirect the user
-        return redirect()->route('home');
     }
 
     public function logout(Request $request){
