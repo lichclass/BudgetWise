@@ -35,7 +35,7 @@ return (
                      <div className="h-64 md:border md:border-gray-600 flex flex-col md:flex-row m-6 pt-2 px-0 rounded-t-xl">
                          
                      {/* Left */}
-                         <div className="w-full md:w-1/2 border border-gray-600 md:border-l-0 md:border-t-0 md:border-b-0 md:border-r-1 rounded-none flex flex-row justify-between -mt-2 pt-3 px-6">
+                         <div className="w-full md:w-1/2 border border-gray-600 md:border-l-0 md:border-t-0 md:border-b-0 md:border-r-1 rounded-none flex flex-row justify-between pt-3 px-6">
                          
                           {/* Meter */}
                              <div>

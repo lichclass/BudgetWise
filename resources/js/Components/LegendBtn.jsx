@@ -1,7 +1,7 @@
 function LegendBtn(){
 
     return(
-        <div className="border border-gray-600 shadow-xl m-4 h-48 w-52 rounded-lg hover:transform space-y-2
+        <div className="border border-gray-600 shadow-xl h-48 w-full rounded-lg hover:transform space-y-2
                     hover:scale-105 transition-transform duration-300 flex flex-col items-start" >
                 
                 <div

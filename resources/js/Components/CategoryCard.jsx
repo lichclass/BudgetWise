@@ -59,7 +59,7 @@ function CategoryCard({ isExpense, category, amount }) {
                 {/* Buttons */}
                 <Space className="flex flex-shrink-0 justify-between flex-grow-0 px-1 mb-2">
                     <AddCatBtn />
-                    <EditCatBtn />
+                    {/* <EditCatBtn /> */}
                 </Space>
             </div>
           

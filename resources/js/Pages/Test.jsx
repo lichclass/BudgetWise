@@ -1,117 +1,67 @@
 import Main from "@/Layouts/Main";
-import { Head } from "@inertiajs/react";
-import { useState } from "react";
-import GoalsItem from "@/Components/GoalsItem";
-import { IoIosAdd } from "react-icons/io";
-import { Checkbox } from 'antd';
-import CreateGoalsModal from "@/Layouts/ModalB";
-import InputField from "@/Components/MainInputField";
+import { usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
+import BudgetTable from '@/Components/BudgetTable';
+import ExpensesCard from '@/Components/ExpensesCard';
+import LegendCard from '@/Components/LegendBtn';
+import MonthlyBudget from '@/Components/MonthlyBudgetCard';
 
-function Test({ ledgers }) {
+// Temporary
+import BudgetCat from "@/Components/BudgetCat";
 
-    const [isCreateGoalsModalOpen, setIsCreateGoalsModalOpen] = useState(false);
-    const [goalName, setGoalName] = useState('');
-    const [goalLimit, setGoalLimit] = useState('');
-    const [goalDate, setGoalDate] = useState('');
-    const [isDeadlineSet, setDeadlineEnable] = useState(false);
+function Budget(){
+    const { auth } = usePage().props;
+    const { budget } = usePage().props;
 
-    const showCreateGoalsModal = () => {
-        setIsCreateGoalsModalOpen(true);
-    }
+return (
+    <>
+        <Head title="Budget"/>
 
-    const handleCreateGoalsCancel = () => {
-        setIsCreateGoalsModalOpen(false);
-    }
+        <Main navbarMsg={'Budget'}>
+            <div className="flex flex-col gap-3 lg:gap-0 h-full px-4 overflow-auto">
+                {/* Top */}
+                <div className="flex flex-col lg:flex-row gap-3 lg:gap-0">
+                    {/* Pie */}
+                    <div className="flex flex-col md:flex-row gap-3 justify-evenly items-center px-12 py-16 w-full lg:w-1/2 border lg:rounded-tl-xl">
+                        <h1 className="text-xl font-bold"> Pie Graph Here </h1>
+                        <div className="w-4/5 md:w-2/5"><LegendCard /></div>
+                    </div>
 
-    // const enableDeadline = () => {
-    //     setDeadlineEnable(true);
-    // }
-
-    return (
-        <>
-            <Head title="Test" />
-
-            <Main navbarMsg={"Test"}>
-
-                <div className="flex flex-col gap-4 my-8">
-                    <GoalsItem
-                        title="Buy a new phone"
-                        completion={45}
-                        isDeadlineSet={true}
-                        deadline="11/3/4"
-                    />
-
-                    <GoalsItem
-                        title="Buy a coffee machine"
-                        completion={70}
-                        isDeadlineSet={false}
-                    />
-
-                    <button className="text-white bg-transparent text-sm font-bold flex items-center justify-center pl-2 py-2 pr-4 rounded-lg border hover:bg-white hover:text-slate-700 transition h-8" onClick={showCreateGoalsModal}>
-                        <IoIosAdd className="text-xl" />
-                        Add Goal
-                    </button>
-
-                    <CreateGoalsModal
-                        title="Create a Goal"
-                        subtitle="Ex. Save for Tuition"
-                        isModalOpen={isCreateGoalsModalOpen}
-                        handleCancel={handleCreateGoalsCancel}
-                        large={false}
-                    >
-
-                        <div className="flex flex-col gap-4 pb-5">
-                            <InputField
-                                label="Goal Name"
-                                htmlFor="goal_name"
-                                type="text"
-                                name="goal_name"
-                                placeholder="Enter a goal name"
-                                value={goalName}
-                                onChange={(e) => setGoalName(e.target.value)}
-                            />
-
-                            <InputField
-                                label="Amount Limit"
-                                htmlFor="goal_limit"
-                                type="number"
-                                name="goal_limit"
-                                placeholder="Set amount limit"
-                                value={goalLimit}
-                                onChange={(e) => setGoalLimit(e.target.value)}
-                            />
-
-                            <div className="flex flex-col gap-2">
-                                <InputField
-                                    label="Date"
-                                    htmlFor="goal_date"
-                                    type="date"
-                                    name="goal_date"
-                                    placeholder="dd/mm/yy"
-                                    value={goalDate}
-                                    onChange={(e) => setGoalDate(e.target.value)}
-                                    isReadOnly={isDeadlineSet}
-                                />
-
-                                <Checkbox
-                                    name='setDeadline'
-                                    className='text-md font-light text-gray-100'
-                                >
-                                    Set Deadline
-                                </Checkbox>
-                            </div>
-
-                        </div>
-
-
-                    </CreateGoalsModal>
-
+                    {/* Monthly Budget */}
+                    <div className="flex flex-col gap-2 w-full lg:w-1/2 p-7 border lg:rounded-tr-xl overflow-auto bg-[#143445]">
+                        <MonthlyBudget
+                            monthlyBudget = {90000}
+                            dailyBudget = {20}
+                         />
+             
+                        {/* Expenses Overview */}
+                        <div className="h-full md:w-full pt-2 flex flex-col gap-3">
+                                <BudgetCat category="Food" amount={1000} isSet={true} />
+                                <BudgetCat category="Transportation" amount={0} isSet={false} />
+                                <BudgetCat category="Utilities" amount={0} isSet={false} />
+                                <BudgetCat category="Rent" amount={0} isSet={false} />
+                                <BudgetCat category="Health" amount={0} isSet={false} />
+                                <BudgetCat category="Education" amount={0} isSet={false} />
+                                <BudgetCat category="Entertainment" amount={0} isSet={false} />
+                         </div>
+                    </div>
                 </div>
-            </Main>
 
-        </>
-    )
+                {/* Bottom */}
 
+                {/* Table */}
+                <div className="border lg:rounded-b-xl p-7">
+                    <BudgetTable budget={budget}/>
+                </div>
+
+            </div>
+
+                
+            
+        </Main>
+
+    </>
+);
 }
 
-export default Test;
+export default Budget;
