@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreUsersRequest;
+use App\Http\Requests\StoreUserRequest;
 
 class AuthController extends Controller
 {
-    public function register(StoreUsersRequest $request){
+    public function register(StoreUserRequest $request){
         
         // Validate the request
         $fields = $request->validated();

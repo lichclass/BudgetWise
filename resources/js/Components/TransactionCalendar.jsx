@@ -38,15 +38,47 @@ const data = [
 function TransactionCalendar({ transactions, onDateChange }) {
     const [selectedDate, setSelectedDate] = useState(new Date());
 
+    const groupedData = transactions.reduce((acc, transaction) => {
+        const date = transaction.transaction_date;
+        const amount = parseFloat(transaction.amount);
+        if (!acc[date]) {
+            acc[date] = { date, total_expenses: 0, total_income: 0 };
+        }
+        if (transaction.transaction_type === "expense") {
+            acc[date].total_expenses += amount;
+        } else if (transaction.transaction_type === "income") {
+            acc[date].total_income += amount;
+        }
+        return acc;
+    }, {});
+    
+    const groupedArray = Object.values(groupedData);
+
     // Function to render custom content in tiles
     const renderTileContent = ({ date, view }) => {
         const dateString = date.toLocaleDateString('en-CA');
-        const transaction = data.find(item => item.date === dateString);
+        const transaction = groupedArray.find(item => item.date === dateString);
         if (view === 'month' && transaction) {
             return (
                 <div className="custom-tile-content">
-                    {transaction.expenses > 0 && <p className="text-red-700">₱{transaction.expenses.toLocaleString()}</p>}
-                    {transaction.income > 0 && <p className="text-green-600">₱{transaction.income.toLocaleString()}</p>}
+                    {transaction.total_expenses > 0 && 
+                        <p className="text-red-700">
+                            {transaction.total_expenses.toLocaleString('en-PH', {
+                                style: 'currency',
+                                currency: 'PHP',
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}
+                        </p>}
+                    {transaction.total_income > 0 && 
+                        <p className="text-green-600">
+                            {transaction.total_income.toLocaleString('en-PH', {
+                                style: 'currency',
+                                currency: 'PHP',
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}
+                        </p>}
                 </div>
             );
         }

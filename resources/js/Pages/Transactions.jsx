@@ -3,19 +3,21 @@ import { Head, usePage } from "@inertiajs/react";
 import TransactionCalendar from "@/Components/TransactionCalendar";
 import TransactionList from "@/Components/TransactionList";
 import TransactionChart from "@/Components/TransactionChart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import TestChart from "@/Components/TestChart";
 
-
-function Transactions() {
-    // Disregard this lang sa
-    const { auth } = usePage().props;
-    const { transactions } = usePage().props;
-
+function Transactions({ transactions }) {
+    
+    const { ledger } = usePage().props;
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    }
+    const handleDateChange = (date) => setSelectedDate(date);
+
+    const transactionData = transactions.filter(transaction => transaction.ledger_id !== ledger.id);
+
+    useEffect(() => {
+        console.log("Transactions: ", transactionData);
+    }, []);
 
     const total_expenses = 1000;
     const total_income = 1000;
@@ -40,7 +42,7 @@ function Transactions() {
                             }}
                         >
                             {/* Calendar */}
-                            <TransactionCalendar onDateChange={handleDateChange} />
+                            <TransactionCalendar transactions={transactionData} onDateChange={handleDateChange} />
 
                             {/* Summary */}
                             <div className="flex justify-between py-2 px-16">
@@ -81,7 +83,8 @@ function Transactions() {
                             backgroundColor: "#143445"
                         }}
                     >
-                        <TransactionChart />
+                        {/* <TransactionChart /> */}
+                        <TestChart transactionData={transactionData} />
                     </div>
 
                 </div>

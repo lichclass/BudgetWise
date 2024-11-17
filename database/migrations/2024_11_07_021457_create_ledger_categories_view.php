@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("CREATE VIEW ledger_categories_view AS
+        DB::statement("CREATE VIEW IF NOT EXISTS ledger_categories_view AS
             SELECT 
                 l.ledger_id,
                 u.user_id AS ledger_owner,
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement('DROP VIEW IF EXISTS ledger_categories_view');
+        DB::statement("DROP VIEW IF EXISTS ledger_categories_view");
     }
 };

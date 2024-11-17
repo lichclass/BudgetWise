@@ -2,7 +2,7 @@ import { Card } from 'antd';
 import { useEffect, useState } from 'react';
 import { downscale } from '@/utilityFunctions';
 
-function BalanceCard({ balance }) {
+function BalanceCard({ balance=0 }) {
 
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',

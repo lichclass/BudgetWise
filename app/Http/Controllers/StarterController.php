@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ledgers;
+use App\Models\Ledger;
 use Illuminate\Http\Request;
-use App\Models\Categories;
-use App\Models\Ledger_categories;
+use App\Models\Category;
+use App\Models\LedgerCategory;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+
 class StarterController extends Controller
 {
     public function showCategories()
     {
         // Get all categories
-        $categories = Categories::where('is_default', true)
+        $categories = Category::where('is_default', true)
             ->orWhere('user_id', Auth::id())
             ->get();
 
@@ -29,7 +30,7 @@ class StarterController extends Controller
             'user_id' => Auth::id(),
             'ledger_name' => $request->ledgerName,
         ];
-        $ledger = Ledgers::create($ledgerFields);
+        $ledger = Ledger::create($ledgerFields);
         $ledgerID = $ledger->ledger_id;
     
         //creating categories
@@ -42,7 +43,7 @@ class StarterController extends Controller
                 'category_name' =>  $newCategories[$x]['category_name'], 
                 'category_type' =>  $newCategories[$x]['category_type'], 
             ];
-            $category = Categories::create($categoryFields);
+            $category = Category::create($categoryFields);
             $categoryID[] += $category->category_id;
         }        
         
@@ -60,7 +61,7 @@ class StarterController extends Controller
                 'ledger_id' => $ledgerID,
                 'category_id' => $totalCategories[$x],
             ];
-           Ledger_categories::create($Ledger_categoryFields);
+           LedgerCategory::create($Ledger_categoryFields);
         }
 
         $user = Auth::user();

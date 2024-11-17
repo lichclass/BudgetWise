@@ -2,15 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Goals;
-use App\Models\Ledgers;
-use Illuminate\Http\Request;
-use App\Models\Ledger_Categories;
-use App\Models\Categories;
+use App\Models\Goal;
+use App\Models\Ledger;
+use App\Models\LedgerCategoryView;
+use App\Models\LedgerCategory;
+use App\Models\Category;
+use App\Models\UserTransactionView;
+use App\Models\UserGoalView;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
+    public function index()
+    {
+        $ledgers = Ledger::where('user_id', Auth::id())->get();
+        $categories = LedgerCategoryView::where('ledger_owner', Auth::id())->get();
+        $transactions = UserTransactionView::where('user_id', Auth::id())->get();
+        $goals = UserGoalView::where('user_id', Auth::id())->get();
+        return Inertia::render('Home', [
+            'ledgers' => $ledgers,
+            'categories' => $categories,
+            'transactions' => $transactions,
+            'goals' => $goals,
+        ]);
+    }
+
     public function setCurrentLedger(Request $request)
     {
         $ledger = $request->input('ledger');
@@ -21,13 +40,13 @@ class HomeController extends Controller
     public function createNewLedger(Request $request)
     {
        
-       dd($request);
+        // dd($request);
         //creating ledger and storing id
         $ledgerFields = [
             'user_id' => Auth::id(),
             'ledger_name' => $request->ledgerName,
         ];
-        $ledger = Ledgers::create($ledgerFields);
+        $ledger = Ledger::create($ledgerFields);
         $ledgerID = $ledger->ledger_id;
     
         //creating categories
@@ -40,7 +59,7 @@ class HomeController extends Controller
                 'category_name' =>  $newCategories[$x]['category_name'], 
                 'category_type' =>  $newCategories[$x]['category_type'], 
             ];
-            $category = Categories::create($categoryFields);
+            $category = Category::create($categoryFields);
             $categoryID[] += $category->category_id;
         }        
         
@@ -58,13 +77,13 @@ class HomeController extends Controller
                 'ledger_id' => $ledgerID,
                 'category_id' => $totalCategories[$x],
             ];
-           Ledger_categories::create($Ledger_categoryFields);
+           LedgerCategory::create($Ledger_categoryFields);
         }
 
         return redirect()->route('home');
     }
 
-    public function addGoalMoney(Request $request, Goals $goals, Ledgers $ledger){
+    public function addGoalMoney(Request $request, Goal $goals, Ledger $ledger){
         dd($request, $goals, $ledger)
 ;       $addMoneyField = $request->validate([
             'balance' => ['required', 'numeric'],

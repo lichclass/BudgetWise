@@ -10,7 +10,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("CREATE VIEW user_goals_view AS
+        DB::statement("CREATE VIEW IF NOT EXISTS user_goals_view AS
             SELECT 
                 g.goal_id,
                 g.ledger_id,
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement('DROP VIEW IF EXISTS user_goals_view');
+        DB::statement("DROP VIEW IF EXISTS user_goals_view");
     }
 };

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
-use App\Models\Ledgers;
+use App\Models\Ledger;
 
 class HandleInertiaRequests extends Middleware
 {

@@ -1,14 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\TransactionsController;
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\LedgersController;
-use App\Http\Controllers\BudgetsController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LedgerCategoryController;
+use App\Http\Controllers\LedgerController;
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\StarterController;
 use App\Http\Controllers\HomeController;
-use App\Models\Budgets;
-use App\Models\Categories;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,17 +33,17 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::inertia('/home', 'Home')->name('home');
-    Route::get('/home', [LedgersController::class, 'index'])->name('home')->middleware('check.ledger');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::post('/home', [HomeController::class, 'createNewLedger'])->name('create-new-ledger');
 
     Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
 
-    Route::resource('transactions', TransactionsController::class);
-    Route::resource('budgets', BudgetsController::class);
-    Route::resource('category', CategoriesController::class);
+    Route::resource('transactions', TransactionController::class);
+    Route::resource('budgets', BudgetController::class);
+    Route::resource('category', CategoryController::class);
 
     Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 

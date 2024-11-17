@@ -63,7 +63,7 @@ const transactionData = [
         category_id: 5,
         amount: 1000,
         transaction_description: "Salary",
-        transaction_date: "2024-11-05",
+        transaction_date: "2024-11-07",
         transaction_type: "income",
     },
 ];

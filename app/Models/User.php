@@ -59,10 +59,10 @@ class User extends Authenticatable
 
     public function ledgers()
     {
-        return $this->hasMany(Ledgers::class, 'user_id');
+        return $this->hasMany(Ledger::class, 'user_id');
     }
     public function categories() : HasMany
     {
-        return $this->hasMany(Categories::class, 'user_id');
+        return $this->hasMany(Category::class, 'user_id');
     }
 }

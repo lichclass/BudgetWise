@@ -10,64 +10,6 @@ import LedgersDropdown from "@/Components/LedgersDropdown";
 import SearchBar from "@/Components/SearchBar";
 import CreateLedgerBtn from "@/Components/CreateLedgerBtn";
 
-
-const cat_sample = [
-    { // First Ledger
-        ledger_id: 1,
-        ledger_owner: 1,
-        user_id: 1,
-        category_id: 12,
-        category_name: "Allowance",
-        is_default: 1,
-        category_type: "income"
-    },
-    {
-        ledger_id: 1,
-        ledger_owner: 1,
-        user_id: null,
-        category_id: 3,
-        category_name: "Food & Drinks",
-        is_default: 1,
-        category_type: "expense"
-    },
-    {
-        ledger_id: 1,
-        ledger_owner: 1,
-        user_id: null,
-        category_id: 2,
-        category_name: "Groceries",
-        is_default: 1,
-        category_type: "expense"
-    },
-    { // Second Ledger
-        ledger_id: 2,
-        ledger_owner: 1,
-        user_id: 1,
-        category_id: 16,
-        category_name: "Salary",
-        is_default: 1,
-        category_type: "income"
-    },
-    {
-        ledger_id: 2,
-        ledger_owner: 1,
-        user_id: null,
-        category_id: 6,
-        category_name: "Goof & Drinks",
-        is_default: 1,
-        category_type: "expense"
-    },
-    {
-        ledger_id: 2,
-        ledger_owner: 1,
-        user_id: null,
-        category_id: 5,
-        category_name: "Skincare",
-        is_default: 1,
-        category_type: "expense"
-    }
-];
-
 const goals_sample = [
     {
         goal_id: 1,
@@ -106,7 +48,6 @@ function Home({ transactions, categories, goals, ledgers }) {
     const route = useRoute();
     const isInitialRender = useRef(true);
 
-
     const { data, setData, post } = useForm({
         ledger: activeLedger,
     });
@@ -115,6 +56,10 @@ function Home({ transactions, categories, goals, ledgers }) {
     useEffect(() => {
         if (isInitialRender.current) {
             isInitialRender.current = false; // Set initial render flag to false
+            console.log("Ledgers: ", ledgers);
+            console.log("Transactions: ", transactions);
+            console.log("Categories: ", categories);
+            console.log("Goals: ", goals);
         } else {
             // Only post if it's not the initial render
             post(route('set-current-ledger'));
@@ -141,14 +86,15 @@ function Home({ transactions, categories, goals, ledgers }) {
                         <SearchBar onSearch={handleSearch} />
 
                         <div className="flex justify-center md:justify-end gap-4">
-                            <CategoryContext.Provider value={cat_sample}>
+                            <LedgerContext.Provider value={ledgers}>
+                            <CategoryContext.Provider value={categories}>
                                 <CreateLedgerBtn />
+                                <LedgersDropdown 
+                                    activeLedger={activeLedger}
+                                    onLedgerChange={handleLedgerChange}
+                                />
                             </CategoryContext.Provider>
-                            <LedgersDropdown 
-                                ledgers={ledgers}
-                                activeLedger={activeLedger}
-                                onLedgerChange={handleLedgerChange}
-                            />
+                            </LedgerContext.Provider>
                         </div>
                     </div>
 
@@ -159,13 +105,13 @@ function Home({ transactions, categories, goals, ledgers }) {
                             {/* Categories */}
                             <CategoryList
                                 type="expense"
-                                categories={cat_sample}
+                                categories={categories}
                                 searchTerm={searchTerm}
                                 selectedLedger={activeLedger}
                             />
                             <CategoryList
                                 type="income"
-                                categories={cat_sample}
+                                categories={categories}
                                 searchTerm={searchTerm}
                                 selectedLedger={activeLedger}
                             />

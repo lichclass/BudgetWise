@@ -7,6 +7,7 @@ import WithdrawBalanceModal from "@/Layouts/ModalB";
 import { useState } from "react";
 import InputField from "@/Components/MainInputField";
 import { Checkbox } from 'antd';
+import { usePage } from "@inertiajs/react";
 
 function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline}) {
     const buttonStyle =
@@ -17,6 +18,8 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
         currency: 'PHP',
         minimumFractionDigits: 2
     });
+
+    const { ledger } = usePage().props;
 
     const [isEditGoalsModalOpen, setIsEditGoalsModalOpen] = useState(false);
     const [isAddBalanceModalOpen, setIsAddBalanceModalOpen] = useState(false);
@@ -34,28 +37,16 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
     const completion = (current / target) * 100;
 
     // Edit Modal
-    const showEditGoalsModal = () => {
-        setIsEditGoalsModalOpen(true);
-    }
-    const handleEditGoalsCancel = () => {
-        setIsEditGoalsModalOpen(false);
-    }
+    const showEditGoalsModal = () => setIsEditGoalsModalOpen(true);
+    const handleEditGoalsCancel = () => setIsEditGoalsModalOpen(false);
 
     // Add to Balance Modal
-    const showAddBalanceModal = () => {
-        setIsAddBalanceModalOpen(true);
-    }
-    const handleAddBalanceCancel = () => {
-        setIsAddBalanceModalOpen(false);
-    }
+    const showAddBalanceModal = () => setIsAddBalanceModalOpen(true);
+    const handleAddBalanceCancel = () => setIsAddBalanceModalOpen(false);
 
     // Withdraw from Balance Modal
-    const showWithdrawBalanceModal = () => {
-        setIsWithdrawBalanceModalOpen(true);
-    }
-    const handleWithdrawBalancesCancel = () => {
-        setIsWithdrawBalanceModalOpen(false);
-    }
+    const showWithdrawBalanceModal = () => setIsWithdrawBalanceModalOpen(true);
+    const handleWithdrawBalancesCancel = () => setIsWithdrawBalanceModalOpen(false);
 
     return (
         <>
@@ -155,7 +146,7 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
 
                                 <div className="flex justify-center gap-2 p-4">
                                     <h1 className="text-white text-2xl">Ledger Balance: </h1>
-                                    <h1 className="text-white text-2xl font-bold">{formaterr.format(current)}</h1>
+                                    <h1 className="text-white text-2xl font-bold">{formaterr.format(ledger.balance)}</h1>
                                 </div>
 
                                 <InputField
@@ -192,7 +183,7 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                                 <div className="flex justify-center gap-2 p-4">
                                     <h1 className="text-white text-2xl">Goal Balance: </h1>
                                     {/* 'current' is used for now as ledger balance is not passed properly from home */}
-                                    <h1 className="text-white text-2xl font-bold">{formaterr.format(current)}</h1> 
+                                    <h1 className="text-white text-2xl font-bold">{formaterr.format(parseFloat(ledger.total_balance))}</h1> 
                                 </div>
 
                                 <InputField

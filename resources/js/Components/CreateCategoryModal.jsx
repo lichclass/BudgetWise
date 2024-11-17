@@ -8,7 +8,7 @@ function CreateCategoryModal({ type, isModalOpen, handleCancel}){
         <>
             <ModalB
                 title="Create Category"
-                subtitle={ type === "expense" ? "Expense" : "Income" }
+                subtitle={ type && (type === "expense" ? "Expense" : "Income") }
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
             >

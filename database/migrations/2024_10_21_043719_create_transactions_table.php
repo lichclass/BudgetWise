@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories', 'category_id');
             $table->decimal('amount', 12, 2); 
             $table->string('transaction_description')->nullable();   
-            $table->date('transaction_date');
+            $table->timestamp('transaction_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->enum('transaction_type', ['expense', 'income']);
             $table->boolean('is_deleted')->default(false);  
             $table->timestamps();
