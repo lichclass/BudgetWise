@@ -63,6 +63,7 @@ function CategoryCard({ category, amount }) {
                 {/* Buttons */}
                 <Space className="flex flex-shrink-0 justify-between flex-grow-0 px-1 mb-2">
                     <AddTransactionBtn
+                        cat_id={category.category_id}
                         type={category.category_type}
                         name={category.category_name}
                     />

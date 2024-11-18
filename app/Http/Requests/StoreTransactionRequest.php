@@ -26,6 +26,7 @@ class StoreTransactionRequest extends FormRequest
     {
         return [
             'ledger_id' => ['required', 'numeric'],
+            'category_id' => ['required', 'numeric'],
             'amount' => ['required', 'numeric'],
             'transaction_description' => ['string', 'max:255'],
             'transaction_date' => ['required', 'date', 'default:'.now()->toDateString()],
