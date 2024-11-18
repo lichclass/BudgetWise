@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Categories;
+use App\Models\Category;
 
 class CategorySeeder extends Seeder
 {
@@ -32,7 +32,7 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            Categories::create([
+            Category::create([
                 'category_name' => $category['name'],
                 'is_default' => true,
                 'category_type' => $category['type'],
