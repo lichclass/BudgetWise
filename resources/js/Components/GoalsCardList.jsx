@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Checkbox } from 'antd';
 import CreateGoalsModal from "@/Layouts/ModalB";
 import InputField from "@/Components/MainInputField";
+import { useForm } from "@inertiajs/react";
 
 function GoalsCard({ goals, selectedLedger }) {
 
@@ -24,9 +25,11 @@ function GoalsCard({ goals, selectedLedger }) {
 
 
     const [isCreateGoalsModalOpen, setIsCreateGoalsModalOpen] = useState(false);
-    const [goalName, setGoalName] = useState('');
-    const [goalLimit, setGoalLimit] = useState('');
-    const [goalDate, setGoalDate] = useState('');
+
+    // const [goalName, setGoalName] = useState('');
+    // const [goalLimit, setGoalLimit] = useState('');
+    // const [goalDate, setGoalDate] = useState('');
+    
     const [isDeadlineSet, setDeadlineEnable] = useState(false);
 
     const showCreateGoalsModal = () => {
@@ -36,6 +39,18 @@ function GoalsCard({ goals, selectedLedger }) {
     const handleCreateGoalsCancel = () => {
         setIsCreateGoalsModalOpen(false);
     }
+
+    const {data, setData} = useForm({
+        goal_name: "",
+        goal_limit:"",
+        goal_date: "",
+    });
+
+    function submitAddGoal(e){
+        e.preventDefault();
+        console.log(data);
+    }
+
 
     return (
         <div className="bg-[#174A65D1] rounded-lg shadow-lg w-full h-full flex flex-col overflow-auto max-h-[570px]">
@@ -49,61 +64,66 @@ function GoalsCard({ goals, selectedLedger }) {
                     Add Goal
                 </button>
 
-                {/* Create Goals Modal */}
-                <CreateGoalsModal
-                    title="Create a Goal"
-                    subtitle="Ex. Save for Tuition"
-                    isModalOpen={isCreateGoalsModalOpen}
-                    handleCancel={handleCreateGoalsCancel}
-                    large={false}
-                >
+                    {/* Create Goals Modal */}
+                    <CreateGoalsModal
+                        title="Create a Goal"
+                        subtitle="Ex. Save for Tuition"
+                        isModalOpen={isCreateGoalsModalOpen}
+                        handleCancel={handleCreateGoalsCancel}
+                        large={false}
+                        onClick={submitAddGoal}
+                    >
 
-                    <div className="flex flex-col gap-4 pb-5">
-                        <InputField
-                            label="Goal Name"
-                            htmlFor="goal_name"
-                            type="text"
-                            name="goal_name"
-                            placeholder="Enter a goal name"
-                            value={goalName}
-                            onChange={(e) => setGoalName(e.target.value)}
-                        />
+                    <form action="" onSubmit={submitAddGoal}>
 
-                        <InputField
-                            label="Amount Limit"
-                            htmlFor="goal_limit"
-                            type="number"
-                            name="goal_limit"
-                            placeholder="Set amount limit"
-                            value={goalLimit}
-                            onChange={(e) => setGoalLimit(e.target.value)}
-                        />
-
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-4 pb-5">
                             <InputField
-                                label="Date"
-                                htmlFor="goal_date"
-                                type="date"
-                                name="goal_date"
-                                placeholder="dd/mm/yy"
-                                value={goalDate}
-                                onChange={(e) => setGoalDate(e.target.value)}
-                                isReadOnly={!isDeadlineSet}
-                            />
+                                label="Goal Name"
+                                htmlFor="goal_name"
+                                type="text"
+                                name="goal_name"
+                                placeholder="Enter a goal name"
+                                value={data.goalName}
+                                onChange={(e) => setData('goal_name', e.target.value)}
+                                />
 
-                            <Checkbox
-                                name='setDeadline'
-                                className='text-md font-semibold text-gray-300'
-                                onChange={(e) => setDeadlineEnable(e.target.checked)}
-                            >
-                                Set Deadline
-                            </Checkbox>
+                            <InputField
+                                label="Amount Limit"
+                                htmlFor="goal_limit"
+                                type="number"
+                                name="goal_limit"
+                                placeholder="Set amount limit"
+                                value={data.goalLimit}
+                                onChange={(e) => setData('goal_limit', e.target.value)}
+                                />
+
+                            <div className="flex flex-col gap-2">
+                                <InputField
+                                    label="Date"
+                                    htmlFor="goal_date"
+                                    type="date"
+                                    name="goal_date"
+                                    placeholder="dd/mm/yy"
+                                    value={data.goalDate}
+                                    onChange={(e) => setData('goal_date', e.target.value)}
+                                    isReadOnly={!isDeadlineSet}
+                                />
+
+                                <Checkbox
+                                    name='setDeadline'
+                                    className='text-md font-semibold text-gray-300'
+                                    onChange={(e) => setDeadlineEnable(e.target.checked)}
+                                >
+                                    Set Deadline
+                                </Checkbox>
+                            </div>
+
                         </div>
 
-                    </div>
+                        </form>
+                    </CreateGoalsModal>
 
-
-                </CreateGoalsModal>
+                
 
             </div>
 

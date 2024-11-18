@@ -7,7 +7,7 @@ import WithdrawBalanceModal from "@/Layouts/ModalB";
 import { useState } from "react";
 import InputField from "@/Components/MainInputField";
 import { Checkbox } from 'antd';
-import { usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 
 function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline}) {
     const buttonStyle =
@@ -25,14 +25,13 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
     const [isAddBalanceModalOpen, setIsAddBalanceModalOpen] = useState(false);
     const [isWithdrawBalanceModalOpen, setIsWithdrawBalanceModalOpen] = useState(false);
 
-    const [goalName, setGoalName] = useState('');
-    const [goalLimit, setGoalLimit] = useState('');
-    const [goalDate, setGoalDate] = useState('');
+    // const [goalName, setGoalName] = useState('');
+    // const [goalLimit, setGoalLimit] = useState('');
+    // const [goalDate, setGoalDate] = useState('');
+    // const [addAmt, setAddAmt] = useState('');
+    // const [withdrawAmt, setWithdrawAmt] = useState('');
+
     const [isDeadlineInputSet, setDeadlineInputEnable] = useState(isDeadlineSet);
-
-    const [addAmt, setAddAmt] = useState('');
-    const [withdrawAmt, setWithdrawAmt] = useState('');
-
 
     const completion = (current / target) * 100;
 
@@ -48,6 +47,28 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
     const showWithdrawBalanceModal = () => setIsWithdrawBalanceModalOpen(true);
     const handleWithdrawBalancesCancel = () => setIsWithdrawBalanceModalOpen(false);
 
+    const {data, setData} = useForm({
+        goal_name: "",
+        goal_limit:"",
+        goal_date: "",
+        amount_added: "",
+    });
+
+    function submitEdit(e){
+        e.preventDefault();
+        console.log(data);
+    }
+
+    function submitAdd(e){
+        e.preventDefault();
+        console.log(data);
+    }
+
+    function submitWithdraw(e){
+        e.preventDefault();
+        console.log(data);
+    }
+
     return (
         <>
             <div className="bg-[#0F3A51] rounded-lg px-8 pb-5 pt-3 flex flex-col gap-y-2 border border-transparent hover:border-white/30 transition-all duration-200 ease-in-out shadow-sm">
@@ -58,14 +79,16 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                         <FaEdit className="text-white text-opacity-80 transition-all duration-200 ease-in-out hover:scale-110" />
                     </button> 
 
-                    {/* Edit Modal */}
-                    <EditGoalsModal
-                        title="Edit Goal"
-                        isModalOpen={isEditGoalsModalOpen}
-                        handleCancel={handleEditGoalsCancel}
-                        deleteTitle="Goal"
-                        deleteContent="Are you sure you want to delete this goal?"
-                    >
+                        {/* Start of Edit Modal */}
+                        <EditGoalsModal
+                            title="Edit Goal"
+                            isModalOpen={isEditGoalsModalOpen}
+                            handleCancel={handleEditGoalsCancel}
+                            deleteTitle="Goal"
+                            deleteContent="Are you sure you want to delete this goal?"
+                        >
+                        <form action="" onSubmit={submitEdit}>
+
                         <div className="flex flex-col gap-4 pb-5">
 
                             <InputField
@@ -74,8 +97,8 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                                 type="text"
                                 name="goal_name"
                                 placeholder={title}
-                                value={goalName || title}
-                                onChange={(e) => setGoalName(e.target.value)}
+                                value={data.goal_name || title}
+                                onChange={(e) => setData('goal_name', e.target.value)}
                             />
 
                             <InputField
@@ -84,8 +107,8 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                                 type="number"
                                 name="goal_limit"
                                 placeholder={target}
-                                value={goalLimit || target}
-                                onChange={(e) => setGoalLimit(e.target.value)}
+                                value={data.goal_limit || target}
+                                onChange={(e) => setData('goal_limit', e.target.value)}
                             />
 
                             <div className="flex flex-col gap-2">
@@ -94,8 +117,8 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                                     htmlFor="goal_date"
                                     type="date"
                                     name="goal_date"
-                                    value={goalDate || targetDate}
-                                    onChange={(e) => setGoalDate(e.target.value)}
+                                    value={data.goal_date || targetDate}
+                                    onChange={(e) => setData('goal_date', e.target.value)}
                                     isReadOnly={!isDeadlineInputSet}
                                 />
 
@@ -110,8 +133,10 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                             </div>
 
                         </div>
-                        
-                    </EditGoalsModal>
+                        </form>
+                        </EditGoalsModal>
+                        {/* End of Edit Modal */}
+                    
 
                 </div>
                 
@@ -131,74 +156,83 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                             <FaPlus className="text-xs" />
                             <p className={`font-thin`}>Add Money</p>
                         </button>
-
-                        {/* Add Balance Modal */}
                         
-                        <AddBalanceModal
-                            title="Add Money"
-                            subtitle={title}
-                            isModalOpen={isAddBalanceModalOpen}
-                            handleCancel={handleAddBalanceCancel}
-                            large={false}
-                        > 
-                            
-                            <div className="flex flex-col gap-4 pb-5">
+                            {/* Start of Add Balance Modal */}
+                                                    
+                            <AddBalanceModal
+                                title="Add Money"
+                                subtitle={title}
+                                isModalOpen={isAddBalanceModalOpen}
+                                handleCancel={handleAddBalanceCancel}
+                                large={false}
+                            > 
+                            <form action="" onSubmit={submitAdd} className="">
 
-                                <div className="flex justify-center gap-2 p-4">
-                                    <h1 className="text-white text-2xl">Ledger Balance: </h1>
-                                    <h1 className="text-white text-2xl font-bold">{formaterr.format(ledger.balance)}</h1>
+                                <div className="flex flex-col gap-4 pb-5">
+                                    <div className="flex justify-center gap-2 p-4">
+                                        <h1 className="text-white text-2xl">Ledger Balance: </h1>
+                                        <h1 className="text-white text-2xl font-bold">{formaterr.format(ledger.balance)}</h1>
+                                    </div>
+
+                                    <InputField
+                                        label="Amount"
+                                        htmlFor="amount_added"
+                                        type="number"
+                                        name="amount_added"
+                                        placeholder="Enter amount"
+                                        value={data.amount_added}
+                                        onChange={(e) => setData('amount_added', e.target.value)}
+                                        onClick = {submitAdd}
+                                    />
                                 </div>
+                                </form>
 
-                                <InputField
-                                    label="Amount"
-                                    htmlFor="amount_added"
-                                    type="number"
-                                    name="amount_added"
-                                    placeholder="Enter amount"
-                                    value={withdrawAmt}
-                                    onChange={(e) => setWithdrawAmt(e.target.value)}
-                                />
-                            </div>
+                            </AddBalanceModal>
 
-                        </AddBalanceModal>
+                            {/* End of Add Balance Modal */}
+
+                        
 
                         <button className={`${buttonStyle}`} onClick={showWithdrawBalanceModal}>
                             <FaMinus className="text-xs" />
                             <p className={`font-thin`}>Withdraw</p>
                         </button>
 
-                        {/* Withdraw Balance Modal */}
+                            {/* Start of Withdraw Balance Modal */}
                         
-                        <WithdrawBalanceModal 
-                            title="Withdraw Money"
-                            subtitle={title}
-                            isModalOpen={isWithdrawBalanceModalOpen}
-                            handleCancel={handleWithdrawBalancesCancel}
-                            large={false}
-                            isGoalsWithdraw={true}
-                        > 
-                            
-                            <div className="flex flex-col gap-4 pb-5">
-                                
-                                <div className="flex justify-center gap-2 p-4">
-                                    <h1 className="text-white text-2xl">Goal Balance: </h1>
-                                    {/* 'current' is used for now as ledger balance is not passed properly from home */}
-                                    <h1 className="text-white text-2xl font-bold">{formaterr.format(parseFloat(ledger.total_balance))}</h1> 
+                            <WithdrawBalanceModal 
+                                title="Withdraw Money"
+                                subtitle={title}
+                                isModalOpen={isWithdrawBalanceModalOpen}
+                                handleCancel={handleWithdrawBalancesCancel}
+                                large={false}
+                                isGoalsWithdraw={true}
+                            > 
+                                <form action="" onSubmit={submitWithdraw}>
+
+                                <div className="flex flex-col gap-4 pb-5">
+                                    
+                                    <div className="flex justify-center gap-2 p-4">
+                                        <h1 className="text-white text-2xl">Goal Balance: </h1>
+                                        {/* 'current' is used for now as ledger balance is not passed properly from home */}
+                                        <h1 className="text-white text-2xl font-bold">{formaterr.format(parseFloat(ledger.total_balance))}</h1> 
+                                    </div>
+
+                                    <InputField
+                                        label="Amount"
+                                        htmlFor="amount_added"
+                                        type="number"
+                                        name="amount_added"
+                                        placeholder="Enter amount"
+                                        value={data.amount_added}
+                                        onChange={(e) => setData('amount_added', e.target.value)}
+                                        onClick = {submitWithdraw}
+                                    />
                                 </div>
+                                </form>
+                            </WithdrawBalanceModal>
 
-                                <InputField
-                                    label="Amount"
-                                    htmlFor="amount_added"
-                                    type="number"
-                                    name="amount_added"
-                                    placeholder="Enter amount"
-                                    value={withdrawAmt}
-                                    onChange={(e) => setWithdrawAmt(e.target.value)}
-                                />
-                            </div>
-
-                        </WithdrawBalanceModal>
-
+                            {/* End of Withdraw Balance Modal */}
 
                     </div>
 
