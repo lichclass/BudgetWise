@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/home', [HomeController::class, 'createNewLedger'])->name('create-new-ledger');
+    Route::put('/home', [HomeController::class, 'addGoalMoney'])->name('add-balance');
+    Route::put('/home', [HomeController::class, 'withdrawGoalMoney'])->name('withdraw-balance');
 
     Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
 

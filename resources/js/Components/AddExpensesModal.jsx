@@ -1,15 +1,36 @@
 import ModalB from "@/Layouts/ModalB";
 import MainInputField from '@/Components/MainInputField';
+import { useForm, usePage } from '@inertiajs/react';
 
-function AddExpensesModal({ name, isModalOpen, handleCancel}){
+
+
+function AddExpensesModal({ name, cat_id, isModalOpen, handleCancel}){
+
+    const { ledger } = usePage().props;
+    const { data, setData } = useForm({
+        ledger_id: ledger.ledger_id,
+        category_id: cat_id,
+        amount: '',
+        transaction_description: '',
+        transaction_date: '',
+        transaction_type: 'expense',
+    });
+
+    function submit(e){
+        e.preventDefault();
+        console.log(data);
+        // post(route('transactions.store'));
+    }
     return(
         <>
+            <form onSubmit={submit}>
             <ModalB
                 title="Add Expense"
                 subtitle={name}
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 large="true"
+                onSubmit={submit}
             >
 
                     <div className = "flex flex-row">
@@ -30,6 +51,7 @@ function AddExpensesModal({ name, isModalOpen, handleCancel}){
                                 type="number"
                                 name="input-amount"
                                 placeholder="Enter Amount"
+                                onChange={(e) => setData('amount', e.target.value)}
                             />
 
                             <MainInputField 
@@ -38,6 +60,7 @@ function AddExpensesModal({ name, isModalOpen, handleCancel}){
                                 type="text"
                                 name="description"
                                 placeholder="Enter Description"
+                                onChange={(e) => setData('transaction_description', e.target.value)}
                             />
 
                             <MainInputField 
@@ -47,10 +70,12 @@ function AddExpensesModal({ name, isModalOpen, handleCancel}){
                                 type="date"
                                 name="input-date"
                                 placeholder="Enter the Date"
+                                onChange={(e) => setData('transaction_date', e.target.value)}
                             />
                         </div>
                     </div>
             </ModalB>
+            </form>
         </>
     )
 }
