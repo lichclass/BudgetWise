@@ -32,7 +32,7 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            Categories::create([
+            Category::create([
                 'category_name' => $category['name'],
                 'is_default' => true,
                 'category_type' => $category['type'],
