@@ -5,7 +5,7 @@ import { Modal } from 'antd'
 import { IoCloseOutline } from 'react-icons/io5'
 import { useState } from 'react'
 
-function ModalC({ title, subtitle, children, isModalOpen, handleCancel, deleteTitle, deleteContent, large=false }) {
+function ModalC({ title, subtitle, children, isModalOpen, handleCancel, deleteTitle, deleteContent, large=false, onClick }) {
 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isSetBudgetModalOpen, setisSetBudgetModalOpen] = useState(false);
@@ -51,7 +51,7 @@ function ModalC({ title, subtitle, children, isModalOpen, handleCancel, deleteTi
                         <GreenBtnMed
                             text="Save"
                             width="w-1/2"
-                            onClick={handleCancel}
+                            onClick={onClick}
                         />
                     </div>
                 }
