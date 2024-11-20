@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import DeleteBudgetModal from "@/Layouts/ModalA";
 import SetBudgetModal from "@/Layouts/ModalB";
 import EditBudgetModal from "@/Layouts/ModalC";
 import InputField from "@/Components/MainInputField";
+import { useForm } from "@inertiajs/react";
 
-function BudgetCat({ category, amount, isSet }) {
+function BudgetCat({ categoryID, category, amount, isSet }) {
     const formaterr = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'PHP',
         minimumFractionDigits: 2
     });
 
-    const [budgetAmount, setBudgetAmount] = useState('');
+    // const [budgetAmount, setBudgetAmount] = useState('');
     const [isSetBudgetModalOpen, setisSetBudgetModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -30,6 +30,21 @@ function BudgetCat({ category, amount, isSet }) {
     }
     const handleEditCancel = () => {
         setIsEditModalOpen(false);
+    }
+
+    const {data, setData} = useForm({
+        budget_amount: "",
+        category_id: categoryID
+    });
+
+    function submitEditBudgetAmt(e){
+        e.preventDefault();
+        console.log(data);
+    }
+
+    function submitAddBudgetAmt(e){
+        e.preventDefault();
+        console.log(data);
     }
 
     return (
@@ -53,18 +68,20 @@ function BudgetCat({ category, amount, isSet }) {
                             handleCancel={handleEditCancel}
                             deleteTitle={category}
                             deleteContent="Are you sure you want to delete this budget category?"
+                            onClick={submitEditBudgetAmt}
                         >
-                             <div className="flex flex-col pt-3 pb-7">
+                            <div className="flex flex-col pt-3 pb-7">
                                 <InputField
                                     label="Amount Limit"
                                     htmlFor="budget_amount"
                                     type="number"
                                     name="budget_amount"
                                     placeholder={amount}
-                                    value={budgetAmount}
-                                    onChange={(e) => setBudgetAmount(e.target.value)}
+                                    value={data.budget_amount}
+                                    onChange={(e) => setData('budget_amount', e.target.value)}
                                 />                                    
                             </div>
+
                         </EditBudgetModal>
 
                         <div className="flex gap-1">
@@ -85,6 +102,7 @@ function BudgetCat({ category, amount, isSet }) {
                             isModalOpen={isSetBudgetModalOpen}
                             handleCancel={handleSetBudgetCancel}
                             large={false}
+                            onSubmit={submitAddBudgetAmt}
                         >
                             <div className="flex flex-col pt-3 pb-7">
                                 <InputField
@@ -93,8 +111,8 @@ function BudgetCat({ category, amount, isSet }) {
                                     type="number"
                                     name="budget_amount"
                                     placeholder="Enter Amount"
-                                    value={budgetAmount}
-                                    onChange={(e) => setBudgetAmount(e.target.value)}
+                                    value={data.budget_amount}
+                                    onChange={(e) => setData('budget_amount', e.target.value)}
                                 />                                    
                             </div>
 

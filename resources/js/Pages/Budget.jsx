@@ -63,8 +63,8 @@ function Budget({ budgets, expenses }){
                 
                                     {/* Expenses Overview */}
                                 <div className="h-full md:w-full pt-2 flex flex-col">
-                                        <BudgetCat category="Food" amount={1000} isSet={true} />
-                                        <BudgetCat category="Transportation" amount={0} isSet={false} />
+                                        <BudgetCat categoryID={1} category="Food" amount={1000} isSet={true} />
+                                        <BudgetCat categoryID={2} category="Transportation" amount={0} isSet={false} />
                                 </div>
                 
                             </div>
