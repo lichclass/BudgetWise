@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("CREATE VIEW IF NOT EXISTS user_budgets_view AS
+        DB::statement("CREATE OR REPLACE VIEW user_budgets_view AS
             SELECT 
                 u.user_id,
                 l.ledger_id,

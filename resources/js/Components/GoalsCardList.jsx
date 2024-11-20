@@ -71,7 +71,7 @@ function GoalsCard({ goals, selectedLedger }) {
                         isModalOpen={isCreateGoalsModalOpen}
                         handleCancel={handleCreateGoalsCancel}
                         large={false}
-                        onClick={submitAddGoal}
+                        onSubmit={submitAddGoal}
                     >
 
                     <form action="" onSubmit={submitAddGoal}>

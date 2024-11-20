@@ -1,6 +1,5 @@
-import { useState, useContext } from "react";
-import { CategoryContext } from "@/Pages/Home";
-import { useForm } from "@inertiajs/react";
+import { useState } from "react";
+import { useForm, usePage } from "@inertiajs/react";
 import { TiDelete } from "react-icons/ti";
 import ModalB from "@/Layouts/ModalB";
 import MainInputField from "@/Components/MainInputField";
@@ -14,7 +13,7 @@ const checkboxLabelStyle =
     "size-label px-4 py-2 border text-white border-gray-600 font-normal rounded-2xl cursor-pointer shadow-sm transition-colors peer-checked:bg-teal-700 peer-checked:border-teal-700 peer-checked:text-white";
 
 function CreateLedgerModal({ isModalOpen, handleCancel }) {
-    const categories = useContext(CategoryContext);
+    const categories = usePage().props.categories;
     const [currentTabArray, setCurrentTabArray] = useState("expense");
     const [isAddCatModalOpen, setIsAddCatModalOpen] = useState(false);
 
@@ -116,7 +115,7 @@ function CreateLedgerModal({ isModalOpen, handleCancel }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(data);
-        post(route('create-new-ledger'));
+        post(route("create-new-ledger"));
     };
 
     return (

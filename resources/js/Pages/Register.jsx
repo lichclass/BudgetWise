@@ -41,7 +41,7 @@ function Login() {
 
 
             {/* Sign-In Form */}
-            <form onSubmit={submit} method="POST" className='flex flex-col space-y-4'>
+            <form onSubmit={submit} className='flex flex-col space-y-4'>
 
                 {/* First Name and Last Name */}
                 <div className='flex w-full space-x-3'>

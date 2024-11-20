@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
-import { CategoryContext } from "@/Pages/Home";
+import { usePage } from "@inertiajs/react";
 import { IoIosAdd } from "react-icons/io";
 import CreateLedgerModal from "./CreateLedgerModal";
 
 function CreateLedgerBtn() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const categories = useContext(CategoryContext);
+    const { categories } = usePage().props;
 
     const showModal = () => setIsModalOpen(true);
     const handleCancel = () => setIsModalOpen(false);

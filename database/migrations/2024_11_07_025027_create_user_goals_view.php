@@ -10,7 +10,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("CREATE VIEW IF NOT EXISTS user_goals_view AS
+        DB::statement("CREATE OR REPLACE VIEW user_goals_view AS
             SELECT 
                 g.goal_id,
                 g.ledger_id,
@@ -21,9 +21,9 @@ return new class extends Migration
                 g.target_date,
                 g.created_at,
                 g.updated_at
-            FROM Users u
-            JOIN Ledgers l ON u.user_id = l.user_id
-            JOIN Goals g ON l.ledger_id = g.ledger_id
+            FROM users u
+            JOIN ledgers l ON u.user_id = l.user_id
+            JOIN goals g ON l.ledger_id = g.ledger_id
             ORDER BY g.target_date");
     }
 

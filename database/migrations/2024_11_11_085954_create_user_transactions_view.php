@@ -10,11 +10,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("CREATE VIEW IF NOT EXISTS user_transactions_view AS
+        DB::statement("CREATE OR REPLACE VIEW user_transactions_view AS
             SELECT 
                 u.user_id,
                 l.ledger_id,
                 c.category_id,
+                c.category_name,
                 t.reference_id,
                 t.amount,
                 t.transaction_description,
@@ -23,8 +24,8 @@ return new class extends Migration
             FROM
                 users u 
             JOIN ledgers l ON u.user_id = l.user_id
-            JOIN transactions t ON l.ledger_id = t.reference_id
-            JOIN categories c ON t.reference_id = c.category_id;");
+            JOIN transactions t ON l.ledger_id = t.ledger_id
+            JOIN categories c ON t.category_id = c.category_id;");
     }
 
     /**

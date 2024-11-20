@@ -1,17 +1,13 @@
 import { Dropdown, Space } from "antd";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
-import { FaRegEdit } from "react-icons/fa";
-import { useState, useRef, useContext } from "react";
-import { LedgerContext } from "@/Pages/Home";
+import { useState, useRef } from "react";
+import { usePage } from "@inertiajs/react";
 import EditLedgerBtn from "./EditLedgerBtn";
 
-function LedgersDropdown({
-    activeLedger,
-    onLedgerChange,
-}) {
+function LedgersDropdown({ activeLedger, onLedgerChange }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const buttonRef = useRef(null);
-    const ledgers = useContext(LedgerContext);
+    const { ledgers } = usePage().props;
 
     const items = ledgers.map((ledger) => ({
         key: ledger.ledger_id,
