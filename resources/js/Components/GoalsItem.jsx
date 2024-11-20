@@ -9,7 +9,7 @@ import InputField from "@/Components/MainInputField";
 import { Checkbox } from 'antd';
 import { useForm, usePage } from "@inertiajs/react";
 
-function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline}) {
+function GoalsItem({key, id, title, target, current, targetDate, isDeadlineSet, deadline}) {
     const buttonStyle =
         "text-white text-opacity-70 bg-transparent text-xs flex items-center justify-center rounded-md border border-white border-opacity-30 px-2 py-3 hover:bg-white hover:text-slate-700 transition h-4 gap-1 whitespace-nowrap";
 
@@ -24,12 +24,6 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
     const [isEditGoalsModalOpen, setIsEditGoalsModalOpen] = useState(false);
     const [isAddBalanceModalOpen, setIsAddBalanceModalOpen] = useState(false);
     const [isWithdrawBalanceModalOpen, setIsWithdrawBalanceModalOpen] = useState(false);
-
-    // const [goalName, setGoalName] = useState('');
-    // const [goalLimit, setGoalLimit] = useState('');
-    // const [goalDate, setGoalDate] = useState('');
-    // const [addAmt, setAddAmt] = useState('');
-    // const [withdrawAmt, setWithdrawAmt] = useState('');
 
     const [isDeadlineInputSet, setDeadlineInputEnable] = useState(isDeadlineSet);
 
@@ -48,20 +42,22 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
     const handleWithdrawBalancesCancel = () => setIsWithdrawBalanceModalOpen(false);
 
     const {data, setData} = useForm({
-        goal_name: "",
-        goal_limit:"",
-        goal_date: "",
+        goal_id: id,
+        goal_name: title,
+        goal_limit: target,
+        goal_date: targetDate,
         amount_added: "",
     });
 
     function submitEdit(e){
-        e.preventDefault();
+        data.goal_date = (isDeadlineInputSet) ?  document.querySelector('input[name="goal_date"]').value : null;
+        e.preventDefault();      
         console.log(data);
     }
 
     function submitAdd(e){
         e.preventDefault();
-        console.log(data);
+        console.log(data);  
     }
 
     function submitWithdraw(e){
@@ -86,8 +82,9 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                             handleCancel={handleEditGoalsCancel}
                             deleteTitle="Goal"
                             deleteContent="Are you sure you want to delete this goal?"
+                            onClick={submitEdit}
                         >
-                        <form action="" onSubmit={submitEdit}>
+                        
 
                         <div className="flex flex-col gap-4 pb-5">
 
@@ -133,7 +130,7 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                             </div>
 
                         </div>
-                        </form>
+                       
                         </EditGoalsModal>
                         {/* End of Edit Modal */}
                     
@@ -165,8 +162,9 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                                 isModalOpen={isAddBalanceModalOpen}
                                 handleCancel={handleAddBalanceCancel}
                                 large={false}
+                                onSubmit = {submitAdd}
                             > 
-                            <form action="" onSubmit={submitAdd} className="">
+                            
 
                                 <div className="flex flex-col gap-4 pb-5">
                                     <div className="flex justify-center gap-2 p-4">
@@ -182,10 +180,9 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                                         placeholder="Enter amount"
                                         value={data.amount_added}
                                         onChange={(e) => setData('amount_added', e.target.value)}
-                                        onClick = {submitAdd}
                                     />
                                 </div>
-                                </form>
+                                
 
                             </AddBalanceModal>
 
@@ -207,6 +204,7 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                                 handleCancel={handleWithdrawBalancesCancel}
                                 large={false}
                                 isGoalsWithdraw={true}
+                                onSubmit = {submitWithdraw}
                             > 
                                 <form action="" onSubmit={submitWithdraw}>
 
@@ -226,7 +224,7 @@ function GoalsItem({ title, target, current, targetDate, isDeadlineSet, deadline
                                         placeholder="Enter amount"
                                         value={data.amount_added}
                                         onChange={(e) => setData('amount_added', e.target.value)}
-                                        onClick = {submitWithdraw}
+                                        
                                     />
                                 </div>
                                 </form>

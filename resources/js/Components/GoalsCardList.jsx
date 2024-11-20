@@ -134,7 +134,8 @@ function GoalsCard({ goals, selectedLedger }) {
                 ) : (
                     filteredGoals.map((goal) => (
                         <GoalsItem
-                            key={goal.goal_id} 
+                            key={goal.goal_id}
+                            id={goal.goal_id} 
                             title={goal.title}
                             target={goal.target_income}
                             current={goal.current_saving}
