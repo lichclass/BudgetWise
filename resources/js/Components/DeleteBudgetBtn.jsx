@@ -3,8 +3,8 @@ import DeleteBtn from "./DeleteBtn";
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
-function DeleteBudgetBtn({ budget_id }) {
-    const { data, setData } = useForm({
+function DeleteBudgetBtn({ budget_id = 1 }) {
+    const { data, setData, delete:destroy } = useForm({
         budget_id: budget_id,
     });
 
@@ -15,7 +15,8 @@ function DeleteBudgetBtn({ budget_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Data to delete (Budget): " + data.budget_id);
+        // console.log("Data to delete (Budget): " + data.budget_id);
+        destroy(route("budget.destroy", budget_id));
     };
 
     return (
