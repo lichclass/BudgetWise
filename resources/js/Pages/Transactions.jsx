@@ -33,12 +33,6 @@ function Transactions() {
 
     const handleDateChange = (date) => setSelectedDate(date);
 
-    useEffect(() => {
-        console.log("Transactions: ", transactionData);
-        console.log("Total Expenses: ", total_expenses);
-        console.log("Total Income: ", total_income);
-    }, []);
-
     return (
         <>
             {/* This is for the page title */}

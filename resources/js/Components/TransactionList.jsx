@@ -2,6 +2,10 @@ import TransactCat from "./TransactCat";
 import { FaCalendarAlt } from "react-icons/fa";
 
 function TransactionList({ transactionData, selectedDate }) {
+    const formattedSelectedDate = new Date(selectedDate).toLocaleDateString(
+        "en-CA"
+    );
+
     return (
         <div className="flex flex-col h-full space-y-2">
             {/* Date */}
@@ -54,26 +58,21 @@ function TransactionList({ transactionData, selectedDate }) {
                 {/* Transaction List */}
                 <div className="flex flex-col py-2 space-y-2 overflow-y-auto max-h-[20vh]">
                     {transactionData &&
-                        transactionData.map((transaction, index) => (
-                            <TransactCat
-                                key={index}
-                                category={transaction.category_name}
-                                amount={transaction.amount}
-                                time={transaction.transaction_date}
-                                description={
-                                    transaction.transaction_description
-                                }
-                                type={transaction.type}
-                            />
-                        ))}
-
-                    {/* <TransactCat 
-                        category="Food & Drinks" 
-                        amount={1000} 
-                        time={"12:00 PM"}
-                        description="Lunch at Jollibee"
-                        isIncome={false}
-                    /> */}
+                        transactionData
+                            .filter((transaction) => {
+                                const transactionDate = new Date(
+                                    transaction.transaction_date
+                                ).toLocaleDateString("en-CA");
+                                return (
+                                    transactionDate === formattedSelectedDate
+                                );
+                            })
+                            .map((transaction, index) => (
+                                <TransactCat
+                                    key={index}
+                                    transaction={transaction}
+                                />
+                            ))}
                 </div>
             </div>
         </div>

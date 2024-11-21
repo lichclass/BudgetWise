@@ -3,8 +3,11 @@ import { Card, Space } from "antd";
 import AddTransactionBtn from "./AddTransactionBtn";
 import EditCatBtn from "./EditCatBtn";
 import { downscale } from "@/utilityFunctions";
+import { usePage } from "@inertiajs/react";
 
-function CategoryCard({ category, amount }) {
+function CategoryCard({ category }) {
+    const { transactions, ledger } = usePage().props;
+
     const formaterr = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "PHP",
@@ -13,19 +16,27 @@ function CategoryCard({ category, amount }) {
 
     const [fontSize, setFontSize] = useState();
 
+    const total_amount = transactions
+    .filter(
+        (transaction) =>
+            transaction.ledger_id === ledger.ledger_id &&
+            transaction.category_id === category.category_id
+    )
+    .reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0);
+
     useEffect(() => {
         const expectedMaxLength = 6; // Example expected maximum length
         const baseFontSize = 48; // Example base font size
         const minFontSize = 16; // Example minimum font size
 
         const newFontSize = downscale(
-            amount.toString().length,
+            total_amount.toString().length,
             expectedMaxLength,
             baseFontSize,
             minFontSize
         );
         setFontSize(newFontSize);
-    }, [amount]);
+    }, [total_amount]);
 
     return (
         <Card
@@ -56,7 +67,7 @@ function CategoryCard({ category, amount }) {
                             fontSize: `${fontSize}px`,
                         }}
                     >
-                        {formaterr.format(amount)}
+                        {formaterr.format(total_amount)}
                     </p>
                 </div>
 
@@ -67,7 +78,7 @@ function CategoryCard({ category, amount }) {
                         type={category.category_type}
                         name={category.category_name}
                     />
-                    <EditCatBtn />
+                    <EditCatBtn category={category} />
                 </Space>
             </div>
         </Card>

@@ -13,11 +13,18 @@ const checkboxLabelStyle =
     "size-label px-4 py-2 border text-white border-gray-600 font-normal rounded-2xl cursor-pointer shadow-sm transition-colors peer-checked:bg-teal-700 peer-checked:border-teal-700 peer-checked:text-white";
 
 function CreateLedgerModal({ isModalOpen, handleCancel }) {
-    const categories = usePage().props.categories;
+    const { categories, default_cat } = usePage().props;
+
+    const combinedCategoriesMap = new Map();
+    [...categories, ...default_cat].forEach((category) => {
+        combinedCategoriesMap.set(category.category_id, category);
+    });
+    const combinedCategories = Array.from(combinedCategoriesMap.values());
+
     const [currentTabArray, setCurrentTabArray] = useState("expense");
     const [isAddCatModalOpen, setIsAddCatModalOpen] = useState(false);
 
-    const [defaultCategories, setCategories] = useState(categories);
+    const [defaultCategories, setCategories] = useState(combinedCategories);
     const [newCategories, setNewCategories] = useState([]);
     const [newCategoryName, setNewCategoryName] = useState("");
 

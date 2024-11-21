@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { FaEdit } from "react-icons/fa";
 import {
     MdOutlineKeyboardArrowDown,
     MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
+import EditTransactionBtn from "./EditTransactionBtn";
 
-function TransactCat({ category, amount, time, description, type }) {
+function TransactCat({ transaction }) {
     const [collapsed, setCollapsed] = useState(true);
 
     const formater = new Intl.NumberFormat("en-US", {
@@ -25,7 +25,7 @@ function TransactCat({ category, amount, time, description, type }) {
             <div className="flex justify-between items-center px-5 py-2">
                 <div className="flex items-center gap-0 sm:gap-3">
                     <span className="text-white text-sm sm:text-base">
-                        {category}
+                        {transaction.category_name}
                     </span>
                     {collapsed ? (
                         <MdOutlineKeyboardArrowDown
@@ -41,21 +41,25 @@ function TransactCat({ category, amount, time, description, type }) {
                 </div>
 
                 <div className="flex items-center gap-1 sm:gap-4">
-                    <button>
-                        <FaEdit className="text-white text-xs sm:text-base text-opacity-80 transition-all duration-500 ease-in-out hover:scale-110" />
-                    </button>
+                    <EditTransactionBtn transaction={transaction} />
                     <div className="text-right text-sm sm:text-base">
                         <span
                             className={`${
-                                type === "income"
+                                transaction.transaction_type === "income"
                                     ? "text-[#79BAA8]"
                                     : "text-[#D46060]"
                             } font-bold`}
                         >
-                            <span>{type === "income" ? "+" : "-"}</span>
-                            <span>{formater.format(amount)}</span>
+                            <span>
+                                {transaction.transaction_type === "income"
+                                    ? "+"
+                                    : "-"}
+                            </span>
+                            <span>{formater.format(transaction.amount)}</span>
                         </span>
-                        <p className="text-xs text-white opacity-60">{time}</p>
+                        <p className="text-xs text-white opacity-60">
+                            {transaction.transaction_date}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -66,7 +70,7 @@ function TransactCat({ category, amount, time, description, type }) {
                 }`}
             >
                 <div className="px-5 pb-6">
-                    <p>{description}</p>
+                    <p>{transaction.transaction_description}</p>
                 </div>
             </div>
         </div>

@@ -1,44 +1,40 @@
 import ModalC from "@/Layouts/ModalC";
-import MainInputField from '@/Components/MainInputField';
-import { useForm } from '@inertiajs/react'
+import MainInputField from "@/Components/MainInputField";
+import DeleteCatBtn from "./DeleteCatBtn";
+import { useForm } from "@inertiajs/react";
 
-function EditCatModal({isModalOpen, handleCancel}){
-
+function EditCatModal({ category, isModalOpen, handleCancel, isEditLedger=false }) {
     const { data, setData } = useForm({
-        category_name: '',
-    });   
+        category_name: "",
+    });
 
-    function submit(e) {
+    function submitEdit(e) {
         e.preventDefault();
         console.log(data);
+        console.log("Category ID: ", category.category_id);
     }
 
-    return(
-        <>
-        <form onSubmit={submit}>
-            <ModalC 
-                title="Edit Category"
-                subtitle="Food & Drink"
-                isModalOpen={isModalOpen}
-                handleCancel={handleCancel}
-                deleteTitle="Category"
-                deleteContent="Are you sure you want to delete this category?"
-                onClick={submit}
-            >
-                <div className="space-y-5 > * mb-8">
-                    <MainInputField 
-                        label="Name"
-                        htmlFor="category_name"
-                        type="text"
-                        name="cat-name"
-                        placeholder="Food & Drink"
-                        onChange={(e) => setData('category_name', e.target.value)}
-                    />
-                </div>
-            </ModalC>
-        </form>
-        </>
-    )
+    return (
+        <ModalC
+            title="Edit Category"
+            subtitle="Food & Drink"
+            deleteRender={isEditLedger ? null : <DeleteCatBtn cat_id={category.category_id} />}
+            isModalOpen={isModalOpen}
+            handleCancel={handleCancel}
+            onClick={submitEdit}
+        >
+            <div className="space-y-5 > * mb-8">
+                <MainInputField
+                    label="Name"
+                    htmlFor="category_name"
+                    type="text"
+                    name="cat-name"
+                    placeholder="Food & Drink"
+                    onChange={(e) => setData("category_name", e.target.value)}
+                />
+            </div>
+        </ModalC>
+    );
 }
 
 export default EditCatModal;

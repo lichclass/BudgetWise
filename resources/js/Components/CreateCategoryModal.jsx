@@ -31,7 +31,7 @@ function CreateCategoryModal({ type, isModalOpen, handleCancel }) {
                     name="category-type"
                     placeholder="Select a Category"
                     options={[
-                        { label: "Budget", value: "budget" },
+                        { label: "Income", value: "income" },
                         { label: "Expense", value: "expense" },
                     ]}
                     onChange={(e) => setData("category_type", e.target.value)}

@@ -1,10 +1,11 @@
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import { usePage, useForm } from "@inertiajs/react";
 import { FaRegEdit } from "react-icons/fa";
 import MainInputField from "@/Components/MainInputField";
 import ModalC from "@/Layouts/ModalC";
 import AddCategoryBtn from "./AddCategoryBtn";
 import CategoryItemV2 from "./CategoryItemV2";
+import DeleteLedgerBtn from "./DeleteLedgerBtn";
 
 function EditLedgerBtn() {
     const { ledger, categories } = usePage().props;
@@ -31,6 +32,7 @@ function EditLedgerBtn() {
 
             <ModalC
                 title="Edit Ledger"
+                deleteRender={<DeleteLedgerBtn ledger_id={ledger.ledger_id} />}
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 large={true}
@@ -61,7 +63,8 @@ function EditLedgerBtn() {
                         {categories
                             .filter(
                                 (category) =>
-                                    category.category_type === "expense"
+                                    category.category_type === "expense" &&
+                                    category.ledger_id === ledger.ledger_id
                             )
                             .map((category) => (
                                 <CategoryItemV2
@@ -77,7 +80,8 @@ function EditLedgerBtn() {
                         {categories
                             .filter(
                                 (category) =>
-                                    category.category_type === "income"
+                                    category.category_type === "income" &&
+                                    category.ledger_id === ledger.ledger_id
                             )
                             .map((category) => (
                                 <CategoryItemV2

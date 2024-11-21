@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\Ledger;
+use App\Models\Category;
 use App\Models\LedgerCategoryView;
 use App\Models\UserTransactionView;
 use App\Models\UserGoalView;
@@ -23,12 +24,14 @@ class ShareInertiaData
     {
         if (Auth::check()) {
             $ledgers = Ledger::where('user_id', Auth::id())->get();
+            $default_cat = Category::where('is_default', true)->get();
             $categories = LedgerCategoryView::where('ledger_owner', Auth::id())->get();
             $transactions = UserTransactionView::where('user_id', Auth::id())->get();
             $goals = UserGoalView::where('user_id', Auth::id())->get();
 
             Inertia::share([
                 'ledgers' => $ledgers,
+                'default_cat' => $default_cat,
                 'categories' => $categories,
                 'transactions' => $transactions,
                 'goals' => $goals,
