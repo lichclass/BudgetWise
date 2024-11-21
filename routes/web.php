@@ -8,6 +8,7 @@ use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\StarterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\GoalController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('transactions', TransactionController::class);
     Route::resource('budgets', BudgetController::class);
     Route::resource('category', CategoryController::class);
+    Route::resource('goals', GoalController::class);
 
     Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
