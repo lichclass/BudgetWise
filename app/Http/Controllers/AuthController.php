@@ -66,4 +66,10 @@ class AuthController extends Controller
         return redirect()->route('login');
         
     }
+
+    public function changePass(Request $request){
+
+        dd($request);
+
+    }
 }

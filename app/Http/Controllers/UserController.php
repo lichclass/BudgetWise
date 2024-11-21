@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
+use Illuminate\Http\Request;
+
 class UserController extends Controller
 {
     /**
@@ -52,9 +54,10 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $users)
+    public function update(Request $request, User $users)
     {
         //
+        dd($request);
     }
 
     /**

@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UserController::class);
 
     Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
+    Route::put('/settings/{id}', [AuthController::class, "changePass"])->name('change-pass');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
