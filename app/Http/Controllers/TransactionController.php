@@ -38,11 +38,11 @@ class TransactionController extends Controller
      */
     
      /*StoreTransactionsRequest $request*/
-    public function store(Request $request)
+    public function store(StoreTransactionRequest $request)
     {
-        dd($request);
         //Validate
         $fields = $request->validated();
+        
         $ledgerId = $request->ledger_id; //update using session ledger or inertia
 
         //Create a new transaction
@@ -51,7 +51,7 @@ class TransactionController extends Controller
         $transaction->save();
 
         //Redirect to the transactions page
-        return redirect()->route('transactions.index'); //update later
+        return redirect()->back(); //update later
     }
 
     /**
@@ -73,17 +73,18 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTransactionRequest $request, Transaction $transactions)
+    public function update(Request $request, Transaction $transaction)
     {
-        //
+        dd($request, $transaction);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transaction $transactions)
-    {
-        $transactions->delete();
+    public function destroy($id)
+    {   
+        $transaction = Transaction::findOrFail($id);
+        $transaction->delete();
         return redirect()->back();
     }
 }
