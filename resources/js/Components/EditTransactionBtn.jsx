@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
 function EditTransactionBtn({ transaction }) {
-    const { data, setData } = useForm({
+    const { data, setData, put } = useForm({
         amount: transaction.amount,
         desc: transaction.transaction_description,
         date: transaction.transaction_date,
@@ -19,7 +19,8 @@ function EditTransactionBtn({ transaction }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(data);
+       // console.log(data);
+        put(route("transaction.update", { id: transaction.reference_id, ...data }));
     };
 
     return (
