@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/home', [HomeController::class, 'createNewLedger'])->name('create-new-ledger');
     Route::put('/home', [HomeController::class, 'addGoalMoney'])->name('add-balance');
@@ -40,8 +41,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
 
-    Route::resource('transactions', TransactionController::class);
-    Route::resource('budgets', BudgetController::class);
+    Route::resource('transaction', TransactionController::class);
+    Route::resource('budget', BudgetController::class);
     Route::resource('category', CategoryController::class);
 
     Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');

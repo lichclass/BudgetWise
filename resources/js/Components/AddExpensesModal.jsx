@@ -17,7 +17,7 @@ function AddExpensesModal({ name, cat_id, isModalOpen, handleCancel }) {
     function submit(e) {
         e.preventDefault();
         // console.log(data);
-        post(route("transactions.store"));
+        post(route("transaction.store"));
     }
 
     return (
