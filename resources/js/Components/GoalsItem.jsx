@@ -1,14 +1,11 @@
-import { FaEdit } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
-import { useForm, usePage } from "@inertiajs/react";
-import { Checkbox } from "antd";
 import { useState } from "react";
-import EditGoalsModal from "@/Layouts/ModalC";
+import { useForm, usePage } from "@inertiajs/react";
+import EditGoalBtn from "./EditGoalBtn";
 import AddBalanceModal from "@/Layouts/ModalB";
 import WithdrawBalanceModal from "@/Layouts/ModalB";
 import InputField from "@/Components/MainInputField";
-import DeleteGoalBtn from "./DeleteGoalBtn";
 
 function GoalsItem({
     id,
@@ -19,6 +16,12 @@ function GoalsItem({
     isDeadlineSet,
     deadline,
 }) {
+
+    const { data, setData } = useForm({
+        goal_id: id,
+        amount_added: "",
+    });
+
     const buttonStyle =
         "text-white text-opacity-70 bg-transparent text-xs flex items-center justify-center rounded-md border border-white border-opacity-30 px-2 py-3 hover:bg-white hover:text-slate-700 transition h-4 gap-1 whitespace-nowrap";
 
@@ -30,19 +33,11 @@ function GoalsItem({
 
     const { ledger } = usePage().props;
 
-    const [isEditGoalsModalOpen, setIsEditGoalsModalOpen] = useState(false);
     const [isAddBalanceModalOpen, setIsAddBalanceModalOpen] = useState(false);
     const [isWithdrawBalanceModalOpen, setIsWithdrawBalanceModalOpen] =
         useState(false);
 
-    const [isDeadlineInputSet, setDeadlineInputEnable] =
-        useState(isDeadlineSet);
-
     const completion = (current / target) * 100;
-
-    // Edit Modal
-    const showEditGoalsModal = () => setIsEditGoalsModalOpen(true);
-    const handleEditGoalsCancel = () => setIsEditGoalsModalOpen(false);
 
     // Add to Balance Modal
     const showAddBalanceModal = () => setIsAddBalanceModalOpen(true);
@@ -52,22 +47,6 @@ function GoalsItem({
     const showWithdrawBalanceModal = () => setIsWithdrawBalanceModalOpen(true);
     const handleWithdrawBalancesCancel = () =>
         setIsWithdrawBalanceModalOpen(false);
-
-    const { data, setData } = useForm({
-        goal_id: id,
-        goal_name: title,
-        goal_limit: target,
-        goal_date: targetDate,
-        amount_added: "",
-    });
-
-    function submitEdit(e) {
-        data.goal_date = isDeadlineInputSet
-            ? document.querySelector('input[name="goal_date"]').value
-            : null;
-        e.preventDefault();
-        console.log(data);
-    }
 
     function submitAdd(e) {
         e.preventDefault();
@@ -85,70 +64,16 @@ function GoalsItem({
                 {/* Header */}
                 <div className="flex justify-between gap-1">
                     <h1 className="">{title}</h1>
-                    <button onClick={showEditGoalsModal}>
-                        <FaEdit className="text-white text-opacity-80 transition-all duration-200 ease-in-out hover:scale-110" />
-                    </button>
 
-                    {/* Start of Edit Modal */}
-                    <EditGoalsModal
-                        title="Edit Goal"
-                        isModalOpen={isEditGoalsModalOpen}
-                        handleCancel={handleEditGoalsCancel}
-                        deleteRender={<DeleteGoalBtn goal_id={id} />}
-                        onClick={submitEdit}
-                    >
-                        <div className="flex flex-col gap-4 pb-5">
-                            <InputField
-                                label="Goal Name"
-                                htmlFor="goal_name"
-                                type="text"
-                                name="goal_name"
-                                placeholder={title}
-                                value={data.goal_name || title}
-                                onChange={(e) =>
-                                    setData("goal_name", e.target.value)
-                                }
-                            />
-
-                            <InputField
-                                label="Amount Limit"
-                                htmlFor="goal_limit"
-                                type="number"
-                                name="goal_limit"
-                                placeholder={target}
-                                value={data.goal_limit || target}
-                                onChange={(e) =>
-                                    setData("goal_limit", e.target.value)
-                                }
-                            />
-
-                            <div className="flex flex-col gap-2">
-                                <InputField
-                                    label="Date"
-                                    htmlFor="goal_date"
-                                    type="date"
-                                    name="goal_date"
-                                    value={data.goal_date || targetDate}
-                                    onChange={(e) =>
-                                        setData("goal_date", e.target.value)
-                                    }
-                                    isReadOnly={!isDeadlineInputSet}
-                                />
-
-                                <Checkbox
-                                    name="setDeadline"
-                                    className="text-md font-semibold text-gray-300"
-                                    checked={isDeadlineInputSet}
-                                    onChange={(e) =>
-                                        setDeadlineInputEnable(e.target.checked)
-                                    }
-                                >
-                                    Set Deadline
-                                </Checkbox>
-                            </div>
-                        </div>
-                    </EditGoalsModal>
-                    {/* End of Edit Modal */}
+                    {/* Edit Modal */}
+                    <EditGoalBtn
+                        id={id}
+                        title={title}
+                        target={target}
+                        targetDate={targetDate}
+                        isDeadlineSet={isDeadlineSet}
+                    />
+                        
                 </div>
 
                 {/* Progress Bar */}

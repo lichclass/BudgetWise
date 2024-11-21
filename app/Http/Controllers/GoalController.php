@@ -9,9 +9,9 @@ use App\Http\Requests\StoreGoalRequest;
 use App\Http\Requests\UpdateGoalRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserGoalView;
+use Illuminate\Http\Request;
 
 use Inertia\Inertia;
-
 
 class GoalController extends Controller
 {
@@ -47,10 +47,11 @@ class GoalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreGoalRequest $request)
+    public function store(Request $request)
     {
         //
         dd($request); //debugging
+        
         $fields = $request->validated();
         $goal = Goal::create($fields);
         return redirect()->back();
@@ -76,9 +77,10 @@ class GoalController extends Controller
      * Update the specified resource in storage.
      */
    
-    public function update(UpdateGoalRequest $request, Goal $goals)
+    public function update(Request $request, Goal $goals)
     {   
         dd($request, $goals);
+
         $fields = $request->validated();
         $goals->update($fields);
         return redirect()->route('home');
@@ -95,8 +97,10 @@ class GoalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Goal $goals)
+    public function destroy(Request $goals)
     {
+        dd($goals);
+
         $goals->delete();
         return redirect()->route('home');
     }
