@@ -1,10 +1,24 @@
 import { useState } from "react";
+import { useForm } from "@inertiajs/react";
 import { FaRegEdit } from "react-icons/fa";
-import EditCatModal from "@/Components/EditCatModal";
+import MainInputField from "@/Components/MainInputField";
+import EditCatModal from "@/Layouts/ModalC";
+import DeleteCatBtn from "./DeleteCatBtn";
 
-function EditCatBtn({ category }) {
+function EditCatBtn({ category, isEditLedger = false }) {
+
+    const { data, setData, put } = useForm({
+        category_name: "",
+    });
+
+    function submitEdit(e) {
+        e.preventDefault();
+        //console.log(data);
+        //console.log("Category ID: ", category.category_id);
+        put(route("category.update", category.category_id));
+    }
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const showModal = () => setIsModalOpen(true);
     const handleCancel = () => setIsModalOpen(false);
 
@@ -19,10 +33,26 @@ function EditCatBtn({ category }) {
             </button>
 
             <EditCatModal
+                title="Edit Category"
+                subtitle={category.category_name}
+                deleteRender={isEditLedger ? null : <DeleteCatBtn cat_id={category.category_id} />}
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
-                category={category}
-            />
+                onClick={submitEdit}
+            >
+                <div className="space-y-5 > * mb-8">
+                    <MainInputField
+                        label="Name"
+                        htmlFor="category_name"
+                        type="text"
+                        name="cat-name"
+                        placeholder={data.category_name || category.category_name}
+                        onChange={(e) => setData("category_name", e.target.value)}
+                    />
+                </div>
+            </EditCatModal>
+
+
         </>
     );
 }
