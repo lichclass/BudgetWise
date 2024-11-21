@@ -13,7 +13,7 @@ function BudgetCat({ category, budget=null }) {
             <div className="flex justify-between items-center bg-[#102734] rounded-xl px-4 py-2 shadow-sm h-11 sm:px-6 lg:px-8">
                 {/* Category Name */}
                 <span className="text-white text-sm sm:text-base lg:text-lg">
-                    {category}
+                    {category.category_name}
                 </span>
 
                 {budget != null ? (

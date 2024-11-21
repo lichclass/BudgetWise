@@ -71,8 +71,9 @@ class BudgetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Budget $budgets)
+    public function destroy(Request $budgets)
     {
         //
+        dd($budgets);
     }
 }

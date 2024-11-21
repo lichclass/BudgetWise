@@ -10,8 +10,11 @@ import MonthlyBudget from '@/Components/MonthlyBudgetCard';
 
 // Temporary
 import BudgetCat from "@/Components/BudgetCat";
+import DeleteBudgetBtn from "@/Components/DeleteBudgetBtn";
 
-function Budget({ budgets, expenses }){
+function Budget({ budgets, expenses }) {
+    
+    const { categories } = usePage().props;
 
     useEffect(() => {
         console.log("Budgets: ", budgets);
@@ -59,8 +62,8 @@ function Budget({ budgets, expenses }){
                                 backgroundColor: "rgba(26, 66, 87, 0.28)"
                             }}>
                                 {/* Monthly Budget Card */}
-                                <MonthlyBudget></MonthlyBudget>
-                
+                                    <MonthlyBudget />
+                                    
                                 {/* Expenses Overview */}
                                 <div className="h-full md:w-full pt-2 flex flex-col">
                                 </div>
