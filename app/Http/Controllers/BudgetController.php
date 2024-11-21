@@ -9,6 +9,8 @@ use App\Http\Requests\StoreBudgetRequest;
 use App\Http\Requests\UpdateBudgetRequest;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Http\Request;
+
 use Inertia\Inertia;
 
 class BudgetController extends Controller
@@ -35,9 +37,10 @@ class BudgetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBudgetRequest $request)
+    public function store(Request $request)
     {
         //
+        dd($request);
     }
 
     /**
@@ -59,9 +62,10 @@ class BudgetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBudgetRequest $request, Budget $budgets)
+    public function update(Request $request, Budget $budgets)
     {
         //
+        dd($request);
     }
 
     /**

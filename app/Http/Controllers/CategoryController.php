@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -29,8 +30,9 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(Request $request)
     {
+        dd($request);
         // validate
         $fields = $request->validated();
 
@@ -60,16 +62,19 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $categories)
+    public function update(Request $request, Category $categories)
     {
         //
+        dd($request);
+        //dd($categories);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $categories)
+    public function destroy(Request $request, Category $categories)
     {
         //
+        dd($request);
     }
 }

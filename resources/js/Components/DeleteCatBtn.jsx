@@ -5,7 +5,7 @@ import { useForm } from "@inertiajs/react";
  
 function DeleteCatBtn({ cat_id }) {
 
-    const { data, setData } = useForm({
+    const { data, setData, delete: destroy} = useForm({
         category_id: cat_id,
     });
 
@@ -16,7 +16,8 @@ function DeleteCatBtn({ cat_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Data to delete (Category): " + data.category_id);
+        //console.log("Data to delete (Category): " + data.category_id);
+        destroy(route("category.destroy", data.category_id));
     }
 
     return (

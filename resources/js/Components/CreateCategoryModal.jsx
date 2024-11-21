@@ -13,7 +13,8 @@ function CreateCategoryModal({ type, isModalOpen, handleCancel }) {
 
     function submit(e) {
         e.preventDefault();
-        console.log(data);
+        //console.log(data);
+        post(route("category.store"));
     }
 
     return (

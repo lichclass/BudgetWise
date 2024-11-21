@@ -4,14 +4,15 @@ import DeleteCatBtn from "./DeleteCatBtn";
 import { useForm } from "@inertiajs/react";
 
 function EditCatModal({ category, isModalOpen, handleCancel, isEditLedger=false }) {
-    const { data, setData } = useForm({
+    const { data, setData, put} = useForm({
         category_name: "",
     });
 
     function submitEdit(e) {
         e.preventDefault();
-        console.log(data);
-        console.log("Category ID: ", category.category_id);
+        //console.log(data);
+        //console.log("Category ID: ", category.category_id);
+        put(route("category.update", category.category_id));
     }
 
     return (
