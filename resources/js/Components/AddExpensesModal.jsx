@@ -2,7 +2,7 @@ import ModalB from "@/Layouts/ModalB";
 import MainInputField from "@/Components/MainInputField";
 import { useForm, usePage } from "@inertiajs/react";
 
-function AddExpensesModal({ name, cat_id, isModalOpen, handleCancel }) {
+function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCancel }) {
     const { ledger } = usePage().props;
     
     const { data, setData, post } = useForm({
@@ -18,6 +18,10 @@ function AddExpensesModal({ name, cat_id, isModalOpen, handleCancel }) {
         e.preventDefault();
         // console.log(data);
         post(route("transaction.store"));
+        data.amount = "";
+        data.transaction_description = "";
+        data.transaction_date = "";
+        setIsModalOpen(false);
     }
 
     return (
@@ -49,6 +53,7 @@ function AddExpensesModal({ name, cat_id, isModalOpen, handleCancel }) {
                         type="number"
                         name="input-amount"
                         placeholder="Enter Amount"
+                        value = {data.amount}
                         onChange={(e) => setData("amount", e.target.value)}
                     />
 
@@ -58,6 +63,7 @@ function AddExpensesModal({ name, cat_id, isModalOpen, handleCancel }) {
                         type="text"
                         name="description"
                         placeholder="Enter Description"
+                        value = {data.transaction_description}
                         onChange={(e) =>
                             setData("transaction_description", e.target.value)
                         }
@@ -70,6 +76,7 @@ function AddExpensesModal({ name, cat_id, isModalOpen, handleCancel }) {
                         type="date"
                         name="input-date"
                         placeholder="Enter the Date"
+                        value = {data.transaction_date}
                         onChange={(e) =>
                             setData("transaction_date", e.target.value)
                         }

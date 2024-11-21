@@ -29,7 +29,7 @@ class StoreTransactionRequest extends FormRequest
             'category_id' => ['required', 'numeric'],
             'amount' => ['required', 'numeric'],
             'transaction_description' => ['string', 'max:255'],
-            'transaction_date' => ['required', 'date', 'default:'.now()->toDateString()],
+            'transaction_date' => ['nullable', 'date'],
             'transaction_type' => ['required', Rule::in(['income', 'expense'])],
         ];
     }
