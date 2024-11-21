@@ -1,3 +1,7 @@
+@import 'utilities.css';
+@import 'btncolors.css';
+@import 'pages.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

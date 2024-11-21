@@ -1,0 +1,15 @@
+.bg-select-btn {
+    background-color: #347781;
+}
+
+.sub-bg-select-btn {
+    background-color: #102836C4;
+}
+
+.custom-dd .ant-dropdown-menu {
+    background-color: #32676F; 
+}
+
+.custom-dd .ant-dropdown-menu-item {
+    @apply text-lime-50 !important;
+}

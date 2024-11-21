@@ -13,10 +13,13 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
+            \App\Http\Middleware\ShareInertiaData::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        //
+        $middleware->alias([
+            'check.ledger' => \App\Http\Middleware\CheckLedger::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

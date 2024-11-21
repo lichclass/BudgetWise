@@ -31,7 +31,6 @@ php artisan migrate
 ```
 
 -   After turning on XAMPP and the database exists, do the following commands (on different terminals)
-
 ```
 php artisan serve
 ```
