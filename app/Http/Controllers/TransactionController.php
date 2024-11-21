@@ -38,8 +38,9 @@ class TransactionController extends Controller
      */
     
      /*StoreTransactionsRequest $request*/
-    public function store(StoreTransactionRequest $request)
+    public function store(Request $request)
     {
+        dd($request);
         //Validate
         $fields = $request->validated();
         $ledgerId = $request->ledger_id; //update using session ledger or inertia

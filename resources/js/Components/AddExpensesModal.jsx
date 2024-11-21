@@ -4,7 +4,8 @@ import { useForm, usePage } from "@inertiajs/react";
 
 function AddExpensesModal({ name, cat_id, isModalOpen, handleCancel }) {
     const { ledger } = usePage().props;
-    const { data, setData } = useForm({
+    
+    const { data, setData, post } = useForm({
         ledger_id: ledger.ledger_id,
         category_id: cat_id,
         amount: "",
@@ -15,9 +16,10 @@ function AddExpensesModal({ name, cat_id, isModalOpen, handleCancel }) {
 
     function submit(e) {
         e.preventDefault();
-        console.log(data);
-        // post(route('transactions.store'));
+        // console.log(data);
+        post(route("transactions.store"));
     }
+
     return (
         <ModalB
             title="Add Expense"
@@ -76,6 +78,7 @@ function AddExpensesModal({ name, cat_id, isModalOpen, handleCancel }) {
             </div>
         </ModalB>
     );
+
 }
 
 export default AddExpensesModal;
