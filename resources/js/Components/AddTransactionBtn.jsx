@@ -27,12 +27,14 @@ function AddCatBtn({ name, cat_id, type }) {
                     isModalOpen={isModalOpen}
                     handleCancel={handleCancel}
                     name={name}
+                    setIsModalOpen={setIsModalOpen}
                     cat_id = {cat_id}
                   />
                 : <AddIncomeModal 
                     isModalOpen={isModalOpen}
                     handleCancel={handleCancel}
                     name={name}
+                    setIsModalOpen={setIsModalOpen}
                     cat_id = {cat_id}
                   />
             }

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
+use Illuminate\Http\Request;
+
 class UserController extends Controller
 {
     /**
@@ -52,17 +54,20 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $users)
+    public function update(Request $request, User $users)
     {
         //
+        dd($request);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $users)
+    public function destroy($userId)
     {
+        dd($userId);
+        $users = User::findOrFail($userId);
         $users->delete();
-        return redirect()->back();
+        return redirect()->route('login');
     }
 }

@@ -1,11 +1,12 @@
 import ModalB from "@/Layouts/ModalB";
 import MainInputField from "@/Components/MainInputField";
 import { useForm, usePage } from "@inertiajs/react";
+import { set } from "date-fns";
 
-function AddIncomeModal({ name, cat_id, isModalOpen, handleCancel }) {
+function AddIncomeModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCancel }) {
     const { ledger } = usePage().props;
 
-    const { data, setData } = useForm({
+    const { data, setData, post } = useForm({
         ledger_id: ledger.ledger_id,
         category_id: cat_id,
         amount: "",
@@ -16,8 +17,12 @@ function AddIncomeModal({ name, cat_id, isModalOpen, handleCancel }) {
 
     function submit(e) {
         e.preventDefault();
-        console.log(data);
-        // post(route('transactions.store'));
+        // console.log(data);
+        post(route('transaction.store'));
+        data.amount = "";
+        data.transaction_description = "";
+        data.transaction_date = "";
+        setIsModalOpen(false);
     }
 
     return (
@@ -35,6 +40,7 @@ function AddIncomeModal({ name, cat_id, isModalOpen, handleCancel }) {
                     type="number"
                     name="input-amount"
                     placeholder="Enter Amount"
+                    value = {data.amount}
                     onChange={(e) => setData("amount", e.target.value)}
                 />
 
@@ -44,6 +50,7 @@ function AddIncomeModal({ name, cat_id, isModalOpen, handleCancel }) {
                     type="text"
                     name="description"
                     placeholder="Enter Description (Optional)"
+                    value = {data.transaction_description}
                     onChange={(e) =>
                         setData("transaction_description", e.target.value)
                     }
@@ -56,6 +63,7 @@ function AddIncomeModal({ name, cat_id, isModalOpen, handleCancel }) {
                     type="date"
                     name="input-date"
                     placeholder="Enter the Date"
+                    value = {data.transaction_date}
                     onChange={(e) =>
                         setData("transaction_date", e.target.value)
                     }
