@@ -1,9 +1,5 @@
-// I made another one as to not disrupt the original GoalsCard.jsx file
-
 import GoalsItem from "./GoalsItem";
-import { IoIosAdd } from "react-icons/io";
-import CreateGoalsModal from "./CreateGoalModal";
-import { useState } from "react";
+import AddGoalBtn from "./AddGoalBtn";
 
 function GoalsCard({ goals, selectedLedger }) {
 
@@ -19,10 +15,6 @@ function GoalsCard({ goals, selectedLedger }) {
     }
 
     const filteredGoals = goals.filter((goal) => goal.ledger_id === selectedLedger.ledger_id);
-   
-    const [isCreateGoalsModalOpen, setIsCreateGoalsModalOpen] = useState(false);
-    const showCreateGoalsModal = () => { setIsCreateGoalsModalOpen(true); }
-    const handleCreateGoalsCancel = () => { setIsCreateGoalsModalOpen(false); }
 
     return (
         <div className="bg-[#174A65D1] rounded-lg shadow-lg w-full h-full flex flex-col overflow-auto max-h-[570px]">
@@ -31,18 +23,10 @@ function GoalsCard({ goals, selectedLedger }) {
                 <h1 className="text-white text-2xl font-bold" style={{ textShadow: "0px 4px 4px rgba(0, 0, 0, 0.07)" }}>
                     Goals
                 </h1>
-                <button className="text-white bg-transparent text-sm font-bold flex items-center justify-center pl-2 py-2 pr-4 rounded-lg border hover:bg-white hover:text-slate-700 transition h-8" onClick={showCreateGoalsModal}>
-                    <IoIosAdd className="text-xl" />
-                    Add Goal
-                </button>
 
-                    {/* Create Goals Modal */}
-                    <CreateGoalsModal
-                        isModalOpen={isCreateGoalsModalOpen}
-                        handleCancel={handleCreateGoalsCancel}
-                    />
+                <AddGoalBtn />
                 
-            </div>
+            </div>                    
 
             {/* Items */}
             <div className="flex flex-col gap-3 px-4 py-5 overflow-y-auto flex-grow">
