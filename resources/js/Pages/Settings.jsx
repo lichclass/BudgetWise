@@ -4,9 +4,8 @@ import { useState } from 'react';
 import MainInputField from '@/Components/MainInputField';
 import ChangePassBtn from '@/Components/ChangePassBtn';
 import GreenBtnMed from '@/Components/GreenBtnMed';
-import DeleteBtn from '@/Components/DeleteBtn';
-import ModalB from '@/Layouts/ModalB';
 import ModalA from '@/Layouts/ModalA';
+import { useForm } from "@inertiajs/react";
 
 function Settings() {
 
@@ -16,18 +15,24 @@ function Settings() {
     const [editEmail, setEditEmail] = useState(false);
     const [editUsername, setEditUsername] = useState(false);
 
-    const [isChangePassModalOpen, setIsChangePassModalOpen] = useState(false);
     const [isDeleteAccModalOpen, setIsDeleteAccModalOpen] = useState(false);
-    const [isCreateNewAccModalOpen, setIsCreateNewAccModalOpen] = useState(false);
-
-    const showChangePassModal = () => setIsChangePassModalOpen(true);
-    const handleCancelChangePassModal = () => setIsChangePassModalOpen(false);
     const showDeleteAccModal = () => setIsDeleteAccModalOpen(true);
     const handleCancelDeleteAccModal = () => setIsDeleteAccModalOpen(false);
-    const showCreateNewAccModal = () => setIsCreateNewAccModalOpen(true);
-    const handleCancelCreateNewAccModal = () => setIsCreateNewAccModalOpen(false);
     const handleEmailChange = (e) => setEmail(e.target.value);
     const handleUsernameChange = (e) => setUsername(e.target.value);
+
+    const { data, setData, put } = useForm({
+        user_id: auth.user.user_id,
+        username,
+        email,
+    });
+
+    function submit(e) {
+        e.preventDefault();
+        // console.log(data);
+        put(route("user.update", auth.user.user_id));
+    }
+
     
     const handleEmailEdit = () => {
         if(editEmail) {
@@ -42,6 +47,8 @@ function Settings() {
         }
         setEditUsername(!editUsername);
     }
+
+
 
     return (
         <>
@@ -103,8 +110,8 @@ function Settings() {
                 </div>
                 
                 <div className='py-10 mr-44 flex justify-between'>
-                    <ChangePassBtn onClick={showChangePassModal} />
-                    <GreenBtnMed text="Save" width={"w-44"}/>
+                    <ChangePassBtn></ChangePassBtn>
+                    <GreenBtnMed text="Save" width={"w-44"} onClick={submit}/>
                 </div>
 
                 {/* Currency Preference Header */}
@@ -132,41 +139,6 @@ function Settings() {
                         Delete Account
                     </button>
                 </div>
-
-                {/* Change Password Modal */}
-                <ModalB
-                    title="Change Password"
-                    isModalOpen={isChangePassModalOpen}
-                    handleCancel={handleCancelChangePassModal}
-                >
-                    <div className='space-y-5'>
-                        <MainInputField 
-                            label="Current Password"
-                            htmlFor="current-password"
-                            type="password"
-                            name="current-password"
-                            placeholder="Enter your current password"
-                        />
-
-                        <MainInputField 
-                            label="New Password"
-                            htmlFor="New-password"
-                            type="password"
-                            name="current-password"
-                            placeholder="Enter your current password"
-                        />
-
-                        <MainInputField 
-                            label="Confirm Password"
-                            sub_label='*Must be at least 8 characters long'
-                            htmlFor="confirm-password"
-                            type="password"
-                            name="confirm-password"
-                            placeholder="Enter your current password"
-                        />
-                    </div>
-
-                </ModalB>
 
                 {/* Delete Account Modal */}
                 <ModalA
