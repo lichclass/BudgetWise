@@ -70,6 +70,7 @@ class LedgerController extends Controller
      */
     public function destroy(Ledger $ledgers)
     {
+        dd($ledgers);
         $ledgers->delete();
         return redirect()->route('home');
     }

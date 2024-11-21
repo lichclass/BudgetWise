@@ -43,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
 
+    Route::resource('ledger', LedgerController::class);
     Route::resource('transaction', TransactionController::class);
     Route::resource('budget', BudgetController::class);
     Route::resource('category', CategoryController::class);
