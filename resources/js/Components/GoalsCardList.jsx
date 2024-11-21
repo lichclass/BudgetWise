@@ -24,7 +24,7 @@ function GoalsCard({ goals, selectedLedger }) {
                     Goals
                 </h1>
 
-                <AddGoalBtn />
+                <div><AddGoalBtn /></div>
                 
             </div>                    
 
