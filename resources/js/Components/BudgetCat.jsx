@@ -1,7 +1,7 @@
 import AddBudgetBtn from "./AddBudgetBtn";
 import EditBudgetBtn from "./EditBudgetBtn";
 
-function BudgetCat({ category, budget=null }) {
+function BudgetCat({ category, budget, isSet=false }) {
     const formaterr = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "PHP",
@@ -16,10 +16,10 @@ function BudgetCat({ category, budget=null }) {
                     {category.category_name}
                 </span>
 
-                {budget != null ? (
+                {isSet ? (
                     <div className="flex gap-2 items-center text-xs sm:text-sm">
                         
-                        <EditBudgetBtn category={category}></EditBudgetBtn>
+                        <EditBudgetBtn budget={budget} />
 
                         <div className="flex gap-1">
                             <span className="text-[#79BAA8] font-bold text-sm sm:text-base lg:text-lg">

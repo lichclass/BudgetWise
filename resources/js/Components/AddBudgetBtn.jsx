@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import InputField from "@/Components/MainInputField";
 
-function AddBudgetBtn({category}){
+function AddBudgetBtn({ category }){
 
     const {data, setData, post} = useForm({
         budget_amount: "",

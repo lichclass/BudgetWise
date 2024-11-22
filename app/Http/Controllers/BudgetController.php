@@ -21,8 +21,9 @@ class BudgetController extends Controller
     public function index()
     {
         $budgets = UserBudgetView::where('user_id', Auth::id())->get();
+        
         return Inertia::render('Budget', [
-            'budgets' => $budgets
+            'budgets' => $budgets,
         ]);
     }
 

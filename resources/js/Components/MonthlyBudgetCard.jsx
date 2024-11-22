@@ -1,10 +1,16 @@
-function MonthlyBudgetCard({monthlyBudget, dailyBudget}){
+function MonthlyBudgetCard({ budgetedExpenses }){
 
     const formaterr = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'PHP',
-        minimumFractionDigits: 2
+        minimumFractionDigits: 0
     });
+
+    const monthlyBudget = budgetedExpenses.reduce((acc, budget) => 
+        acc + parseFloat(budget.amount_limit), 0
+    );
+
+    const dailyBudget = monthlyBudget / 30;
 
     return(
         <>

@@ -12,14 +12,27 @@ import MonthlyBudget from '@/Components/MonthlyBudgetCard';
 import BudgetCat from "@/Components/BudgetCat";
 import DeleteBudgetBtn from "@/Components/DeleteBudgetBtn";
 
-function Budget({ budgets, expenses }) {
+function Budget({ budgets }) {
     
-    const { categories } = usePage().props;
+    const { categories, ledger } = usePage().props;
 
-    useEffect(() => {
-        console.log("Budgets: ", budgets);
-        console.log("Expenses: ", expenses);
-    }, []);
+    const expenses = categories.filter((category) => { 
+        return category.category_type === "expense" 
+        && category.ledger_id === ledger.ledger_id 
+    }); 
+
+    const { budgetedExpenses, nonBudgetedExpenses } = expenses.reduce(
+        (acc, category) => {
+            const budget = budgets.find(budget => budget.category_id === category.category_id);
+            if (budget) {
+                acc.budgetedExpenses.push(budget);
+            } else {
+                acc.nonBudgetedExpenses.push(category);
+            }
+            return acc;
+        },
+        { budgetedExpenses: [], nonBudgetedExpenses: [] }
+    );
 
     return (
         <>
@@ -32,11 +45,11 @@ function Budget({ budgets, expenses }) {
                         {/*Main Content*/}   
                     <div className="h-full w-full m-0 relative flex flex-col rounded-xl">
                 
-                        <div className="h-7 flex flex-row text-white justify-between pt-3 px-8">
+                        {/* <div className="h-7 flex flex-row text-white justify-between pt-3 px-8">
                             <h1>-Expenses-</h1>
                             <h1>-Budget-</h1>
                             <h1>-Personal- -Date-</h1>
-                        </div>
+                        </div> */}
                 
                     {/* Top */}
                         <div className="h-64 md:border md:border-gray-600 flex flex-col md:flex-row m-6 pt-2 px-0 rounded-t-xl">
@@ -51,7 +64,7 @@ function Budget({ budgets, expenses }) {
                 
                             {/* Legend */}
                                 <div className="w-1/2 flex flex-wrap">
-                                    <LegendBtn></LegendBtn>
+                                    <LegendBtn />
                                 </div>
                 
                             </div>
@@ -62,10 +75,17 @@ function Budget({ budgets, expenses }) {
                                 backgroundColor: "rgba(26, 66, 87, 0.28)"
                             }}>
                                 {/* Monthly Budget Card */}
-                                    <MonthlyBudget />
+                                <MonthlyBudget budgetedExpenses={budgetedExpenses} />
                                     
                                 {/* Expenses Overview */}
                                 <div className="h-full md:w-full pt-2 flex flex-col">
+                                    {budgetedExpenses.map((budget) => (
+                                        <BudgetCat key={budget.category_id} category={{ category_name: budget.category_name }} budget={budget} isSet={true}/>
+                                    ))}
+                                    {nonBudgetedExpenses.map((category) => (
+                                        <BudgetCat key={category.category_id} category={category}/>
+                                    ))}
+
                                 </div>
                 
                             </div>

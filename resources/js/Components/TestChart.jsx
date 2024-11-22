@@ -22,6 +22,9 @@ function TestChart({ transactionData }) {
         date: item.date,
     }));
 
+    // Sort the groupedArray by date
+    groupedArray.sort((a, b) => new Date(a.date) - new Date(b.date));
+
     const expenseData =
         groupedArray.length > 0
             ? groupedArray.map((transaction) => [
@@ -104,7 +107,7 @@ function TestChart({ transactionData }) {
                     color: "#00FF00", // You can set a different color for income
                 },
                 lineStyle: {
-                    color: "#00FF0", // Color for income line
+                    color: "#00FF00", // Color for income line
                 },
             },
         ],

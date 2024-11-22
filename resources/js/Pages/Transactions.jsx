@@ -30,6 +30,7 @@ function Transactions() {
         0
     );
     const balance = ledger.balance;
+    console.log(balance);
 
     const handleDateChange = (date) => setSelectedDate(date);
 

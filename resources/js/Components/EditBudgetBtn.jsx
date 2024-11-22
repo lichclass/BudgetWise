@@ -5,11 +5,11 @@ import { FaEdit } from "react-icons/fa";
 import InputField from "@/Components/MainInputField";
 import DeleteBudgetBtn from "./DeleteBudgetBtn";
 
-function EditBudgetBtn({category, budget={ budget_id: 1, amount_limit: 100 }}){
+function EditBudgetBtn({ budget }){
 
     const {data, setData, put} = useForm({
         budget_amount: budget.amount_limit,
-        category_id: category.category_id   
+        category_id: budget.category_id   
     });
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -35,7 +35,7 @@ function EditBudgetBtn({category, budget={ budget_id: 1, amount_limit: 100 }}){
             {/* Edit Modal */}
             <EditBudgetModal
                 title="Edit Budget"
-                subtitle={category.category_name}
+                subtitle={budget.category_name}
                 isModalOpen={isEditModalOpen}
                 handleCancel={handleEditCancel}
                 deleteRender={<DeleteBudgetBtn budget_id={1} />}

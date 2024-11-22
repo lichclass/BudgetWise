@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\Ledger;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTransactionRequest;
@@ -40,18 +41,34 @@ class TransactionController extends Controller
      /*StoreTransactionsRequest $request*/
     public function store(StoreTransactionRequest $request)
     {
-        //Validate
+        // Validate the request
         $fields = $request->validated();
-        
-        $ledgerId = $request->ledger_id; //update using session ledger or inertia
+        $ledgerId = session('ledger.ledger_id'); // Retrieve ledger ID from session
 
-        //Create a new transaction
+        // Check if the ledger exists
+        $ledger = Ledger::find($ledgerId);
+        if (!$ledger) {
+            return redirect()->back()->withErrors(['ledger' => 'Ledger not found.']);
+        }
+
+        // Update the ledger balance
+        if ($fields['transaction_type'] == 'expense') {
+            $ledger->decrement('balance', $fields['amount']);
+        } else {
+            $ledger->increment('balance', $fields['amount']);
+        }
+
+        // Create a new transaction
         $transaction = new Transaction($fields);
-        $transaction->ledger()->associate($ledgerId);
+        $transaction->ledger()->associate($ledger);
         $transaction->save();
 
+        // Retrieve the updated ledger and update the session
+        $updatedLedger = Ledger::find($ledgerId);
+        session(['ledger' => $updatedLedger]);
+
         //Redirect to the transactions page
-        return redirect()->back(); //update later
+        return redirect()->route('home');
     }
 
     /**

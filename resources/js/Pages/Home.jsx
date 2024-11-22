@@ -42,7 +42,7 @@ function Home() {
             {/* Home */}
             <Head title="Home" />
 
-            <Main navbarMsg={`Welcome back, ${auth.user.username}`}>
+            <Main navbarMsg={`Welcome back, ${auth.user.username[0].toUpperCase() + auth.user.username.slice(1)}!`}>
                 <div className="flex flex-col h-full gap-3 px-4">
                     {/* Top */}
                     <div className="flex flex-col items-center lg:flex-row justify-between gap-10 lg:gap-3 mb-3">
@@ -78,7 +78,7 @@ function Home() {
 
                         {/* Right Side */}
                         <div className="flex flex-col gap-10 lg:gap-3 flex-grow py-3">
-                            <BalanceCard balance={activeLedger.balance} />
+                            <BalanceCard balance={ledger.balance} />
                             <GoalsCardList
                                 goals={goals}
                                 selectedLedger={activeLedger}

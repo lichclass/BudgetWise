@@ -23,9 +23,7 @@ function GoalsCard({ goals, selectedLedger }) {
                 <h1 className="text-white text-2xl font-bold" style={{ textShadow: "0px 4px 4px rgba(0, 0, 0, 0.07)" }}>
                     Goals
                 </h1>
-
-                <div><AddGoalBtn /></div>
-                
+                <AddGoalBtn />
             </div>                    
 
             {/* Items */}
@@ -50,6 +48,5 @@ function GoalsCard({ goals, selectedLedger }) {
         </div>
     );
 }
-
 
 export default GoalsCard;

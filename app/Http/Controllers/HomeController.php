@@ -18,16 +18,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $ledgers = Ledger::where('user_id', Auth::id())->get();
-        $categories = LedgerCategoryView::where('ledger_owner', Auth::id())->get();
-        $transactions = UserTransactionView::where('user_id', Auth::id())->get();
-        $goals = UserGoalView::where('user_id', Auth::id())->get();
-        return Inertia::render('Home', [
-            'ledgers' => $ledgers,
-            'categories' => $categories,
-            'transactions' => $transactions,
-            'goals' => $goals,
-        ]);
+         return Inertia::render('Home');
     }
 
     public function setCurrentLedger(Request $request)

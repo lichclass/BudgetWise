@@ -27,7 +27,7 @@ function AddGoalBtn() {
     const handleCreateGoalsCancel = () => { setIsCreateGoalsModalOpen(false); }
 
     return (
-        <>
+        <div>
         
             <button className="text-white bg-transparent text-sm font-bold flex items-center justify-center pl-2 py-2 pr-4 rounded-lg border hover:bg-white hover:text-slate-700 transition h-8" onClick={showCreateGoalsModal}>
                 <IoIosAdd className="text-xl" />
@@ -87,7 +87,7 @@ function AddGoalBtn() {
                 </div>
 
             </CreateGoalsModal>
-        </>
+        </div>
 
     );
 }
