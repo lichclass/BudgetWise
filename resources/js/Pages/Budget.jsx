@@ -2,15 +2,12 @@ import Main from "@/Layouts/Main";
 import { useEffect } from "react";
 import { usePage } from '@inertiajs/react';
 import { Head } from '@inertiajs/react';
-
-import BudgetTable from '@/Components/BudgetTable';
 import ExpensesCard from '@/Components/ExpensesCard';
-import LegendBtn from '@/Components/LegendBtn';
+import LegendBtn from '@/Components/BudgetLegendList';
 import MonthlyBudget from '@/Components/MonthlyBudgetCard';
 
 // Temporary
 import BudgetCat from "@/Components/BudgetCat";
-import DeleteBudgetBtn from "@/Components/DeleteBudgetBtn";
 
 function Budget({ budgets }) {
     
@@ -38,53 +35,47 @@ function Budget({ budgets }) {
         <>
             <Head title="Budget"/>
 
-            <Main navbarMsg={'Budget'}>
-                {
-                    <div className="h-full md:w-full flex flex-row">   
-                
-                        {/*Main Content*/}   
-                    <div className="h-full w-full m-0 relative flex flex-col rounded-xl">
-                
-                        {/* <div className="h-7 flex flex-row text-white justify-between pt-3 px-8">
-                            <h1>-Expenses-</h1>
-                            <h1>-Budget-</h1>
-                            <h1>-Personal- -Date-</h1>
-                        </div> */}
-                
-                    {/* Top */}
-                        <div className="h-64 md:border md:border-gray-600 flex flex-col md:flex-row m-6 pt-2 px-0 rounded-t-xl">
+            <Main navbarMsg={'Budget'}> 
+                    {/*Main Content*/}   
+                <div className="h-full w-full flex flex-col gap-4 lg:gap-0 overflow-auto">
+                            
+                        {/* Top */}
+                        <div className="flex flex-col gap-4 lg:flex-row lg:gap-0">
                             
                         {/* Left */}
-                            <div className="w-full md:w-1/2 border border-gray-600 md:border-l-0 md:border-t-0 md:border-b-0 md:border-r-1 rounded-none flex flex-row justify-between pt-3 px-6">
+                        <div className="flex flex-col gap-5 lg:flex-row w-full lg:w-1/2 lg:border-r-0 border border-gray-600 rounded-xl lg:rounded-r-none lg:rounded-b-none justify-evenly py-4 items-center">
                             
                             {/* Meter */}
-                                <div>
-                                    <h1>-----Meter-----</h1>
-                                </div>
+                                <h1>Pie Chart Goes Here</h1>
                 
                             {/* Legend */}
-                                <div className="w-1/2 flex flex-wrap">
-                                    <LegendBtn />
+                                <div className="w-3/5 lg:w-2/5 flex flex-wrap">
+                                        <LegendBtn
+                                            categories={budgets.map((budget) => ({ category_name: budget.category_name }))}
+                                        />
                                 </div>
                 
                             </div>
                 
                         {/* Right */}
-                            <div className="w-full md:w-1/2 border border-gray-600 md:border-0 flex flex-col mt-9 md:-mt-2 pt-4 px-5 rounded-none md:rounded-tr-xl"
-                            style={{
-                                backgroundColor: "rgba(26, 66, 87, 0.28)"
-                            }}>
+                        <div className="flex flex-col h-96 w-full lg:w-1/2 border border-gray-600 rounded-xl lg:rounded-l-none lg:rounded-b-none px-6 py-6 gap-4 bg-[#143445] overflow-auto">
                                 {/* Monthly Budget Card */}
                                 <MonthlyBudget budgetedExpenses={budgetedExpenses} />
                                     
                                 {/* Expenses Overview */}
-                                <div className="h-full md:w-full pt-2 flex flex-col">
+                                <div className="h-full md:w-full flex flex-col gap-2">
                                     {budgetedExpenses.map((budget) => (
                                         <BudgetCat key={budget.category_id} category={{ category_name: budget.category_name }} budget={budget} isSet={true}/>
                                     ))}
                                     {nonBudgetedExpenses.map((category) => (
                                         <BudgetCat key={category.category_id} category={category}/>
                                     ))}
+                                
+                                    {/* Scroll Test */}
+                                    {/* <BudgetCat category={{ category_name: "Test" }} budget={{ amount_limit: budgetedExpenses.reduce((acc, budget) => acc + parseFloat(budget.amount_limit), 0) }} isSet={false} />
+                                    <BudgetCat category={{ category_name: "Test" }} budget={{ amount_limit: budgetedExpenses.reduce((acc, budget) => acc + parseFloat(budget.amount_limit), 0) }} isSet={true} />
+                                    <BudgetCat category={{ category_name: "Test" }} budget={{ amount_limit: budgetedExpenses.reduce((acc, budget) => acc + parseFloat(budget.amount_limit), 0) }} isSet={false} />
+                                    <BudgetCat category={{ category_name: "Test" }} budget={{ amount_limit: budgetedExpenses.reduce((acc, budget) => acc + parseFloat(budget.amount_limit), 0) }} isSet={true} /> */}
 
                                 </div>
                 
@@ -93,16 +84,12 @@ function Budget({ budgets }) {
                         </div>
                 
                         {/* Bottom */}
-                        <div className="h-72 w-full md:w-auto border border-gray-600 flex flex-col md:flex-row mt-40 md:-mt-6 mb-6 mx-6 pt-1 px-2 rounded-none md:rounded-b-xl">    
-                            <BudgetTable></BudgetTable>
+                        
+                        <div className="flex py-5 w-full justify-center md:w-auto border border-gray-600 rounded-lg lg:rounded-t-none lg:border-t-0 px-2">    
+                            <h1>Table Goes Here</h1>
                         </div>
-                
-                            
-                        </div>
-                
+                    
                     </div>
-                
-                }
             </Main>
 
         </>

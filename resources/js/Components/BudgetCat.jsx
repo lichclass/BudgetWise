@@ -10,9 +10,9 @@ function BudgetCat({ category, budget, isSet=false }) {
 
     return (
         <>
-            <div className="flex justify-between items-center bg-[#102734] rounded-xl px-4 py-2 shadow-sm h-11 sm:px-6 lg:px-8">
+            <div className="flex gap-2 justify-between items-center bg-[#102734] rounded-xl px-4 py-2 shadow-sm h-11 sm:px-6 lg:px-8">
                 {/* Category Name */}
-                <span className="text-white text-sm sm:text-base lg:text-lg">
+                <span className="text-white text-sm sm:text-base lg:text-lg whitespace-nowrap">
                     {category.category_name}
                 </span>
 
@@ -21,11 +21,11 @@ function BudgetCat({ category, budget, isSet=false }) {
                         
                         <EditBudgetBtn budget={budget} />
 
-                        <div className="flex gap-1">
-                            <span className="text-[#79BAA8] font-bold text-sm sm:text-base lg:text-lg">
+                        <div className="flex gap-1 items-center">
+                            <span className="text-[#79BAA8] font-bold text-base lg:text-lg">
                                 {formaterr.format(budget.amount_limit)}
                             </span>
-                            <p className="hidden sm:block self-center sm:show font-thin text-xs sm:text-sm">
+                            <p className="font-thin text-xs sm:text-sm text-[#FFFFFFB2] whitespace-nowrap">
                                 Monthly
                             </p>
                         </div>
