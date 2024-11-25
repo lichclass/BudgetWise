@@ -8,8 +8,9 @@ import { useForm } from "@inertiajs/react";
 function EditTransactionBtn({ transaction }) {
     const { data, setData, put } = useForm({
         amount: transaction.amount,
-        desc: transaction.transaction_description,
-        date: transaction.transaction_date,
+        transaction_description: transaction.transaction_description,
+        transaction_date: transaction.transaction_date,
+        transaction_type: transaction.transaction_type,
     });
 
     const [isModalOpen, setIsModalOpen] = useState(false);

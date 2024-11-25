@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -54,10 +54,13 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $users)
+    public function update(Request $request, $userId)
     {
         //
-        dd($request);
+        // dd($request);
+        $user = User::findOrFail($userId);
+        $user->update($request->all());
+        return redirect()->back();
     }
 
     /**

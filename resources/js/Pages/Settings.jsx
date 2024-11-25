@@ -18,13 +18,12 @@ function Settings() {
     const [isDeleteAccModalOpen, setIsDeleteAccModalOpen] = useState(false);
     const showDeleteAccModal = () => setIsDeleteAccModalOpen(true);
     const handleCancelDeleteAccModal = () => setIsDeleteAccModalOpen(false);
-    const handleEmailChange = (e) => setEmail(e.target.value);
-    const handleUsernameChange = (e) => setUsername(e.target.value);
+    // const handleEmailChange = (e) => setEmail(e.target.value);
+    // const handleUsernameChange = (e) => setUsername(e.target.value);
 
     const { data, setData, put } = useForm({
-        user_id: auth.user.user_id,
-        username,
-        email,
+        username: auth.user.username,
+        email: auth.user.email,
     });
 
     function submit(e) {
@@ -37,6 +36,7 @@ function Settings() {
     const handleEmailEdit = () => {
         if(editEmail) {
             setEmail(auth.user.email);
+            setData("email", auth.user.email);
         }
         setEditEmail(!editEmail);
     }
@@ -44,6 +44,7 @@ function Settings() {
     const handleUsernameEdit = () => {
         if(editUsername) {
             setUsername(auth.user.username);
+            setData("username", auth.user.username);
         }
         setEditUsername(!editUsername);
     }
@@ -72,8 +73,8 @@ function Settings() {
                                 htmlFor="email"
                                 type="text"
                                 name="email"
-                                value={email}
-                                onChange={handleEmailChange}
+                                value={data.email}
+                                onChange={(e) => setData("email", e.target.value)}
                                 errorDisplay=""
                                 isReadOnly={!editEmail}
                             />
@@ -93,8 +94,8 @@ function Settings() {
                                 htmlFor="username"
                                 type="text"
                                 name="username"
-                                value={username}
-                                onChange={handleUsernameChange}
+                                value={data.username}
+                                onChange={(e) => setData("username", e.target.value)}
                                 errorDisplay=""
                                 isReadOnly={!editUsername}
                             />

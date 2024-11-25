@@ -90,9 +90,43 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(UpdateTransactionRequest $request, $transactionId)
     {
-        dd($request, $transaction);
+        // dd($request, $transactionId);
+        // Validate the request
+        $fields = $request->validated();
+        
+        $ledger = session('ledger'); // Retrieve ledger ID from session
+
+        // Check if the ledger exists
+        if (!$ledger) {
+            return redirect()->back()->withErrors(['ledger' => 'Ledger not found.']);
+        }
+        $ledgerAmt = $ledger->balance;
+          // Check if the transaction exists
+        $transaction = Transaction::find($transactionId);
+        if (!$transaction) {
+            return redirect()->back()->withErrors(['transaction' => 'Transaction not found.']);
+        }
+
+        if ($transaction->transaction_type == 'expense') {
+            $balanceChange = $transaction->amount - $fields['amount'];
+        } else {
+            $balanceChange = $fields['amount'] - $transaction->amount;
+        }
+
+        // Update the ledger balance
+        $ledger->balance = $ledgerAmt + $balanceChange;
+        $ledger->save();
+        
+        // Update the transaction
+        $transaction->update($fields);
+        $transaction->save();
+
+        $updatedLedger = Ledger::find($ledger->ledger_id);
+        session(['ledger' => $updatedLedger]);
+
+        return redirect()->route('home');
     }
 
     /**
@@ -101,6 +135,18 @@ class TransactionController extends Controller
     public function destroy($id)
     {   
         $transaction = Transaction::findOrFail($id);
+        if ($transaction->transaction_type == 'expense') {
+            $balanceChange = $transaction->amount;
+        } else {
+            $balanceChange = 0 - $transaction->amount;
+        }
+        $ledger = Ledger::find($transaction->ledger_id);
+        $ledger->balance = $ledger->balance + $balanceChange;
+        $ledger->save();
+
+        $updatedLedger = Ledger::find($ledger->ledger_id);
+        session(['ledger' => $updatedLedger]);
+        
         $transaction->delete();
         return redirect()->back();
     }

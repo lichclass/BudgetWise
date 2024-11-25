@@ -28,7 +28,7 @@ class StoreTransactionRequest extends FormRequest
             'ledger_id' => ['required', 'numeric'],
             'category_id' => ['required', 'numeric'],
             'amount' => ['required', 'numeric'],
-            'transaction_description' => ['string', 'max:255'],
+            'transaction_description' => ['nullable','string', 'max:255'],
             'transaction_date' => ['nullable', 'date'],
             'transaction_type' => ['required', Rule::in(['income', 'expense'])],
         ];
