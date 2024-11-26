@@ -9,9 +9,9 @@ import { useForm } from "@inertiajs/react";
 function AddGoalBtn() {
 
     const { data, setData, post } = useForm({
-        goal_name: "",
-        goal_limit: "",
-        goal_date: "",
+        title: "",
+        target_income: "",
+        target_date: "",
     });
 
     function submitAddGoal(e) {
@@ -50,7 +50,7 @@ function AddGoalBtn() {
                         name="goal_name"
                         placeholder="Enter a goal name"
                         value={data.goalName}
-                        onChange={(e) => setData('goal_name', e.target.value)}
+                        onChange={(e) => setData('title', e.target.value)}
                     />
 
                     <InputField
@@ -60,7 +60,7 @@ function AddGoalBtn() {
                         name="goal_limit"
                         placeholder="Set amount limit"
                         value={data.goalLimit}
-                        onChange={(e) => setData('goal_limit', e.target.value)}
+                        onChange={(e) => setData('target_income', e.target.value)}
                     />
 
                     <div className="flex flex-col gap-2">
@@ -71,7 +71,7 @@ function AddGoalBtn() {
                             name="goal_date"
                             placeholder="dd/mm/yy"
                             value={data.goalDate}
-                            onChange={(e) => setData('goal_date', e.target.value)}
+                            onChange={(e) => setData('target_date', e.target.value)}
                             isReadOnly={!isDeadlineSet}
                         />
 

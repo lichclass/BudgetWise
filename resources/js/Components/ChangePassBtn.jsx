@@ -11,7 +11,7 @@ function ChangePassBtn({ onClick }) {
         user_id: auth.user.user_id,
         current_password: "",
         new_password: "",
-        confirm_password: "",
+        new_password_confirmation: "",
     });
 
     const [isChangePassModalOpen, setIsChangePassModalOpen] = useState(false);
@@ -63,11 +63,11 @@ function ChangePassBtn({ onClick }) {
             <MainInputField 
                 label="Confirm Password"
                 sub_label='*Must be at least 8 characters long'
-                htmlFor="confirm-password"
+                htmlFor="new_password_confirmation"
                 type="password"
-                name="confirm-password"
+                name="new_password_confirmation"
                 placeholder="Enter your current password"
-                onChange={(e) => setData("confirm_password", e.target.value)}
+                onChange={(e) => setData("new_password_confirmation", e.target.value)}
             />
         </div>
 

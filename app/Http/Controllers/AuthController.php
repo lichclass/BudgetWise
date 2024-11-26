@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
 
 class AuthController extends Controller
@@ -68,8 +69,20 @@ class AuthController extends Controller
     }
 
     public function changePass(Request $request){
+        
+        $fields = $request->validate([
+            'current_password' => ['required', 'string'],
+            'new_password' => ['required', 'string', 'min:3', 'confirmed'],
+        ]);
 
-        dd($request);
+        if (!Hash::check($fields['current_password'], Auth::user()->password)) {
+            return back()->with('message', 'Invalid password');
+        }
 
+        $user = Auth::user();
+        $user->password = Hash::make($fields['new_password']);
+        $user->save();
+
+        return redirect()->back();
     }
 }

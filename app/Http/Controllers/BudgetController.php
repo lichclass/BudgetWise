@@ -40,8 +40,21 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        dd($request);
+        
+        $fields = $request->validate([
+            "category_id" => ['required', 'numeric'],
+            "amount_limit" => ['required', 'numeric'],
+        ]);
+
+        $ledgerId = session('ledger.ledger_id');
+        if(!$ledgerId) {
+            return redirect()->back();
+        }
+
+        $fields['ledger_id'] = $ledgerId;
+        Budget::create($fields);
+
+        return redirect()->back();
     }
 
     /**
@@ -63,18 +76,26 @@ class BudgetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Budget $budgets)
+    public function update(Request $request, $id)
     {
-        //
-        dd($request);
+        $fields = $request->validate([
+            "category_id" => ['required', 'numeric'],
+            "amount_limit" => ['required', 'numeric'],
+        ]);
+
+        $budget = Budget::find($id);
+        $budget->update($fields);
+
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $budgets)
+    public function destroy($id)
     {
-        //
-        dd($budgets);
+        $budget = Budget::find($id);
+        $budget->delete();  
+        return redirect()->back();
     }
 }

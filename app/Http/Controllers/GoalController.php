@@ -24,16 +24,6 @@ class GoalController extends Controller
         return Inertia::render('Home', [
             'goals' => $user_goals,        
         ]);
-        // $ledgers = Ledgers::where('user_id', Auth::id())->get();
-
-        // $goals=[];
-        // foreach($ledgers as $ledger) {
-        //     $goals = array_merge($goals, Goals::where('ledger_id', $ledger->ledger_id)->get()->toArray());
-        // }
-        
-        // return Inertia::render('Test', [
-        //     'goalsList' => $goals
-        // ]);
     }
 
     /**
@@ -49,11 +39,22 @@ class GoalController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        dd($request); //debugging
+
+        $fields = $request->validate([
+            'title' => ['required', 'string'],
+            'target_income' => ['required', 'numeric'],
+            'target_date' => ['nullable', 'date']
+        ]);
+
+        $ledgerId = session('ledger.ledger_id');
+        if(!$ledgerId) {
+            return redirect()->back();
+        }
+
+        $fields['ledger_id'] = $ledgerId;
         
-        $fields = $request->validated();
-        $goal = Goal::create($fields);
+        Goal::create($fields);  
+
         return redirect()->back();
     }
 
@@ -77,12 +78,23 @@ class GoalController extends Controller
      * Update the specified resource in storage.
      */
    
-    public function update(Request $request, Goal $goals)
-    {   
-        dd($request, $goals);
+    public function update(Request $request, $id)
+    {
+        dd($request);
+        $fields = $request->validate([
+            'title' => ['required', 'string'],
+            'target_income' => ['required', 'numeric'],
+            'target_date' => ['nullable', 'date']
+        ]);
 
-        $fields = $request->validated();
+
+        $goals = Goal::find($id);
+        if(!$goals) {
+            return redirect()->back();
+        }
+
         $goals->update($fields);
+        
         return redirect()->route('home');
     }
 
@@ -99,8 +111,7 @@ class GoalController extends Controller
      */
     public function destroy(Request $goals)
     {
-        dd($goals);
-
+        $ledger = session('ledger');
         $goals->delete();
         return redirect()->route('home');
     }

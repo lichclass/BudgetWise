@@ -8,7 +8,7 @@ import DeleteBudgetBtn from "./DeleteBudgetBtn";
 function EditBudgetBtn({ budget }){
 
     const {data, setData, put} = useForm({
-        budget_amount: budget.amount_limit,
+        amount_limit: budget.amount_limit,
         category_id: budget.category_id   
     });
 
@@ -38,7 +38,7 @@ function EditBudgetBtn({ budget }){
                 subtitle={budget.category_name}
                 isModalOpen={isEditModalOpen}
                 handleCancel={handleEditCancel}
-                deleteRender={<DeleteBudgetBtn budget_id={1} />}
+                deleteRender={<DeleteBudgetBtn budget_id={budget.budget_id} />}
                 onClick={submit}
             >
                 <div className="flex flex-col pt-3 pb-7">
@@ -47,9 +47,9 @@ function EditBudgetBtn({ budget }){
                         htmlFor="budget_amount"
                         type="number"
                         name="budget_amount"
-                        placeholder={data.budget_amount}
-                        value={data.budget_amount}
-                        onChange={(e) => setData('budget_amount', e.target.value)}
+                        placeholder={data.amount_limit}
+                        value={data.amount_limit}
+                        onChange={(e) => setData('amount_limit', e.target.value)}
                     />                                    
                 </div>
 

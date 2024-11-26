@@ -14,7 +14,7 @@ class Goal extends Model
     protected $fillable = [
         'ledger_id',
         'title',
-        'target_amount',
+        'target_income',
         'current_savings',
         'target_date',
     ];

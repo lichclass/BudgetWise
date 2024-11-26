@@ -17,17 +17,16 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
         
     const { data, setData, put } = useForm({
         goal_id: id,
-        goal_name: title,
-        goal_limit: target,
-        goal_date: targetDate,
+        title: title,
+        target_income: target,
+        target_date: targetDate,
     });
 
     function submitEdit(e) {
-        data.goal_date = isDeadlineInputSet
+        data.target_date = isDeadlineInputSet
             ? document.querySelector('input[name="goal_date"]').value
             : null;
         e.preventDefault();
-        // console.log(data);
         put(route("goals.update", id));
     }
 
@@ -53,9 +52,9 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
                         type="text"
                         name="goal_name"
                         placeholder={title}
-                        value={data.goal_name || title}
+                        value={data.title || title}
                         onChange={(e) =>
-                            setData("goal_name", e.target.value)
+                            setData("title", e.target.value)
                         }
                     />
 
@@ -65,9 +64,9 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
                         type="number"
                         name="goal_limit"
                         placeholder={target}
-                        value={data.goal_limit || target}
+                        value={data.target_income || target}
                         onChange={(e) =>
-                            setData("goal_limit", e.target.value)
+                            setData("target_income", e.target.value)
                         }
                     />
 
@@ -77,9 +76,9 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
                             htmlFor="goal_date"
                             type="date"
                             name="goal_date"
-                            value={data.goal_date || targetDate}
+                            value={data.target_date || targetDate}
                             onChange={(e) =>
-                                setData("goal_date", e.target.value)
+                                setData("target_income", e.target.value)
                             }
                             isReadOnly={!isDeadlineInputSet}
                         />

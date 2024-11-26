@@ -6,7 +6,7 @@ import InputField from "@/Components/MainInputField";
 function AddBudgetBtn({ category }){
 
     const {data, setData, post} = useForm({
-        budget_amount: "",
+        amount_limit: "",
         category_id: category.category_id   
     });
 
@@ -45,7 +45,7 @@ function AddBudgetBtn({ category }){
                         name="budget_amount"
                         placeholder="Enter Amount"
                         value={data.budget_amount}
-                        onChange={(e) => setData('budget_amount', e.target.value)}
+                        onChange={(e) => setData('amount_limit', e.target.value)}
                     />                                    
                 </div>
             </SetBudgetModal>
