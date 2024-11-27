@@ -3,6 +3,15 @@ import { Head } from '@inertiajs/react';
 
 
 function Dashboard() {
+
+
+    const users = 10;
+    const visitors = 25;
+    const percentIncreaseUsers = 10;
+    const percentIncreaseVisits = 20;
+    const transactions = 300;
+
+
     return (
         <>
             <Head title="Dashboard" />
@@ -19,19 +28,19 @@ function Dashboard() {
                 >
                     <div className="flex flex-col text-center w-36">
                         <h1 className="font-extrabold text-3xl text-gray-400">Users</h1>
-                        <h1 className="font-extrabold text-5xl">10</h1>
-                        <h1>10% increase from last month</h1>
+                        <h1 className="font-extrabold text-5xl">{users}</h1>
+                        <h1>{percentIncreaseUsers}% increase from last month</h1>
                     </div>
 
                     <div className="flex flex-col text-center w-36">
                         <h1 className="font-extrabold text-3xl text-gray-400">Visits</h1>
-                        <h1 className="font-extrabold text-5xl">10</h1>
-                        <h1>10% increase from last month</h1>
+                        <h1 className="font-extrabold text-5xl">{visitors}</h1>
+                        <h1>{percentIncreaseVisits}% increase from last month</h1>
                     </div>
 
                     <div className="flex flex-col text-center w-36 pt-3">
                         <h1 className="font-extrabold text-3xl text-gray-400">Transactions</h1>
-                        <h1 className="font-extrabold text-5xl pl-9">300</h1>
+                        <h1 className="font-extrabold text-5xl pl-9">{transactions}</h1>
                     </div>
 
                 </div>
