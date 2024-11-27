@@ -1,20 +1,20 @@
 import Main from "@/Layouts/Main";
 import { Head } from '@inertiajs/react';
-import UserItem from "@/Components/AdminUsersItem";
+import UserList from "@/Components/AdminUsersList";
 
 function Dashboard() {
 
-    const user = [
+    const users = [
         {
-            id: 1,
+            user_id: 1,
             email: 'john@gmail.com',
-            isAdmin: true
+            is_admin: true
         },
         {
-            id: 2,
+            user_id: 2,
             email: 'jane@gmail.com',
-            isAdmin: false
-        }
+            is_admin: false
+        },
     ];
 
     return (
@@ -22,11 +22,21 @@ function Dashboard() {
             <Head title="Dashboard" />
 
             <Main navbarMsg={'Welcome back, Admin'} isAdmin={true}> 
-                <div className="flex flex-col bg-[#143445] rounded p-9 gap-3">
-                    {user.map((user) => (
-                        <UserItem key={user.id} users={user} />
-                    ))}
+
+                <div className="h-full w-full flex flex-col lg:flex-row gap-6">
+                    
+                    <UserList className="w-1/2"
+                        users={users.filter((u) => u.is_admin)}
+                        title="Admin Accounts"
+                    />
+                    <UserList className="w-1/2"
+                        users={users.filter((u) => !u.is_admin)}
+                        title="User Accounts"
+                    />
                 </div>
+                
+                
+                
             </Main>
         </>
 

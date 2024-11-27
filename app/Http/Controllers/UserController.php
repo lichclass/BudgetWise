@@ -56,8 +56,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $userId)
     {
-        //
-        // dd($request);
+        dd($request);
         $user = User::findOrFail($userId);
         $user->update($request->all());
         return redirect()->back();
@@ -66,7 +65,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($userId)
+    public function destroy(Request $userId)
     {
         dd($userId);
         $users = User::findOrFail($userId);
