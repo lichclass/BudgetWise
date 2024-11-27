@@ -41,6 +41,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/home', [HomeController::class, 'addGoalMoney'])->name('add-balance');
     Route::put('/home', [HomeController::class, 'withdrawGoalMoney'])->name('withdraw-balance');
 
+    Route::inertia('/admin/dashboard', 'Admin/Dashboard')->name('admin.dashboard');
+    Route::inertia('/admin/users', 'Admin/Users')->name('admin.users');
+
     Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
 
     Route::resource('ledger', LedgerController::class);
