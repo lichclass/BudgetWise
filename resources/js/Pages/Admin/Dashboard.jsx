@@ -7,8 +7,7 @@ function Dashboard() {
         <>
             <Head title="Dashboard" />
 
-            <Main navbarMsg={'Admin Dashboard'} isAdmin={true}> 
-                test
+            <Main navbarMsg={'Welcome back, Admin'} isAdmin={true}> 
             </Main>
         </>
 

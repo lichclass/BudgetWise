@@ -21,7 +21,7 @@ function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave, isAdmin = 
     const adminItems = [
         { icon: icons.homeIcon, label: "Home", destination: route('admin.dashboard') },
         { icon: icons.userIcon, label: "Users", destination: route('admin.users')},
-        { icon: icons.settingsIcon, label: "Settings", destination: route('settings') },
+        { icon: icons.settingsIcon, label: "Settings", destination: route('admin.settings') },
     ]
 
     const display = (isAdmin ? adminItems : userItems);

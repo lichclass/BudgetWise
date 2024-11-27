@@ -43,6 +43,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::inertia('/admin/dashboard', 'Admin/Dashboard')->name('admin.dashboard');
     Route::inertia('/admin/users', 'Admin/Users')->name('admin.users');
+    Route::inertia('/admin/settings', 'Admin/Settings')->name('admin.settings');
+
 
     Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
 

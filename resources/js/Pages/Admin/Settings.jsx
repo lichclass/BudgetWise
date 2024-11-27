@@ -2,16 +2,16 @@ import Main from "@/Layouts/Main";
 import { Head } from '@inertiajs/react';
 
 
-function Users() {
+function Settings() {
     return (
         <>
-            <Head title="Users" />
+            <Head title="Settings" />
 
-            <Main navbarMsg={'Users'} isAdmin={true}> 
+            <Main isSettings={true} isAdmin={true}> 
             </Main>
         </>
 
     );
 }
 
-export default Users;
+export default Settings;

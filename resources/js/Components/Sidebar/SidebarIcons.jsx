@@ -1,5 +1,5 @@
 import homeIcon from "../../../../public/build/assets/Sidebar_HomeIcon.svg";
-import userIcon from "../../../../public/build/assets/Sidebar_UserIcon.com.svg";
+import userIcon from "../../../../public/build/assets/Sidebar_UserIcon.svg";
 import transactionsIcon from "../../../../public/build/assets/Sidebar_TransactionsIcon.svg";
 import budgetIcon from "../../../../public/build/assets/Sidebar_BudgetIcon.svg";
 import settingsIcon from "../../../../public/build/assets/Sidebar_SettingsIcon.svg";
