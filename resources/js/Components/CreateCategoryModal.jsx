@@ -5,16 +5,15 @@ import DropDownField from "@/Components/DropDownField";
 import { useForm } from "@inertiajs/react";
 
 function CreateCategoryModal({ type, isModalOpen, handleCancel }) {
-    const { data, setData, post, errors, processing } = useForm({
-        category_type: "",
+    const { setData, post, errors, processing } = useForm({
+        category_type: type,
         custom_name: "",
         def_cat: "",
     });
 
     function submit(e) {
         e.preventDefault();
-        //console.log(data);
-        post(route("category.store"));
+        post(route("ledger-category.store"));
     }
 
     return (

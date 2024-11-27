@@ -10,7 +10,7 @@ use App\Http\Requests\UpdateLedgerCategoryRequest;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class LedgerCategoriesController extends Controller
+class LedgerCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
