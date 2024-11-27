@@ -1,6 +1,6 @@
 import Main from "@/Layouts/Main";
 import { Head } from '@inertiajs/react';
-
+import UserItem from "@/Components/AdminUsersItem";
 
 function Dashboard() {
 
