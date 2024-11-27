@@ -3,7 +3,7 @@ import { usePage } from "@inertiajs/react";
 import Sidebar from "@/Components/Sidebar/OpenSidebar.jsx";
 import Navbar from "@/Components/Navbar";
 
-function Main({ navbarMsg, children, isSettings=false }) {
+function Main({ navbarMsg, children, isSettings=false, isAdmin=false }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const { auth } = usePage().props;
@@ -39,6 +39,7 @@ function Main({ navbarMsg, children, isSettings=false }) {
                     toggleSidebar={toggleSidebar}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    isAdmin={isAdmin}
                 />
             </div>
             <div className="flex flex-col flex-grow"> 

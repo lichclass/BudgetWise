@@ -5,18 +5,27 @@ import { useRoute } from "../../../../vendor/tightenco/ziggy/src/js";
 import { useForm } from "@inertiajs/react";
 
 
-function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave }) {
+function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave, isAdmin = false }) {
 
     const { post, processing } = useForm();
 
     const route = useRoute();
 
-    const menuItems = [
+    const userItems = [
         { icon: icons.homeIcon, label: "Home", destination: route('home') },
         { icon: icons.transactionsIcon, label: "Transactions", destination: route('transaction.index') },
         { icon: icons.budgetIcon, label: "Budget", destination: route('budget.index') },
         { icon: icons.settingsIcon, label: "Settings", destination: route('settings') },
     ];
+
+    const adminItems = [
+        { icon: icons.homeIcon, label: "Home", destination: route('admin.dashboard') },
+        { icon: icons.userIcon, label: "Users", destination: route('admin.users')},
+        { icon: icons.settingsIcon, label: "Settings", destination: route('settings') },
+    ]
+
+    const display = (isAdmin ? adminItems : userItems);
+    
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -40,7 +49,7 @@ function Sidebar({ isOpen, toggleSidebar, onMouseEnter, onMouseLeave }) {
             {/* Body */}
             <div className="flex flex-col justify-between h-full px-8 py-12 overflow-hidden">
                 <ul className="flex flex-col gap-12">
-                    {menuItems.map((item, index) => (
+                    {display.map((item, index) => (
                         <li key={index} className="flex items-center">
                             <a href={item.destination} className="flex items-center gap-5 group">
                                 <img src={item.icon} alt={`${item.label}_icon`} className="transition-transform duration-300 ease-in-out group-hover:scale-110" />
