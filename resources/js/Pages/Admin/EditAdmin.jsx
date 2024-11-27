@@ -2,10 +2,10 @@ import Main from "@/Layouts/Main";
 import { Head } from '@inertiajs/react';
 
 
-function Settings() {
+function EditAdmin() {
     return (
         <>
-            <Head title="Edit User" />
+            <Head title="Edit Admin" />
 
             <Main isSettings={true} isAdmin={true}> 
             </Main>
@@ -14,4 +14,4 @@ function Settings() {
     );
 }
 
-export default Settings;
+export default EditAdmin;

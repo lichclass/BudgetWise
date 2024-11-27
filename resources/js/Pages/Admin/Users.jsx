@@ -8,6 +8,9 @@ function Users() {
             <Head title="Users" />
 
             <Main navbarMsg={'Users'} isAdmin={true}> 
+                <div>
+                    
+                </div>
             </Main>
         </>
 

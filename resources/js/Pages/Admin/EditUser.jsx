@@ -2,7 +2,7 @@ import Main from "@/Layouts/Main";
 import { Head } from '@inertiajs/react';
 
 
-function Settings() {
+function EditUser() {
     return (
         <>
             <Head title="Edit User" />
@@ -14,4 +14,4 @@ function Settings() {
     );
 }
 
-export default Settings;
+export default EditUser;
