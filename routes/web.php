@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('category', CategoryController::class);
     Route::resource('goals', GoalController::class);
     Route::resource('user', UserController::class);
+    Route::resource('ledger-category', LedgerCategoryController::class);
 
     Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
     Route::put('/settings/{id}', [AuthController::class, "changePass"])->name('change-pass');
