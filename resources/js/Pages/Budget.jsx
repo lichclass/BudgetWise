@@ -9,9 +9,9 @@ import MonthlyBudget from '@/Components/MonthlyBudgetCard';
 // Temporary
 import BudgetCat from "@/Components/BudgetCat";
 
-function Budget({ budgets }) {
+function Budget() {
     
-    const { categories, ledger } = usePage().props;
+    const { budgets, categories, ledger } = usePage().props;
 
     const expenses = categories.filter((category) => { 
         return category.category_type === "expense" 

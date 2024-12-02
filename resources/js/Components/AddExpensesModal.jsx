@@ -1,8 +1,9 @@
 import ModalB from "@/Layouts/ModalB";
 import MainInputField from "@/Components/MainInputField";
+import ProgressBar from "@/Components/ExpenseProgressBar";
 import { useForm, usePage } from "@inertiajs/react";
 
-function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCancel }) {
+function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCancel, completion }) {
     const { ledger } = usePage().props;
     
     const { data, setData, post } = useForm({
@@ -36,6 +37,7 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
                 <div className="w-1/2 flex flex-col pl-2">
                     <div className="h-1/2">
                         <h1 className="text-xl text-gray-50">Budget</h1>
+                        <ProgressBar completion={completion} />
                     </div>
                     <div className="h-1/2">
                         <h1 className="text-xl text-gray-50">Spent</h1>

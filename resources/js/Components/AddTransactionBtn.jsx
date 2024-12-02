@@ -3,7 +3,7 @@ import { IoIosAdd } from "react-icons/io";
 import AddExpensesModal from "@/Components/AddExpensesModal";
 import AddIncomeModal from "@/Components/AddIncomeModal";
 
-function AddCatBtn({ name, cat_id, type }) {
+function AddCatBtn({ name, cat_id, type, completion }) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,6 +29,7 @@ function AddCatBtn({ name, cat_id, type }) {
                     name={name}
                     setIsModalOpen={setIsModalOpen}
                     cat_id = {cat_id}
+                    completion = {completion}
                   />
                 : <AddIncomeModal 
                     isModalOpen={isModalOpen}

@@ -2,8 +2,12 @@ import React, { useRef } from "react";
 import CategoryCard from "./CategoryCard";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import AddCategoryBtn from "./AddCategoryBtn";
+import { usePage } from "@inertiajs/react";
 
 function CategoryList({ type, categories, searchTerm, selectedLedger }) {
+    
+    const { budgets, ledger } = usePage().props;
+    
     const carouselRef = useRef(null);
 
     const scrollLeft = () => {
@@ -23,6 +27,24 @@ function CategoryList({ type, categories, searchTerm, selectedLedger }) {
             });
         }
     };
+
+    const expenses = categories.filter((category) => { 
+        return category.category_type === "expense" 
+        && category.ledger_id === ledger.ledger_id 
+    }); 
+    
+    const { budgetedExpenses, nonBudgetedExpenses } = expenses.reduce(
+        (acc, category) => {
+            const budget = budgets.find(budget => budget.category_id === category.category_id);
+            if (budget) {
+                acc.budgetedExpenses.push(budget);
+            } else {
+                acc.nonBudgetedExpenses.push(category);
+            }
+            return acc;
+        },
+        { budgetedExpenses: [], nonBudgetedExpenses: [] }
+    );
 
     // Filter categories based on search term and expense type
     const filteredCategories = categories
@@ -68,7 +90,7 @@ function CategoryList({ type, categories, searchTerm, selectedLedger }) {
                                 <div key={index} className="snap-center">
                                     <CategoryCard
                                         category={category}
-                                        amount={100}
+                                        budget={budgetedExpenses.find(budget => budget.category_id === category.category_id)}
                                     />
                                 </div>
                             ))

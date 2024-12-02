@@ -5,7 +5,8 @@ import EditCatBtn from "./EditCatBtn";
 import { downscale } from "@/utilityFunctions";
 import { usePage } from "@inertiajs/react";
 
-function CategoryCard({ category }) {
+function CategoryCard({ category, budget }) {
+    
     const { transactions, ledger } = usePage().props;
 
     const formaterr = new Intl.NumberFormat("en-US", {
@@ -16,8 +17,7 @@ function CategoryCard({ category }) {
 
     const [fontSize, setFontSize] = useState();
 
-    const total_amount = transactions
-    .filter(
+    const total_amount = transactions.filter(
         (transaction) =>
             transaction.ledger_id === ledger.ledger_id &&
             transaction.category_id === category.category_id
@@ -37,6 +37,8 @@ function CategoryCard({ category }) {
         );
         setFontSize(newFontSize);
     }, [total_amount]);
+
+    const completion = budget && (total_amount / budget.amount_limit) * 100;
 
     return (
         <Card
@@ -77,6 +79,7 @@ function CategoryCard({ category }) {
                         cat_id={category.category_id}
                         type={category.category_type}
                         name={category.category_name}
+                        completion={completion}
                     />
                     <EditCatBtn category={category} />
                 </Space>
