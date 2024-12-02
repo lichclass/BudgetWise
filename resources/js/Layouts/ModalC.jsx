@@ -17,6 +17,7 @@ function ModalC({
     onClick,
     isEditLedger=false,
     disableBtn=false,
+    error="*ERROR"
 }) {
     return (
         <>
@@ -46,14 +47,19 @@ function ModalC({
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={
-                    <div className="flex justify-between space-x-4 py-2 w-full">
-                        {deleteRender}
-                        <GreenBtnMed
-                            text="Save"
-                            width={isEditLedger ? "w-full" : "w-1/2"}
-                            onClick={onClick}
-                            disabled={disableBtn}
-                        />
+                    <div className = "flex flex-col">
+                        <div>
+                            <span className="text-red-500 pr-3">{error}</span>
+                        </div>
+                        <div className="flex justify-between space-x-4 py-2 w-full">
+                            {deleteRender}
+                            <GreenBtnMed
+                                text="Save"
+                                width={isEditLedger ? "w-full" : "w-1/2"}
+                                onClick={onClick}
+                                disabled={disableBtn}
+                            />
+                        </div>
                     </div>
                 }
                 className="main-modal-style"

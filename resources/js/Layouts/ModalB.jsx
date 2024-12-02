@@ -12,7 +12,8 @@ function ModalB({
     large = false,
     isGoalsWithdraw = false,
     onSubmit,
-    disabledBtn=false
+    disabledBtn=false,
+    error="*ERROR"
 }) {
     return (
         <>
@@ -43,12 +44,18 @@ function ModalB({
                     open={isModalOpen}
                     onCancel={handleCancel}
                     footer={
-                        <div className="flex justify-between space-x-4 py-2 w-full">
-                            {isGoalsWithdraw == false ? (
-                                <GreenBtnMed text="Submit" width="w-full" onClick={onSubmit} disabled={disabledBtn}/>
-                            ) : (
-                                <DeleteBtn text="Withdraw" width="w-full" onClick={onSubmit} />
-                            )}
+                        <div className = "flex flex-col">
+                            <div>
+                                <span className="text-red-500 pr-3">{error}</span>
+                            </div>
+
+                            <div className="flex justify-between space-x-4 py-2 w-full">
+                                {isGoalsWithdraw == false ? (
+                                    <GreenBtnMed text="Submit" width="w-full" onClick={onSubmit} disabled={disabledBtn}/>
+                                ) : (
+                                    <DeleteBtn text="Withdraw" width="w-full" onClick={onSubmit} />
+                                )}
+                            </div>
                         </div>
                     }
                     className="main-modal-style md:w-full"
