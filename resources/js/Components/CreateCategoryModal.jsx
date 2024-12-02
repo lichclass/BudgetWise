@@ -79,6 +79,7 @@ function CreateCategoryModal({
             isModalOpen={isModalOpen}
             handleCancel={handleCancel}
             onSubmit={submit}
+            disabledBtn={processing}
         >
             <div className="space-y-4 > *">
                 <DropDownField

@@ -7,7 +7,7 @@ import DeleteBudgetBtn from "./DeleteBudgetBtn";
 
 function EditBudgetBtn({ budget }){
 
-    const {data, setData, put} = useForm({
+    const {data, setData, put, processing} = useForm({
         amount_limit: budget.amount_limit,
         category_id: budget.category_id   
     });
@@ -40,6 +40,7 @@ function EditBudgetBtn({ budget }){
                 handleCancel={handleEditCancel}
                 deleteRender={<DeleteBudgetBtn budget_id={budget.budget_id} />}
                 onClick={submit}
+                disableBtn={processing}
             >
                 <div className="flex flex-col pt-3 pb-7">
                     <InputField

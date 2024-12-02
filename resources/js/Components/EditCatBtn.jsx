@@ -6,7 +6,7 @@ import EditCatModal from "@/Layouts/ModalC";
 import DeleteCatBtn from "./DeleteCatBtn";
 
 function EditCatBtn({ category, isEditLedger = false }) {
-    const { data, setData, put } = useForm({
+    const { data, setData, put, processing } = useForm({
         category_name: "",
     });
 
@@ -41,7 +41,7 @@ function EditCatBtn({ category, isEditLedger = false }) {
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 onClick={submitEdit}
-                disableBtn={category.is_default}
+                disableBtn={category.is_default || processing}
             >
                 <div className="space-y-5 > * mb-8">
                     <MainInputField

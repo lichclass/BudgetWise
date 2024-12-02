@@ -13,7 +13,7 @@ function GreenBtnMed({ text, width, onClick, disabled = false }) {
                     : "linear-gradient(90deg, rgba(45, 126, 155, 0.80) 0%, rgba(72, 169, 134, 0.80) 100%)",
             }}
             onClick={onClick}
-            disabled={disabled}
+            disabled={disabled}     
         >
             {text}
         </button>

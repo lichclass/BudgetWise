@@ -7,7 +7,7 @@ function ChangePassBtn({ onClick }) {
 
     const { auth } = usePage().props;
 
-    const { data, setData, put } = useForm({
+    const { data, setData, put, processing } = useForm({
         user_id: auth.user.user_id,
         current_password: "",
         new_password: "",
@@ -40,6 +40,7 @@ function ChangePassBtn({ onClick }) {
         isModalOpen={isChangePassModalOpen}
         handleCancel={handleCancelChangePassModal}
         onSubmit={submit}
+        disableBtn={processing}
     >
         <div className='space-y-5'>
             <MainInputField 

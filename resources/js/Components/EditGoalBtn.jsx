@@ -15,7 +15,7 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
     const [isDeadlineInputSet, setDeadlineInputEnable] =
         useState(isDeadlineSet);
         
-    const { data, setData, put } = useForm({
+    const { data, setData, put, processing } = useForm({
         goal_id: id,
         title: title,
         target_income: target,
@@ -42,6 +42,7 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
                 handleCancel={handleEditGoalsCancel}
                 deleteRender={<DeleteGoalBtn goal_id={id} />}
                 onClick={submitEdit}
+                disableBtn={processing}
             >
 
             <div className="flex flex-col gap-4 pb-5">

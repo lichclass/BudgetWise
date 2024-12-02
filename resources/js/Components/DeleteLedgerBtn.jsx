@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
 function DeleteLedgerBtn({ ledger_id }) {
-    const { delete: destroy } = useForm()
+    const { delete: destroy, processing } = useForm()
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -25,6 +25,7 @@ function DeleteLedgerBtn({ ledger_id }) {
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 onSubmit={handleSubmit}
+                disableBtn={processing}
             />
         </>
     );

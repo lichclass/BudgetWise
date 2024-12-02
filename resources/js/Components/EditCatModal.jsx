@@ -10,7 +10,7 @@ function EditCatModal({
     handleCancel,
     isEditLedger = false,
 }) {
-    const { data, setData, put } = useForm({
+    const { data, setData, put, processing } = useForm({
         category_name: "",
     });
 
@@ -32,7 +32,7 @@ function EditCatModal({
             handleCancel={handleCancel}
             onClick={submitEdit}
             isEditLedger={isEditLedger}
-            disableBtn={category.is_default}
+            disableBtn={category.is_default || processing}
         >
             <div className="space-y-5 > * mb-8">
                 <MainInputField
