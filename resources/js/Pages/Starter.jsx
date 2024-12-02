@@ -320,13 +320,13 @@ function Starter({ categories }) {
                             <div className="modal-action">
                                 <div className="flex space-x-5">
                                     <button
-                                        className="text-teal-800 font-bold px-5 py-2 rounded-xl bo</div>rder border-teal-800 hover:scale-110 transition"
+                                        className="text-lime-50 font-bold px-5 py-2 rounded-xl bo</div>rder border-teal-800 bg-teal-800 hover:scale-110 transition"
                                         onClick={handleAddCategory}
                                     >
                                         Add
                                     </button>
                                     <button
-                                        className="text-lime-50 font-bold px-5 py-2 rounded-xl border border-teal-800 bg-teal-800 hover:scale-110 transition"
+                                        className="text-teal-800 font-bold px-5 py-2 rounded-xl border border-teal-800 hover:scale-110 transition"
                                         onClick={() => setIsModalOpen(false)}
                                     >
                                         Close
