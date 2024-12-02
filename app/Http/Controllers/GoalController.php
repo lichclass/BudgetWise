@@ -98,20 +98,21 @@ class GoalController extends Controller
         return redirect()->route('home');
     }
 
-    // public function withdraw()
-    // {
-
-    // }
-    // public function add()
-    // {
-
-    // }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $goals)
+    public function destroy($id)
     {
-        $ledger = session('ledger');
+        $ledger = Ledger::find(session('ledger.ledger_id'));
+        $goals = Goal::find($id);
+        if(!$goals) {
+            return redirect()->back();
+        }
+        $ledger->balance += $goals->current_saving;
+        $ledger->save();
+
+        session(['ledger' => $ledger]);
+
         $goals->delete();
         return redirect()->route('home');
     }

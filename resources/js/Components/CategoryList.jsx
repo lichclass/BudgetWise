@@ -28,6 +28,7 @@ function CategoryList({ type, categories, searchTerm, selectedLedger }) {
     const filteredCategories = categories
         .filter((category) => category.category_type === type)
         .filter((category) => category.ledger_id === selectedLedger.ledger_id)
+
         .filter((category) =>
             searchTerm
                 ? category.category_name
@@ -49,7 +50,7 @@ function CategoryList({ type, categories, searchTerm, selectedLedger }) {
                     </h1>
                     <hr className="w-full border-t-1 border-gray-300 my-4 border-opacity-30" />
                     {/* Add Category Button */}
-                    <AddCategoryBtn type={type} />
+                    <AddCategoryBtn type={type} locked={true} />
                 </div>
 
                 {/* Body */}

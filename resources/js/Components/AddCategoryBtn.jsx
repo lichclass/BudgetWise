@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import CreateCategoryModal from "./CreateCategoryModal";
 
-function AddCategoryBtn({ type }) {
+function AddCategoryBtn({ type, locked }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => setIsModalOpen(true);
@@ -24,6 +24,7 @@ function AddCategoryBtn({ type }) {
                 type={type}
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
+                locked={locked}
             />
         </>
     );

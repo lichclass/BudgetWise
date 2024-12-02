@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id('reference_id');
-            $table->foreignId('ledger_id')->constrained('ledgers', 'ledger_id');
-            $table->foreignId('category_id')->constrained('categories', 'category_id');
+            $table->foreignId('ledger_id')->constrained('ledgers', 'ledger_id')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories', 'category_id')->onDelete('cascade');
             $table->decimal('amount', 12, 2); 
             $table->string('transaction_description')->nullable();   
             $table->timestamp('transaction_date')->default(DB::raw('CURRENT_TIMESTAMP'));

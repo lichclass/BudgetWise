@@ -16,10 +16,9 @@ function GoalsItem({
     isDeadlineSet,
     deadline,
 }) {
-
-    const { data, setData } = useForm({
+    const { data, setData, put } = useForm({
         goal_id: id,
-        amount_added: "",
+        amount: "",
     });
 
     const buttonStyle =
@@ -50,12 +49,12 @@ function GoalsItem({
 
     function submitAdd(e) {
         e.preventDefault();
-        console.log(data);
+        put(route("goals.add", id));
     }
 
     function submitWithdraw(e) {
         e.preventDefault();
-        console.log(data);
+        put(route("goals.withdraw", id));
     }
 
     return (
@@ -73,7 +72,6 @@ function GoalsItem({
                         targetDate={targetDate}
                         isDeadlineSet={isDeadlineSet}
                     />
-                        
                 </div>
 
                 {/* Progress Bar */}
@@ -109,7 +107,7 @@ function GoalsItem({
                             <div className="flex flex-col gap-4 pb-5">
                                 <div className="flex justify-center gap-2 p-4">
                                     <h1 className="text-white text-2xl">
-                                        Ledger Balance:{" "}
+                                        Ledger Balance:
                                     </h1>
                                     <h1 className="text-white text-2xl font-bold">
                                         {formaterr.format(ledger.balance)}
@@ -118,13 +116,13 @@ function GoalsItem({
 
                                 <InputField
                                     label="Amount"
-                                    htmlFor="amount_added"
+                                    htmlFor="amount"
                                     type="number"
-                                    name="amount_added"
+                                    name="amount"
                                     placeholder="Enter amount"
-                                    value={data.amount_added}
+                                    value={data.amount}
                                     onChange={(e) =>
-                                        setData("amount_added", e.target.value)
+                                        setData("amount", e.target.value)
                                     }
                                 />
                             </div>
@@ -151,36 +149,31 @@ function GoalsItem({
                             isGoalsWithdraw={true}
                             onSubmit={submitWithdraw}
                         >
-                            <form action="" onSubmit={submitWithdraw}>
-                                <div className="flex flex-col gap-4 pb-5">
-                                    <div className="flex justify-center gap-2 p-4">
-                                        <h1 className="text-white text-2xl">
-                                            Goal Balance:{" "}
-                                        </h1>
-                                        {/* 'current' is used for now as ledger balance is not passed properly from home */}
-                                        <h1 className="text-white text-2xl font-bold">
-                                            {formaterr.format(
-                                                parseFloat(ledger.total_balance)
-                                            )}
-                                        </h1>
-                                    </div>
-
-                                    <InputField
-                                        label="Amount"
-                                        htmlFor="amount_added"
-                                        type="number"
-                                        name="amount_added"
-                                        placeholder="Enter amount"
-                                        value={data.amount_added}
-                                        onChange={(e) =>
-                                            setData(
-                                                "amount_added",
-                                                e.target.value
-                                            )
-                                        }
-                                    />
+                            <div className="flex flex-col gap-4 pb-5">
+                                <div className="flex justify-center gap-2 p-4">
+                                    <h1 className="text-white text-2xl">
+                                        Goal Balance:
+                                    </h1>
+                                    {/* 'current' is used for now as ledger balance is not passed properly from home */}
+                                    <h1 className="text-white text-2xl font-bold">
+                                        {formaterr.format(
+                                            parseFloat(current)
+                                        )}
+                                    </h1>
                                 </div>
-                            </form>
+
+                                <InputField
+                                    label="Amount"
+                                    htmlFor="amount"
+                                    type="number"
+                                    name="amount"
+                                    placeholder="Enter amount"
+                                    value={data.amount}
+                                    onChange={(e) =>
+                                        setData("amount", e.target.value)
+                                    }
+                                />
+                            </div>
                         </WithdrawBalanceModal>
 
                         {/* End of Withdraw Balance Modal */}

@@ -10,7 +10,7 @@ import SearchBar from "@/Components/SearchBar";
 import CreateLedgerBtn from "@/Components/CreateLedgerBtn";
 
 function Home() {
-    const { auth, ledger, transactions, categories, goals, ledgers } =
+    const { auth, ledger, transactions, categories, goals, ledgers, flash } =
         usePage().props;
     const [searchTerm, setSearchTerm] = useState("");
     const [activeLedger, setActiveLedger] = useState(ledger);
@@ -29,6 +29,14 @@ function Home() {
             post(route("set-current-ledger"));
         }
     }, [activeLedger]);
+
+    // Check for the reload flash message and reload the page if it exists
+    useEffect(() => {
+        if (flash.reload) {
+            console.log('reload');
+            window.location.reload();
+        }
+    }, [flash.reload]);
 
     const handleSearch = (value) => setSearchTerm(value);
 

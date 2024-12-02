@@ -8,12 +8,15 @@ import { useState } from "react";
 function ModalC({
     title,
     subtitle,
+    sublabel,
     children,
     isModalOpen,
     handleCancel,
     deleteRender,
     large = false,
     onClick,
+    isEditLedger=false,
+    disableBtn=false,
 }) {
     return (
         <>
@@ -47,8 +50,9 @@ function ModalC({
                         {deleteRender}
                         <GreenBtnMed
                             text="Save"
-                            width="w-1/2"
+                            width={isEditLedger ? "w-full" : "w-1/2"}
                             onClick={onClick}
+                            disabled={disableBtn}
                         />
                     </div>
                 }

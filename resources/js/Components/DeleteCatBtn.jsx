@@ -16,8 +16,8 @@ function DeleteCatBtn({ cat_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //console.log("Data to delete (Category): " + data.category_id);
-        destroy(route("category.destroy", data.category_id));
+        setIsModalOpen(false);
+        destroy(route("ledger-category.destroy", data.category_id));
     }
 
     return (

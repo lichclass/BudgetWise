@@ -74,29 +74,31 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
-    public function addGoalMoney(Request $request, Goal $goals, Ledger $ledger){
-        dd($request, $goals, $ledger)
-;       $addMoneyField = $request->validate([
-            'balance' => ['required', 'numeric'],
-        ])
-;       $ledger->balance -= $addMoneyField['balance']
-;       $ledger->save()
-;       $goals->current_savings += $addMoneyField['balance']
-;       $goals->save()
-;       return redirect()->route('home')
-;
+    public function addGoalMoney(Request $request, $id){
+        $goals = Goal::find($id);
+        $ledger = Ledger::find(session('ledger.ledger_id'));
+        $addMoneyField = $request->validate([
+            'amount' => ['required', 'numeric'],
+        ]);
+        $ledger->balance -= $addMoneyField['amount'];
+        $ledger->save();
+        $goals->current_saving += $addMoneyField['amount'];
+        $goals->save();
+        session(['ledger' => $ledger]);
+        return redirect()->route('home');
     }
 
-    public function withdrawGoalMoney(Request $request, Goal $goals, Ledger $ledger){
-        dd($request, $goals, $ledger)
-;       $addMoneyField = $request->validate([
-            'balance' => ['required', 'numeric'],
-        ])
-;       $ledger->balance += $addMoneyField['balance']
-;       $ledger->save()
-;       $goals->current_savings -= $addMoneyField['balance']
-;       $goals->save()
-;       return redirect()->route('home')
-;
+    public function withdrawGoalMoney(Request $request, $id){
+        $goals = Goal::find($id);
+        $ledger = Ledger::find(session('ledger.ledger_id'));
+        $withdrawMoneyField = $request->validate([
+            'amount' => ['required', 'numeric'],
+        ]);
+        $ledger->balance += $withdrawMoneyField['amount'];
+        $ledger->save();
+        $goals->current_saving -= $withdrawMoneyField['amount'];
+        $goals->save();
+        session(['ledger' => $ledger]);
+        return redirect()->route('home');
     }
 }

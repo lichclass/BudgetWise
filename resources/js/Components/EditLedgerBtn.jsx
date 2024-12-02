@@ -10,16 +10,22 @@ import DeleteLedgerBtn from "./DeleteLedgerBtn";
 function EditLedgerBtn() {
     const { ledger, categories } = usePage().props;
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [defaultLedger, setDefaultLedger] = useState(ledger);
+
+    const { data, setData, put } = useForm({
+        ledger_name: ledger.ledger_name,
+    });
 
     const showModal = () => setIsModalOpen(true);
     const handleCancel = () => setIsModalOpen(false);
+
     const handleLedgerChange = (e) => {
-        setDefaultLedger({
-            ...defaultLedger,
-            ledger_name: e.target.value,
-        });
+        setData("ledger_name", e.target.value);
     };
+
+    const submitEdit = (e) => {
+        e.preventDefault();
+        put(route("ledger.update", ledger.ledger_id));
+    }
 
     return (
         <>
@@ -36,12 +42,13 @@ function EditLedgerBtn() {
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 large={true}
+                onClick={submitEdit}
             >
                 <MainInputField
                     label="Ledger Name"
                     placeholder="Enter Ledger Name"
                     type="text"
-                    value={defaultLedger.ledger_name || ""}
+                    value={data.ledger_name || ledger.ledger_name}
                     onChange={handleLedgerChange}
                 />
                 <div className="flex justify-between items-center py-5">

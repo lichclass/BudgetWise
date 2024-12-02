@@ -47,7 +47,7 @@ function ModalB({
                             {isGoalsWithdraw == false ? (
                                 <GreenBtnMed text="Submit" width="w-full" onClick={onSubmit} disabled={disabledBtn}/>
                             ) : (
-                                <DeleteBtn text="Withdraw" width="w-full" />
+                                <DeleteBtn text="Withdraw" width="w-full" onClick={onSubmit} />
                             )}
                         </div>
                     }

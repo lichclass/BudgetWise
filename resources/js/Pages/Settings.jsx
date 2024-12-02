@@ -4,8 +4,8 @@ import { useState } from 'react';
 import MainInputField from '@/Components/MainInputField';
 import ChangePassBtn from '@/Components/ChangePassBtn';
 import GreenBtnMed from '@/Components/GreenBtnMed';
-import ModalA from '@/Layouts/ModalA';
 import { useForm } from "@inertiajs/react";
+import DeleteAccountBtn from '@/Components/DeleteAccountBtn';
 
 function Settings() {
 
@@ -115,39 +115,9 @@ function Settings() {
                     <GreenBtnMed text="Save" width={"w-44"} onClick={submit}/>
                 </div>
 
-                {/* Currency Preference Header */}
-                <h1 className='text-4xl font-bold mt-10' style={{ color: "rgba(229, 239, 221, 0.95)" }}>Currency Preference</h1>
                 <div className='py-10 mr-44 flex justify-between'>
-                    {/* Dropdown */}
-                    <select 
-                        className='py-3 px-8 rounded-lg shadow-sm w-44 main-input-field' 
-                        style={{
-                            color: "#ffffff",
-                            backgroundColor: "#2C3B4B"
-                        }}
-                    >   
-                        <option value="php">PHP</option>
-                        <option value="usd">USD</option>
-                        <option value="eur">EUR</option>
-                    </select>
-                    <button
-                        className={`text-white py-3 px-4 rounded text-md w-44 text-center hover:scale-105 transition-transform duration-300`}
-                        style={{
-                            background: '#D44242',
-                        }}
-                        onClick={showDeleteAccModal}
-                    >
-                        Delete Account
-                    </button>
+                    <DeleteAccountBtn />
                 </div>
-
-                {/* Delete Account Modal */}
-                <ModalA
-                    title='Delete Account'
-                    content='Are you sure you want to delete your account? All your data will be lost'
-                    isModalOpen={isDeleteAccModalOpen}
-                    handleCancel={handleCancelDeleteAccModal}
-                />
 
 
             </Main>

@@ -37,9 +37,9 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::post('/home', [HomeController::class, 'createNewLedger'])->name('create-new-ledger');
-    Route::put('/home', [HomeController::class, 'addGoalMoney'])->name('add-balance');
-    Route::put('/home', [HomeController::class, 'withdrawGoalMoney'])->name('withdraw-balance');
+    Route::post('/home/create-new-ledger', [HomeController::class, 'createNewLedger'])->name('create-new-ledger');
+    Route::put('/home/add-goal-money/{id}', [HomeController::class, 'addGoalMoney'])->name('goals.add');
+    Route::put('/home/withdraw-goal-money/{id}', [HomeController::class, 'withdrawGoalMoney'])->name('goals.withdraw');
 
     Route::inertia('/admin/dashboard', 'Admin/Dashboard')->name('admin.dashboard');
     Route::inertia('/admin/users', 'Admin/Users')->name('admin.users');

@@ -14,13 +14,13 @@ function CategoryItemV2({ category }) {
     const showDeleteModal = () => setisDeleteModalOpen(true);
     const handleDeleteCancel = () => setisDeleteModalOpen(false);
 
-    const { data } = useForm({
+    const { data, delete: destroy } = useForm({
         category_id: category.category_id,
     });
 
     const handleDelSubmit = (e) => {
         e.preventDefault();
-        console.log("Data to delete (Category): " + data.category_id);
+        destroy(route("ledger-category.destroy", data.category_id));
     }
 
     return (

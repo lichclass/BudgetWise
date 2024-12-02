@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->timestamp('last_login')->nullable();
-            $table->enum('currency_preference' , $this->currency)->default('PHP');
-            $table->boolean('is_admin')->default(false);
+            $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->id('budget_id');
-            $table->foreignId('ledger_id')->constrained('ledgers','ledger_id');
-            $table->foreignId('category_id')->constrained('categories', 'category_id');
+            $table->foreignId('ledger_id')->constrained('ledgers','ledger_id')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories', 'category_id')->onDelete('cascade');
             $table->decimal('amount_limit', total: 12, places: 2); 
             $table->boolean('is_active')->default(true);   
             $table->timestamps();
