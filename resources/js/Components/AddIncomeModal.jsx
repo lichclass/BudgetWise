@@ -6,7 +6,7 @@ import { set } from "date-fns";
 function AddIncomeModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCancel }) {
     const { ledger } = usePage().props;
 
-    const { data, setData, post } = useForm({
+    const { data, setData, post, processing } = useForm({
         ledger_id: ledger.ledger_id,
         category_id: cat_id,
         amount: "",
@@ -32,6 +32,7 @@ function AddIncomeModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCance
             isModalOpen={isModalOpen}
             handleCancel={handleCancel}
             onSubmit={submit}
+            disabledBtn={processing}
         >
             <div className="space-y-5 > *">
                 <MainInputField

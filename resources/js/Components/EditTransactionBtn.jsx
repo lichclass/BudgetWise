@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
 function EditTransactionBtn({ transaction }) {
-    const { data, setData, put } = useForm({
+    const { data, setData, put, processing } = useForm({
         amount: transaction.amount,
         transaction_description: transaction.transaction_description,
         transaction_date: transaction.transaction_date,
@@ -40,6 +40,7 @@ function EditTransactionBtn({ transaction }) {
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 onClick={handleSubmit}
+                disableBtn={processing}
             >
                 <div className="space-y-5 > *">
                     <MainInputField

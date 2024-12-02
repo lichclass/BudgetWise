@@ -11,7 +11,7 @@ function EditLedgerBtn() {
     const { ledger, categories } = usePage().props;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const { data, setData, put } = useForm({
+    const { data, setData, put, processing } = useForm({
         ledger_name: ledger.ledger_name,
     });
 
@@ -43,6 +43,7 @@ function EditLedgerBtn() {
                 handleCancel={handleCancel}
                 large={true}
                 onClick={submitEdit}
+                disableBtn={processing}
             >
                 <MainInputField
                     label="Ledger Name"

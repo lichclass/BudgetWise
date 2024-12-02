@@ -10,6 +10,7 @@ function ModalA({
     isModalOpen,
     handleCancel,
     onSubmit,
+    disableBtn = false,
     error="*Error"
 }) {
     return (
@@ -44,7 +45,8 @@ function ModalA({
                                 width="w-1/2"
                                 isSubmit={true}
                                 onClick={onSubmit}
-                            />
+                                disable={disableBtn}
+                        />
                             <GreenBtnCancel
                                 text="Cancel"
                                 width="w-1/2"

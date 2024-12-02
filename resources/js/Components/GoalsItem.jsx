@@ -16,7 +16,7 @@ function GoalsItem({
     isDeadlineSet,
     deadline,
 }) {
-    const { data, setData, put } = useForm({
+    const { data, setData, put, processing } = useForm({
         goal_id: id,
         amount: "",
     });
@@ -103,6 +103,7 @@ function GoalsItem({
                             handleCancel={handleAddBalanceCancel}
                             large={false}
                             onSubmit={submitAdd}
+                            disabledBtn={processing}
                         >
                             <div className="flex flex-col gap-4 pb-5">
                                 <div className="flex justify-center gap-2 p-4">
@@ -148,6 +149,7 @@ function GoalsItem({
                             large={false}
                             isGoalsWithdraw={true}
                             onSubmit={submitWithdraw}
+                            disabledBtn={processing}
                         >
                             <div className="flex flex-col gap-4 pb-5">
                                 <div className="flex justify-center gap-2 p-4">

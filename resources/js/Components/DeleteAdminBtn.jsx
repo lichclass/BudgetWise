@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
 function DeleteAdminBtn({ user_id }) {
-    const { delete: destroy } = useForm();
+    const { delete: destroy, processing } = useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 

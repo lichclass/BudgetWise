@@ -8,7 +8,7 @@ import { useForm } from "@inertiajs/react";
 
 function AddGoalBtn() {
 
-    const { data, setData, post } = useForm({
+    const { data, setData, post, processing } = useForm({
         title: "",
         target_income: "",
         target_date: "",
@@ -41,6 +41,7 @@ function AddGoalBtn() {
                 handleCancel={handleCreateGoalsCancel}
                 large={false}
                 onSubmit={submitAddGoal}
+                disabledBtn={processing}
             >
                 <div className="flex flex-col gap-4 pb-5">
                     <InputField

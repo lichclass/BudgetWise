@@ -6,7 +6,7 @@ import { useForm, usePage } from "@inertiajs/react";
 function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCancel, completion }) {
     const { ledger } = usePage().props;
     
-    const { data, setData, post } = useForm({
+    const { data, setData, post , processing} = useForm({
         ledger_id: ledger.ledger_id,
         category_id: cat_id,
         amount: "",
@@ -32,6 +32,7 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
             handleCancel={handleCancel}
             large="true"
             onSubmit={submit}
+            disabledBtn={processing}
         >
             <div className="flex flex-row">
                 <div className="w-1/2 flex flex-col pl-2">

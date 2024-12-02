@@ -5,7 +5,7 @@ import { useForm } from "@inertiajs/react";
 
 
 function DeleteTransactionBtn({ transaction_id }) {
-    const { data, setData, delete: destroy} = useForm({
+    const { data, setData, delete: destroy, processing} = useForm({
         transaction_id: transaction_id,
     });
 
@@ -29,6 +29,7 @@ function DeleteTransactionBtn({ transaction_id }) {
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 onSubmit={handleSubmit}
+                disableBtn={processing}
             />
         </>
     );

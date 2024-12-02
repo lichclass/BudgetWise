@@ -1,4 +1,4 @@
-function DeleteBtn({ text, width, onClick, isSubmit=false }) {
+function DeleteBtn({ text, width, onClick, isSubmit=false, disable}) {
     return (
         <button
             type={isSubmit ? "submit" : "button"}
@@ -7,6 +7,7 @@ function DeleteBtn({ text, width, onClick, isSubmit=false }) {
                 background: "#D44242",
             }}
             onClick={onClick}
+            disabled={disable}
         >
             {text}
         </button>

@@ -5,7 +5,7 @@ import { useForm } from "@inertiajs/react";
 import { usePage } from "@inertiajs/react";
 
 function DeleteAccountBtn() {
-    const { delete: destroy } = useForm();
+    const { delete: destroy, processing } = useForm();
     const { auth } = usePage().props;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,6 +36,7 @@ function DeleteAccountBtn() {
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 onSubmit={handleDelete}
+                disableBtn={processing}
             />
         </>
     );
