@@ -23,10 +23,7 @@ class LedgerCategoryController extends Controller
      */
     public function index()
     {
-        $ledger_categories = LedgerCategoryView::where('ledger_owner', Auth::id())->get();
-        return Inertia::render('Home', [
-            'categories' => $ledger_categories,        
-        ]);
+        //
     }
 
     /**
@@ -47,6 +44,7 @@ class LedgerCategoryController extends Controller
             'custom_name' => ['nullable', 'string'],
             'def_cat' => ['nullable', 'numeric'],
         ]);
+
         // validate
         $catId = null;
         if ($request->custom_name == null) {

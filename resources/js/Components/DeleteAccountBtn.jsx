@@ -15,7 +15,11 @@ function DeleteAccountBtn() {
 
     const handleDelete = (e) => {
         e.preventDefault();
-        destroy(route("user.destroy", {id: auth.user.user_id}));
+        destroy(route("user.destroy", {id: auth.user.user_id}), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     };
 
     return (

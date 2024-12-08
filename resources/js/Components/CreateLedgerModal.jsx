@@ -121,8 +121,11 @@ function CreateLedgerModal({ isModalOpen, handleCancel }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(data);
-        post(route("create-new-ledger"));
+        post(route("create-new-ledger"), {
+            onSuccess: () => {
+                handleCancel();
+            }
+        });
     };
 
     return (

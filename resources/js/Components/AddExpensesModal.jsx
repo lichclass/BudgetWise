@@ -3,10 +3,17 @@ import MainInputField from "@/Components/MainInputField";
 import ProgressBar from "@/Components/ExpenseProgressBar";
 import { useForm, usePage } from "@inertiajs/react";
 
-function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCancel, completion }) {
+function AddExpensesModal({
+    name,
+    cat_id,
+    isModalOpen,
+    setIsModalOpen,
+    handleCancel,
+    completion,
+}) {
     const { ledger } = usePage().props;
-    
-    const { data, setData, post , processing} = useForm({
+
+    const { data, setData, post, processing, errors } = useForm({
         ledger_id: ledger.ledger_id,
         category_id: cat_id,
         amount: "",
@@ -17,11 +24,14 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
 
     function submit(e) {
         e.preventDefault();
-        post(route("transaction.store"));
+        post(route("transaction.store"), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            },
+        });
         data.amount = "";
         data.transaction_description = "";
         data.transaction_date = "";
-        setIsModalOpen(false);
     }
 
     return (
@@ -55,8 +65,10 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
                         type="number"
                         name="input-amount"
                         placeholder="Enter Amount"
-                        value = {data.amount}
+                        value={data.amount}
                         onChange={(e) => setData("amount", e.target.value)}
+                        min={1}
+                        errorDisplay={errors.amount}
                     />
 
                     <MainInputField
@@ -65,10 +77,11 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
                         type="text"
                         name="description"
                         placeholder="Enter Description"
-                        value = {data.transaction_description}
+                        value={data.transaction_description}
                         onChange={(e) =>
                             setData("transaction_description", e.target.value)
                         }
+                        errorDisplay={errors.transaction_description}
                     />
 
                     <MainInputField
@@ -78,16 +91,16 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
                         type="date"
                         name="input-date"
                         placeholder="Enter the Date"
-                        value = {data.transaction_date}
+                        value={data.transaction_date}
                         onChange={(e) =>
                             setData("transaction_date", e.target.value)
                         }
+                        errorDisplay={errors.transaction_date}
                     />
                 </div>
             </div>
         </ModalB>
     );
-
 }
 
 export default AddExpensesModal;

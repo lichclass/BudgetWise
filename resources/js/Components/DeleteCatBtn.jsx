@@ -17,7 +17,11 @@ function DeleteCatBtn({ cat_id }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsModalOpen(false);
-        destroy(route("ledger-category.destroy", data.category_id));
+        destroy(route("ledger-category.destroy", data.category_id), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     }
 
     return (

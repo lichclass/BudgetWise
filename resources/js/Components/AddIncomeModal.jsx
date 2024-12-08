@@ -3,10 +3,16 @@ import MainInputField from "@/Components/MainInputField";
 import { useForm, usePage } from "@inertiajs/react";
 import { set } from "date-fns";
 
-function AddIncomeModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCancel }) {
+function AddIncomeModal({
+    name,
+    cat_id,
+    isModalOpen,
+    setIsModalOpen,
+    handleCancel,
+}) {
     const { ledger } = usePage().props;
 
-    const { data, setData, post, processing } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         ledger_id: ledger.ledger_id,
         category_id: cat_id,
         amount: "",
@@ -17,12 +23,14 @@ function AddIncomeModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCance
 
     function submit(e) {
         e.preventDefault();
-        // console.log(data);
-        post(route('transaction.store'));
+        post(route("transaction.store"), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            },
+        });
         data.amount = "";
         data.transaction_description = "";
         data.transaction_date = "";
-        setIsModalOpen(false);
     }
 
     return (
@@ -41,8 +49,10 @@ function AddIncomeModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCance
                     type="number"
                     name="input-amount"
                     placeholder="Enter Amount"
-                    value = {data.amount}
+                    value={data.amount}
                     onChange={(e) => setData("amount", e.target.value)}
+                    min={1}
+                    errorDisplay={errors.amount}
                 />
 
                 <MainInputField
@@ -51,7 +61,7 @@ function AddIncomeModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCance
                     type="text"
                     name="description"
                     placeholder="Enter Description (Optional)"
-                    value = {data.transaction_description}
+                    value={data.transaction_description}
                     onChange={(e) =>
                         setData("transaction_description", e.target.value)
                     }
@@ -64,7 +74,7 @@ function AddIncomeModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCance
                     type="date"
                     name="input-date"
                     placeholder="Enter the Date"
-                    value = {data.transaction_date}
+                    value={data.transaction_date}
                     onChange={(e) =>
                         setData("transaction_date", e.target.value)
                     }

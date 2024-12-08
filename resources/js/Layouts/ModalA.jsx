@@ -11,7 +11,7 @@ function ModalA({
     handleCancel,
     onSubmit,
     disableBtn = false,
-    error="*Error"
+    error="",
 }) {
     return (
         <form onSubmit={onSubmit}>

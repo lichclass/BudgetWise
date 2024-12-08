@@ -18,7 +18,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-         return Inertia::render('Home');
+        session(['ledger' => Ledger::where('user_id', Auth::id())->first()]);
+        return Inertia::render('Home');
     }
 
     public function setCurrentLedger(Request $request)

@@ -17,7 +17,11 @@ function AddBudgetBtn({ category }){
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("budget.store"));
+        post(route("budget.store"), {
+            onSuccess: () => {
+                setisSetBudgetModalOpen(false);
+            }
+        });
     };
 
     return (

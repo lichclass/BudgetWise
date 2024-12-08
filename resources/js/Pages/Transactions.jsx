@@ -8,7 +8,6 @@ import TestChart from "@/Components/TestChart";
 
 function Transactions() {
     const { ledger, transactions } = usePage().props;
-    console.log(transactions);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const transactionData = transactions.filter(
         (transaction) => transaction.ledger_id !== ledger.id
@@ -30,7 +29,6 @@ function Transactions() {
         0
     );
     const balance = ledger.balance;
-    console.log(balance);
 
     const handleDateChange = (date) => setSelectedDate(date);
 

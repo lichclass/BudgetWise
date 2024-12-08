@@ -89,7 +89,11 @@ class AuthController extends Controller
         ]);
 
         if (!Hash::check($fields['current_password'], Auth::user()->password)) {
-            return back()->with('message', 'Invalid password');
+            return back()->withErrors(['current_password' => 'The current password is incorrect']);
+        }
+
+        if(Hash::check($fields['new_password'], Auth::user()->password)){
+            return back()->withErrors(['new_password' => 'The new password cannot be the same as the current password']);
         }
 
         $user = Auth::user();

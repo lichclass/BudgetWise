@@ -8,16 +8,15 @@ import { useState } from "react";
 function ModalC({
     title,
     subtitle,
-    sublabel,
     children,
     isModalOpen,
     handleCancel,
     deleteRender,
     large = false,
     onClick,
-    isEditLedger=false,
-    disableBtn=false,
-    error="*ERROR"
+    isEditLedger = false,
+    disableBtn = false,
+    error = "",
 }) {
     return (
         <>
@@ -47,7 +46,7 @@ function ModalC({
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={
-                    <div className = "flex flex-col">
+                    <div className="flex flex-col">
                         <div>
                             <span className="text-red-500 pr-3">{error}</span>
                         </div>

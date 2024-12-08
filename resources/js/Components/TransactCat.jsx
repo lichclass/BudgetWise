@@ -20,9 +20,9 @@ function TransactCat({ transaction }) {
     return (
         // can remove hover scale and can add setCollapsed here instead
         <div
-            className={`bg-[#0F3A51] rounded-2xl shadow-sm transition-all duration-200 hover:scale-105`}
+            className={`bg-[#0F3A51] rounded-2xl border border-[#0F3A51] hover:border-white/30 transition-all duration-200 ease-in-out shadow-sm`}
         >
-            <div className="flex justify-between items-center px-5 py-2">
+            <div className="flex justify-between items-center px-5 py-2 ">
                 <div className="flex items-center gap-0 sm:gap-3">
                     <span className="text-white text-sm sm:text-base">
                         {transaction.category_name}

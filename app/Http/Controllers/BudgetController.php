@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Budget;
-use App\Models\UserBudgetView;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBudgetRequest;
 use App\Http\Requests\UpdateBudgetRequest;
@@ -20,11 +19,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $budgets = UserBudgetView::where('user_id', Auth::id())->get();
-        
-        return Inertia::render('Budget', [
-            'budgets' => $budgets,
-        ]);
+        return Inertia::render('Budget');
     }
 
     /**

@@ -16,7 +16,11 @@ function EditCatModal({
 
     function submitEdit(e) {
         e.preventDefault();
-        put(route("ledger-category.update", category.category_id));
+        put(route("ledger-category.update", category.category_id), {
+            onSuccess: () => {
+                handleCancel();
+            }
+        });
     }
 
     return (

@@ -3,7 +3,7 @@ function MonthlyBudgetCard({ budgetedExpenses }){
     const formaterr = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'PHP',
-        minimumFractionDigits: 0
+        minimumFractionDigits: 2
     });
 
     const monthlyBudget = budgetedExpenses.reduce((acc, budget) => 

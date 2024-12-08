@@ -35,13 +35,14 @@ function GoalsItem({
     const [isAddBalanceModalOpen, setIsAddBalanceModalOpen] = useState(false);
     const [isWithdrawBalanceModalOpen, setIsWithdrawBalanceModalOpen] =
         useState(false);
+    const [canAddMoney, setCanAddMoney] = useState(false);
+    const [canWithdrawMoney, setCanWithdrawMoney] = useState(false);
 
     const completion = (current / target) * 100;
 
     // Add to Balance Modal
     const showAddBalanceModal = () => setIsAddBalanceModalOpen(true);
     const handleAddBalanceCancel = () => setIsAddBalanceModalOpen(false);
-
     // Withdraw from Balance Modal
     const showWithdrawBalanceModal = () => setIsWithdrawBalanceModalOpen(true);
     const handleWithdrawBalancesCancel = () =>
@@ -49,12 +50,20 @@ function GoalsItem({
 
     function submitAdd(e) {
         e.preventDefault();
-        put(route("goals.add", id));
+        put(route("goals.add", id), {
+            onSuccess: () => {
+                setIsAddBalanceModalOpen(false);
+            },
+        });
     }
 
     function submitWithdraw(e) {
         e.preventDefault();
-        put(route("goals.withdraw", id));
+        put(route("goals.withdraw", id), {
+            onSuccess: () => {
+                setIsWithdrawBalanceModalOpen(false);
+            },
+        });
     }
 
     return (
@@ -103,7 +112,7 @@ function GoalsItem({
                             handleCancel={handleAddBalanceCancel}
                             large={false}
                             onSubmit={submitAdd}
-                            disabledBtn={processing}
+                            disabledBtn={processing || !canAddMoney}
                         >
                             <div className="flex flex-col gap-4 pb-5">
                                 <div className="flex justify-center gap-2 p-4">
@@ -122,9 +131,15 @@ function GoalsItem({
                                     name="amount"
                                     placeholder="Enter amount"
                                     value={data.amount}
-                                    onChange={(e) =>
-                                        setData("amount", e.target.value)
-                                    }
+                                    onChange={(e) => {
+                                        setData("amount", e.target.value);
+                                        setCanAddMoney(
+                                            parseFloat(e.target.value) <=
+                                                ledger.balance
+                                            && e.target.value > 0
+                                        );
+                                    }}
+                                    min={0}
                                 />
                             </div>
                         </AddBalanceModal>
@@ -149,7 +164,7 @@ function GoalsItem({
                             large={false}
                             isGoalsWithdraw={true}
                             onSubmit={submitWithdraw}
-                            disabledBtn={processing}
+                            disabledBtn={processing || !canWithdrawMoney}
                         >
                             <div className="flex flex-col gap-4 pb-5">
                                 <div className="flex justify-center gap-2 p-4">
@@ -158,9 +173,7 @@ function GoalsItem({
                                     </h1>
                                     {/* 'current' is used for now as ledger balance is not passed properly from home */}
                                     <h1 className="text-white text-2xl font-bold">
-                                        {formaterr.format(
-                                            parseFloat(current)
-                                        )}
+                                        {formaterr.format(parseFloat(current))}
                                     </h1>
                                 </div>
 
@@ -171,9 +184,13 @@ function GoalsItem({
                                     name="amount"
                                     placeholder="Enter amount"
                                     value={data.amount}
-                                    onChange={(e) =>
-                                        setData("amount", e.target.value)
-                                    }
+                                    onChange={(e) => {
+                                        setData("amount", e.target.value);
+                                        setCanWithdrawMoney(
+                                            parseFloat(e.target.value) < current
+                                        );
+                                    }}
+                                    min={0}
                                 />
                             </div>
                         </WithdrawBalanceModal>

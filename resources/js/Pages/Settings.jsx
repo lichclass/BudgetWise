@@ -28,8 +28,12 @@ function Settings() {
 
     function submit(e) {
         e.preventDefault();
-        // console.log(data);
-        put(route("user.update", auth.user.user_id));
+        put(route("user.update", auth.user.user_id), {
+            onSuccess: () => {
+                setEditEmail(false);
+                setEditUsername(false);
+            }
+        });
     }
 
     

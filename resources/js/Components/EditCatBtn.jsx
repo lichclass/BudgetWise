@@ -7,7 +7,7 @@ import DeleteCatBtn from "./DeleteCatBtn";
 
 function EditCatBtn({ category, isEditLedger = false }) {
     const { data, setData, put, processing } = useForm({
-        category_name: "",
+        category_name: category.category_name,
     });
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,8 +16,11 @@ function EditCatBtn({ category, isEditLedger = false }) {
 
     function submitEdit(e) {
         e.preventDefault();
-        setIsModalOpen(false);
-        put(route("ledger-category.update", category.category_id));
+        put(route("ledger-category.update", category.category_id), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     }
 
     return (
@@ -41,7 +44,7 @@ function EditCatBtn({ category, isEditLedger = false }) {
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 onClick={submitEdit}
-                disableBtn={category.is_default || processing}
+                disableBtn={category.is_default || processing || data.category_name === category.category_name}
             >
                 <div className="space-y-5 > * mb-8">
                     <MainInputField

@@ -24,7 +24,11 @@ function EditLedgerBtn() {
 
     const submitEdit = (e) => {
         e.preventDefault();
-        put(route("ledger.update", ledger.ledger_id));
+        put(route("ledger.update", ledger.ledger_id), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     }
 
     return (
@@ -43,7 +47,7 @@ function EditLedgerBtn() {
                 handleCancel={handleCancel}
                 large={true}
                 onClick={submitEdit}
-                disableBtn={processing}
+                disableBtn={processing || data.ledger_name === "" || data.ledger_name === ledger.ledger_name}
             >
                 <MainInputField
                     label="Ledger Name"

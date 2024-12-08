@@ -56,7 +56,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $userId)
     {
-        dd($request);
         $user = User::findOrFail($userId);
         $user->update($request->all());
         return redirect()->back();

@@ -16,8 +16,11 @@ function DeleteTransactionBtn({ transaction_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Data to delete (Transaction): " + data.transaction_id);
-        destroy(route("transaction.destroy", { id: data.transaction_id }));
+        destroy(route("transaction.destroy", { id: data.transaction_id }), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     };
 
     return (

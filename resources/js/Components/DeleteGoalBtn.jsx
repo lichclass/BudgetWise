@@ -15,8 +15,11 @@ function DeleteGoalBtn({ goal_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log("Data to delete (Goal): " + data.goal_id);
-        destroy(route("goals.destroy", goal_id));
+        destroy(route("goals.destroy", goal_id), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     };
 
     return (

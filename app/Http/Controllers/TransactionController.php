@@ -96,13 +96,10 @@ class TransactionController extends Controller
         // Validate the request
         $fields = $request->validated();
         
-        $ledger = session('ledger'); // Retrieve ledger ID from session
+        $ledger = Ledger::find(session('ledger.ledger_id'));
 
-        // Check if the ledger exists
-        if (!$ledger) {
-            return redirect()->back()->withErrors(['ledger' => 'Ledger not found.']);
-        }
         $ledgerAmt = $ledger->balance;
+    
           // Check if the transaction exists
         $transaction = Transaction::find($transactionId);
         if (!$transaction) {
@@ -126,7 +123,7 @@ class TransactionController extends Controller
         $updatedLedger = Ledger::find($ledger->ledger_id);
         session(['ledger' => $updatedLedger]);
 
-        return redirect()->route('home');
+        return redirect()->back();
     }
 
     /**

@@ -13,7 +13,11 @@ function DeleteLedgerBtn({ ledger_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        destroy(route("ledger.destroy", ledger_id));
+        destroy(route("ledger.destroy", ledger_id), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     };
 
     return (

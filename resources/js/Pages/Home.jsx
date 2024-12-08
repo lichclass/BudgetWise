@@ -33,7 +33,7 @@ function Home() {
     // Check for the reload flash message and reload the page if it exists
     useEffect(() => {
         if (flash.reload) {
-            console.log('reload');
+            console.log("reload");
             window.location.reload();
         }
     }, [flash.reload]);
@@ -50,7 +50,12 @@ function Home() {
             {/* Home */}
             <Head title="Home" />
 
-            <Main navbarMsg={`Welcome back, ${auth.user.username[0].toUpperCase() + auth.user.username.slice(1)}!`}>
+            <Main
+                navbarMsg={`Welcome back, ${
+                    auth.user.username[0].toUpperCase() +
+                    auth.user.username.slice(1)
+                }!`}
+            >
                 <div className="flex flex-col h-full gap-3 px-4">
                     {/* Top */}
                     <div className="flex flex-col items-center lg:flex-row justify-between gap-10 lg:gap-3 mb-3">

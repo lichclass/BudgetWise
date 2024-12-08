@@ -13,7 +13,11 @@ function DeleteAdminBtn({ user_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        destroy(route("user.destroy", user_id));
+        destroy(route("user.destroy", user_id), {
+            onSuccess: () => {
+                setIsModalOpen(true);
+            }
+        });
     };
 
     return (

@@ -46,7 +46,7 @@ function CreateCategoryModal({
     const handleIsCustomChange = (e) => {
         const isChecked = e.target.checked;
         setIsCustom(isChecked);
-        
+
         if (isChecked) {
             // When checking custom category
             setData("def_cat", "");
@@ -66,7 +66,11 @@ function CreateCategoryModal({
 
     function submit(e) {
         e.preventDefault();
-        post(route("ledger-category.store"));
+        post(route("ledger-category.store"), {
+            onSuccess: () => {
+                handleCancel();
+            },
+        });
     }
 
     return (
@@ -94,6 +98,7 @@ function CreateCategoryModal({
                     ]}
                     onChange={handleTypeChange}
                     isReadOnly={locked}
+                    errorDisplay={errors.category_type}
                 />
 
                 <MainInputField
@@ -105,6 +110,7 @@ function CreateCategoryModal({
                     value={data.custom_name}
                     onChange={(e) => setData("custom_name", e.target.value)}
                     isReadOnly={!isCustom}
+                    errorDisplay={errors.custom_name}
                 />
 
                 <Checkbox
@@ -127,6 +133,7 @@ function CreateCategoryModal({
                     }))}
                     onChange={(e) => setData("def_cat", e.target.value)}
                     isReadOnly={isCustom}
+                    errorDisplay={errors.def_cat}
                 />
             </div>
         </ModalB>

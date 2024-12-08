@@ -15,7 +15,7 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
     const [isDeadlineInputSet, setDeadlineInputEnable] =
         useState(isDeadlineSet);
         
-    const { data, setData, put, processing } = useForm({
+    const { data, setData, put, processing, errors } = useForm({
         goal_id: id,
         title: title,
         target_income: target,
@@ -27,7 +27,11 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
             ? document.querySelector('input[name="goal_date"]').value
             : null;
         e.preventDefault();
-        put(route("goals.update", id));
+        put(route("goals.update", id), {
+            onSuccess: () => {
+                setIsEditGoalsModalOpen(false);
+            }
+        });
     }
 
     return (
@@ -57,6 +61,7 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
                         onChange={(e) =>
                             setData("title", e.target.value)
                         }
+                        errorDisplay={errors.title}
                     />
 
                     <InputField
@@ -69,6 +74,8 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
                         onChange={(e) =>
                             setData("target_income", e.target.value)
                         }
+                        min={1}
+                        errorDisplay={errors.target_income}
                     />
 
                     <div className="flex flex-col gap-2">
@@ -82,6 +89,7 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
                                 setData("target_income", e.target.value)
                             }
                             isReadOnly={!isDeadlineInputSet}
+                            errorDisplay={errors.target_date}
                         />
 
                         <Checkbox

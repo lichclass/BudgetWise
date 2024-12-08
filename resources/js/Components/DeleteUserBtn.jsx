@@ -3,7 +3,7 @@ import DeleteBtn from "./DeleteBtn";
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
-function DeleteAdminBtn({ user_id }) {
+function DeleteUserBtn({ user_id }) {
     const { delete: destroy, processing } = useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,7 +13,11 @@ function DeleteAdminBtn({ user_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        destroy(route("user.destroy", user_id));
+        destroy(route("user.destroy", user_id), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     };
 
     return (
@@ -31,4 +35,4 @@ function DeleteAdminBtn({ user_id }) {
     );
 }
 
-export default DeleteAdminBtn;
+export default DeleteUserBtn;

@@ -80,7 +80,6 @@ class GoalController extends Controller
    
     public function update(Request $request, $id)
     {
-        dd($request);
         $fields = $request->validate([
             'title' => ['required', 'string'],
             'target_income' => ['required', 'numeric'],

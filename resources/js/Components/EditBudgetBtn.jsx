@@ -14,16 +14,16 @@ function EditBudgetBtn({ budget }){
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-    const showEditModal = () => {
-        setIsEditModalOpen(true);
-    }
-    const handleEditCancel = () => {
-        setIsEditModalOpen(false);
-    }
+    const showEditModal = () => setIsEditModalOpen(true);
+    const handleEditCancel = () => setIsEditModalOpen(false);
 
     const submit = (e) => {
         e.preventDefault();
-        put(route("budget.update", budget.budget_id));
+        put(route("budget.update", budget.budget_id), {
+            onSuccess: () => {
+                setIsEditModalOpen(false);
+            }
+        });
     };
 
     return(

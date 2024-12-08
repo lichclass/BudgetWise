@@ -20,8 +20,11 @@ function EditTransactionBtn({ transaction }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-       // console.log(data);
-        put(route("transaction.update", { id: transaction.reference_id, ...data }));
+        put(route("transaction.update", transaction.reference_id), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     };
 
     return (
@@ -51,6 +54,7 @@ function EditTransactionBtn({ transaction }) {
                         placeholder="Enter Amount"
                         value={data.amount}
                         onChange={(e) => setData("amount", e.target.value)}
+                        min={1}
                     />
 
                     <MainInputField
@@ -59,8 +63,8 @@ function EditTransactionBtn({ transaction }) {
                         type="text"
                         name="description"
                         placeholder="Enter Description (Optional)"
-                        value={data.desc}
-                        onChange={(e) => setData("desc", e.target.value)}
+                        value={data.transaction_description}
+                        onChange={(e) => setData("transaction_description", e.target.value)}
                     />
 
                     <MainInputField
@@ -70,8 +74,8 @@ function EditTransactionBtn({ transaction }) {
                         type="date"
                         name="input-date"
                         placeholder="Enter the Date"
-                        value={data.date}
-                        onChange={(e) => setData('date', e.target.value)}
+                        value={data.transaction_date}
+                        onChange={(e) => setData('transaction_date', e.target.value)}
                     />
                 </div>
             </ModalC>

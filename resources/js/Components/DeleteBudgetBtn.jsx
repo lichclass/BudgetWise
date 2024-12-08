@@ -13,8 +13,11 @@ function DeleteBudgetBtn({ budget_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log("Data to delete (Budget): " +  budget_id);
-        destroy(route("budget.destroy", budget_id));
+        destroy(route("budget.destroy", budget_id), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     };
 
     return (
