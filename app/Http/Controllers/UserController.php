@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Ledger;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -17,7 +18,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return Inertia::render('Admin/Users', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -43,13 +47,15 @@ class UserController extends Controller
     {
         // dd($userId);
         $user = User::findOrFail($userId);
+        $deletedLedgers = Ledger::onlyTrashed()->where('user_id', $userId)->get();
         if($user->role == 'admin') {
             return Inertia::render('Admin/EditAdmin', [
                 'user' => $user
             ]);
         } else {
             return Inertia::render("Admin/UserProfile", [
-                'user' => $user
+                'user' => $user,
+                'deletedLedgers' => $deletedLedgers
             ]);
         }
         
@@ -60,8 +66,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // dd($user->username);
-        return Inertia::render('Admin/EditUser', [
+        return Inertia::render('Admin/UserEditSettings', [
             'user' => $user
         ]);
     }

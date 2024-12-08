@@ -1,6 +1,6 @@
 import UsersItem from "@/Components/AdminUsersItem";
 
-function AdminUsersList({ users, title}) {
+function AdminUsersList({ users, title }) {
 
     return (
         <>

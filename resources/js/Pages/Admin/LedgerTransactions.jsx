@@ -6,9 +6,8 @@ import TransactionChart from "@/Components/TransactionChart";
 import { useState, useEffect } from "react";
 import TestChart from "@/Components/TestChart";
 
-function Transactions() {
-    
-    const { ledger, transactions } = usePage().props;
+function LedgerTransactions({ ledger, transactions }) {
+
     const [selectedDate, setSelectedDate] = useState(new Date());
     const transactionData = transactions.filter(
         (transaction) => transaction.ledger_id !== ledger.id
@@ -29,6 +28,7 @@ function Transactions() {
         (acc, curr) => acc + parseFloat(curr.amount),
         0
     );
+
     const balance = ledger.balance;
 
     const handleDateChange = (date) => setSelectedDate(date);
@@ -39,7 +39,7 @@ function Transactions() {
             <Head title="Transactions" />
 
             {/* Modify the navbarMsg, use the one from Figma */}
-            <Main navbarMsg={`Transactions`}>
+            <Main navbarMsg={`(${ledger.ledger_name}) Transactions`} isAdmin={true}>
                 <div className="flex flex-col h-full gap-y-3 py-3 overflow-y-auto ">
                     <div className="flex gap-x-3 flex-col gap-y-3 md:flex-row">
                         {/* Calendar Card */}
@@ -116,4 +116,4 @@ function Transactions() {
     );
 }
 
-export default Transactions;
+export default LedgerTransactions;

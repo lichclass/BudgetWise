@@ -16,7 +16,7 @@ function AdminUserDeletedLedgers({ ledgers }) {
                 <div className="flex flex-col gap-3 px-8 py-5 overflow-y-auto flex-grow">
                     {(ledgers.map((ledger) => (
                         <LedgerItem
-                            key={ledger.id}
+                            key={ledger.ledger_id}
                             ledger={ledger}
                         />
                     )))}

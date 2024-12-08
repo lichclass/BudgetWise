@@ -19,11 +19,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //change based on transaction view
-        $user_transactions = UserTransactionView::where('user_id', Auth::id())->get();
-        return Inertia::render('Transactions', [
-            'transactions' => $user_transactions,        
-        ]);
+        return Inertia::render('Transactions');
     }
 
     /**

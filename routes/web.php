@@ -10,6 +10,7 @@ use App\Http\Controllers\StarterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,13 +43,11 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/home/withdraw-goal-money/{id}', [HomeController::class, 'withdrawGoalMoney'])->name('goals.withdraw');
 
     Route::inertia('/admin/dashboard', 'Admin/Dashboard')->name('admin.dashboard');
-    Route::inertia('/admin/users', 'Admin/Users')->name('admin.users');
-    // Route::inertia('/admin/edituser', 'Admin/EditUser')->name('admin.edit-userIt');
-    
+    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
     Route::inertia('/admin/settings', 'Admin/Settings')->name('admin.settings');
     Route::inertia('/admin/userprofile', 'Admin/UserProfile')->name('admin.user-profile');
-
     Route::get('/admin/edituser/{id}', [UserController::class, 'show'])->name('admin.edit-user');
+    Route::get('/admin/ledger/{id}/transactions', [AdminController::class, 'showLedgerTransactions'])->name('admin.ledger.transactions');
 
     Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
 

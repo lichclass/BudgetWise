@@ -6,58 +6,10 @@ import TransactList from "@/Components/AdminUserTransactList";
 import LedgerItem from "@/Components/AdminLedgerItem";
 import TransactItem from "@/Components/AdminTransactionsItem";
 
-function UserProfile({ user }) {
+function UserProfile({ user, ledgers, deletedLedgers }) {
 
     const isDeleted = 1;
-
-    // const transactions = [
-    //     {
-    //         id: 1,
-    //         category_name: "Food & Dining",
-    //         transaction_type: "income",
-    //         amount: 1200.5,
-    //         transaction_date: "2024-11-27",
-    //         transaction_description: "Lunch at a restaurant",
-    //     },
-    //     {
-    //         id: 2,
-    //         category_name: "Salary",
-    //         transaction_type: "expense",
-    //         amount: 50000.0,
-    //         transaction_date: "2024-11-25",
-    //         transaction_description: "Monthly salary credited to bank account",
-    //     },
-    //     {
-    //         id: 3,
-    //         category_name: "Transportation",
-    //         transaction_type: "income",
-    //         amount: 750.0,
-    //         transaction_date: "2024-11-26",
-    //         transaction_description: "Gas for car",
-    //     },
-    // ];
-
-    const ledgers = [
-        {
-            id: 1,
-            ledger_name: "Personal"
-        },
-        {
-            id: 2,
-            ledger_name: "Business"
-        }
-    ]
-
-    const deleted = [
-        {
-            id: 3,
-            ledger_name: "Entertainment"
-        },
-        {
-            id: 4,
-            ledger_name: "Confidential Funds"
-        }
-    ]
+    const usernameFormatted = user.username[0].toUpperCase() + user.username.slice(1);
 
     return (
         <>
@@ -76,19 +28,23 @@ function UserProfile({ user }) {
                         }}
                     >
 
-                        <div className="text-3xl font-bold">
-                            <h1>Username</h1>
-                            <h1>Email Address</h1>
+                        <div className="font-bold space-y-2">
+                            <h1 className="text-3xl">{usernameFormatted}</h1>
+                            <h3 className="text-base">{user.email}</h3>
                         </div>
 
-                        <div className="flex flex-col">
-                            <a href={route('admin.edit-user')} className="bg-[#2D7E9BBD] text-center my-4 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
-                                Edit
-                            </a>
-                            {isDeleted === 1 && (
-                                <a className="bg-[#2D7E9BBD] my-4 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
-                                    Restore
+                        <div className="flex space-x-3">
+                            <button>
+                                <a href={route("user.edit", user)} className="bg-[#2D7E9BBD] text-center my-4 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
+                                    Edit
                                 </a>
+                            </button>
+                            {isDeleted === 1 && (
+                                <button>
+                                    <a className="bg-[#2D7E9BBD] text-center my-4 md:mt-0 py-4 px-11 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
+                                        Restore
+                                    </a>
+                                </button>
                             )}
                         </div>
 
@@ -98,11 +54,9 @@ function UserProfile({ user }) {
                         <LedgersList className="w-1/2"
                             ledgers={ledgers}
                         />
-
                         <DeletedLedgers className="w-1/2"
-                            ledgers={deleted}
+                            ledgers={deletedLedgers}
                         />
-
                     </div>
 
                 </div>
