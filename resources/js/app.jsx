@@ -21,41 +21,41 @@ createInertiaApp({
 
         function AppWrapper(props) {
 
-            // const [loading, setLoading] = useState(false);
+            const [loading, setLoading] = useState(false);
             // For spinner testing
             // useEffect(() => {
             //     setTimeout(() => {
             //         setLoading(false);
             //     }, 2000);
             // }, []);
-            // useEffect(() => {
-            //     // Only start loading for page visits (method is undefined or 'get')
-            //     const startLoading = (event) => {
-            //       if (!event.detail.visit.method || event.detail.visit.method === 'get') {
-            //         setLoading(true);
-            //       }
-            //     };
+            useEffect(() => {
+                // Only start loading for page visits (method is undefined or 'get')
+                const startLoading = (event) => {
+                  if (!event.detail.visit.method || event.detail.visit.method === 'get') {
+                    setLoading(true);
+                  }
+                };
                 
-            //     // Stop loading when navigation completes
-            //     const stopLoading = (event) => {
-            //       if (!event.detail.visit.method || event.detail.visit.method === 'get') {
-            //         setLoading(false);
-            //       }
-            //     };
+                // Stop loading when navigation completes
+                const stopLoading = (event) => {
+                  if (!event.detail.visit.method || event.detail.visit.method === 'get') {
+                    setLoading(false);
+                  }
+                };
         
-            //     // Add event listeners for Inertia router events
-            //     document.addEventListener('inertia:start', startLoading);
-            //     document.addEventListener('inertia:finish', stopLoading);
+                // Add event listeners for Inertia router events
+                document.addEventListener('inertia:start', startLoading);
+                document.addEventListener('inertia:finish', stopLoading);
         
-            //     // Cleanup event listeners
-            //     return () => {
-            //       document.removeEventListener('inertia:start', startLoading);
-            //       document.removeEventListener('inertia:finish', stopLoading);
-            //     };
-            //   }, []);
-            // if (loading) {
-            //     return <Spinner />;
-            // }
+                // Cleanup event listeners
+                return () => {
+                  document.removeEventListener('inertia:start', startLoading);
+                  document.removeEventListener('inertia:finish', stopLoading);
+                };
+              }, []);
+            if (loading) {
+                return <Spinner />;
+            }
 
             return (<App {...props} />);
         }
