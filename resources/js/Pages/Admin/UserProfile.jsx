@@ -6,8 +6,9 @@ import TransactList from "@/Components/AdminUserTransactList";
 import LedgerItem from "@/Components/AdminLedgerItem";
 import TransactItem from "@/Components/AdminTransactionsItem";
 
-function UserProfile() {
+function UserProfile({ user }) {
 
+    const isDeleted = 1;
 
     // const transactions = [
     //     {
@@ -80,9 +81,16 @@ function UserProfile() {
                             <h1>Email Address</h1>
                         </div>
 
-                        <a className="bg-[#2D7E9BBD] mt-8 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
-                            Edit
-                        </a>
+                        <div className="flex flex-col">
+                            <a href={route('admin.edit-user')} className="bg-[#2D7E9BBD] text-center my-4 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
+                                Edit
+                            </a>
+                            {isDeleted === 1 && (
+                                <a className="bg-[#2D7E9BBD] my-4 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
+                                    Restore
+                                </a>
+                            )}
+                        </div>
 
                     </div>
                     
