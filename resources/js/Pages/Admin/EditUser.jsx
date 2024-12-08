@@ -14,9 +14,9 @@ function EditAdmin(user) {
     });
 
     function submit(e) {
-        // console.log(data);
+        console.log(user);
         // console.log("Email: ", user.email);
-        put(route("user.update", user.user_id));
+        // put(route("user.update", user.user_id));
     }
 
     return (
@@ -65,7 +65,7 @@ function EditAdmin(user) {
 
                         <div className="flex flex-row self-end gap-2 w-full lg:w-2/5 mt-20">
                             <DeleteBtn user_id={user.user_id} width="flex-grow" />
-                            <SubmitBtn text="Save" width="flex-grow" />
+                            <SubmitBtn text="Save" width="flex-grow"/>
                         </div>
                     </form>
 

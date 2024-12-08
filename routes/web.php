@@ -43,10 +43,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::inertia('/admin/dashboard', 'Admin/Dashboard')->name('admin.dashboard');
     Route::inertia('/admin/users', 'Admin/Users')->name('admin.users');
-    Route::inertia('/admin/edituser', 'Admin/EditUser')->name('admin.edit-user');
-    Route::inertia('/admin/editadmin', 'Admin/EditAdmin')->name('admin.edit-admin');
+    // Route::inertia('/admin/edituser', 'Admin/EditUser')->name('admin.edit-userIt');
+    
     Route::inertia('/admin/settings', 'Admin/Settings')->name('admin.settings');
     Route::inertia('/admin/userprofile', 'Admin/UserProfile')->name('admin.user-profile');
+
+    Route::get('/admin/edituser/{id}', [UserController::class, 'show'])->name('admin.edit-user');
 
     Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
 

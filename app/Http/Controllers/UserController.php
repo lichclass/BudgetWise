@@ -8,6 +8,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -38,25 +39,39 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $users)
+    public function show($userId)
     {
-        //
+        // dd($userId);
+        $user = User::findOrFail($userId);
+        if($user->role == 'admin') {
+            return Inertia::render('Admin/EditAdmin', [
+                'user' => $user
+            ]);
+        } else {
+            return Inertia::render("Admin/UserProfile", [
+                'user' => $user
+            ]);
+        }
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $users)
+    public function edit(User $user)
     {
-        //
+        // dd($user->username);
+        return Inertia::render('Admin/EditUser', [
+            'user' => $user
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $userId)
+    public function update(Request $request, User $user)
     {
-        $user = User::findOrFail($userId);
+        // $user = User::findOrFail($userId);
         $user->update($request->all());
         return redirect()->back();
     }
