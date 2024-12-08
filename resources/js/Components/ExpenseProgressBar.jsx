@@ -13,7 +13,7 @@ function ExpenseProgressBar({ completion = 0, budget }) {
                 }
 
                 {budget != 0 && 
-                    <h1 className="text-white whitespace-nowrap px-5 font-semibold">{completion.toFixed(2)}% {completion > 100 ? "exceeding" : "spent"}</h1>
+                    <h1 className="text-white whitespace-nowrap px-5 font-semibold">{completion.toFixed(2)}% {completion > 100 ? "Exceeding" : "Spent"}</h1>
                 }
 
                 

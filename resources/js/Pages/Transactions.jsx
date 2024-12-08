@@ -39,7 +39,7 @@ function Transactions() {
 
             {/* Modify the navbarMsg, use the one from Figma */}
             <Main navbarMsg={`Transactions`}>
-                <div className="flex flex-col gap-y-3">
+                <div className="flex flex-col h-full gap-y-3 py-3 overflow-y-auto ">
                     <div className="flex gap-x-3 flex-col gap-y-3 md:flex-row">
                         {/* Calendar Card */}
                         <div
