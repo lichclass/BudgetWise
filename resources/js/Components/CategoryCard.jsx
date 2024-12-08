@@ -9,12 +9,6 @@ function CategoryCard({ category, budget }) {
     
     const { transactions, ledger } = usePage().props;
 
-    const formaterr = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "PHP",
-        minimumFractionDigits: 2,
-    });
-
     const [fontSize, setFontSize] = useState();
 
     const total_amount = transactions.filter(
@@ -23,6 +17,12 @@ function CategoryCard({ category, budget }) {
             transaction.category_id === category.category_id
     )
     .reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0);
+
+    const formaterr = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "PHP",
+        minimumFractionDigits: 2,
+    });
 
     useEffect(() => {
         const expectedMaxLength = 6; // Example expected maximum length
@@ -79,6 +79,8 @@ function CategoryCard({ category, budget }) {
                         cat_id={category.category_id}
                         type={category.category_type}
                         name={category.category_name}
+                        total_amount={total_amount}
+                        budget={budget ? budget.amount_limit : 0}
                         completion={completion}
                     />
                     <EditCatBtn category={category} />
