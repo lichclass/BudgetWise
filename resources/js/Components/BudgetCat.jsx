@@ -10,7 +10,7 @@ function BudgetCat({ category, budget, isSet=false }) {
 
     return (
         <>
-            <div className="flex gap-2 justify-between items-center bg-[#102734] rounded-xl px-4 py-2 shadow-sm h-11 sm:px-6 lg:px-8">
+            <div className="flex gap-2 justify-between items-center bg-[#102734] rounded-xl px-4 py-2 shadow-sm h-11 sm:px-6 lg:px-8 border border-[#102734] hover:border-white/30 transition-all duration-200 ease-in-out">
                 {/* Category Name */}
                 <span className="text-white text-sm sm:text-base lg:text-lg whitespace-nowrap">
                     {category.category_name}
