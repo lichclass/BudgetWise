@@ -47,11 +47,11 @@ function AddExpensesModal({
             <div className="flex flex-row">
                 <div className="w-1/2 flex flex-col pl-2">
                     <div className="h-1/2">
-                        <h1 className="text-xl text-gray-50">Budget</h1>
-                        <ProgressBar completion={completion} />
+                        <h1 className="text-xl text-gray-50 font-bold">Budget</h1>
+                        <div className="h-3/4 flex flex-col justify-center pr-8"><ProgressBar completion={completion} /></div>
                     </div>
                     <div className="h-1/2">
-                        <h1 className="text-xl text-gray-50">Spent</h1>
+                        <h1 className="text-xl text-gray-50 font-bold">Spent</h1>
                         <h1 className="text-4xl text-green-300">
                             ₱ 900 / ₱ 1,000
                         </h1>
