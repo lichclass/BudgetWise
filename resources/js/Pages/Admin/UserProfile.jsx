@@ -1,6 +1,7 @@
 import Main from "@/Layouts/Main";
 import { Head } from '@inertiajs/react';
 import LedgersList from "@/Components/AdminUserLedgersList";
+import DeletedLedgers from"@/Components/AdminUserDeletedLedgers";
 import TransactList from "@/Components/AdminUserTransactList";
 import LedgerItem from "@/Components/AdminLedgerItem";
 import TransactItem from "@/Components/AdminTransactionsItem";
@@ -8,32 +9,32 @@ import TransactItem from "@/Components/AdminTransactionsItem";
 function UserProfile() {
 
 
-    const transactions = [
-        {
-            id: 1,
-            category_name: "Food & Dining",
-            transaction_type: "income",
-            amount: 1200.5,
-            transaction_date: "2024-11-27",
-            transaction_description: "Lunch at a restaurant",
-        },
-        {
-            id: 2,
-            category_name: "Salary",
-            transaction_type: "expense",
-            amount: 50000.0,
-            transaction_date: "2024-11-25",
-            transaction_description: "Monthly salary credited to bank account",
-        },
-        {
-            id: 3,
-            category_name: "Transportation",
-            transaction_type: "income",
-            amount: 750.0,
-            transaction_date: "2024-11-26",
-            transaction_description: "Gas for car",
-        },
-    ];
+    // const transactions = [
+    //     {
+    //         id: 1,
+    //         category_name: "Food & Dining",
+    //         transaction_type: "income",
+    //         amount: 1200.5,
+    //         transaction_date: "2024-11-27",
+    //         transaction_description: "Lunch at a restaurant",
+    //     },
+    //     {
+    //         id: 2,
+    //         category_name: "Salary",
+    //         transaction_type: "expense",
+    //         amount: 50000.0,
+    //         transaction_date: "2024-11-25",
+    //         transaction_description: "Monthly salary credited to bank account",
+    //     },
+    //     {
+    //         id: 3,
+    //         category_name: "Transportation",
+    //         transaction_type: "income",
+    //         amount: 750.0,
+    //         transaction_date: "2024-11-26",
+    //         transaction_description: "Gas for car",
+    //     },
+    // ];
 
     const ledgers = [
         {
@@ -43,6 +44,17 @@ function UserProfile() {
         {
             id: 2,
             ledger_name: "Business"
+        }
+    ]
+
+    const deleted = [
+        {
+            id: 3,
+            ledger_name: "Entertainment"
+        },
+        {
+            id: 4,
+            ledger_name: "Confidential Funds"
         }
     ]
 
@@ -68,7 +80,7 @@ function UserProfile() {
                             <h1>Email Address</h1>
                         </div>
 
-                        <a href={route('admin.edit-user')} className="bg-[#2D7E9BBD] mt-8 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
+                        <a className="bg-[#2D7E9BBD] mt-8 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
                             Edit
                         </a>
 
@@ -79,8 +91,8 @@ function UserProfile() {
                             ledgers={ledgers}
                         />
 
-                        <TransactList className="w-1/2"
-                            transactions={transactions}
+                        <DeletedLedgers className="w-1/2"
+                            ledgers={deleted}
                         />
 
                     </div>
