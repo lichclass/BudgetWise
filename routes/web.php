@@ -46,11 +46,12 @@ Route::middleware(['admin'])->group(function(){
 
     Route::get('/admin/showuser/{user}', [AdminController::class, 'showUser'])->name('admin.show-user');
     Route::get('/admin/editadmin/{id}', [AdminController::class, 'editAdmin'])->name('admin.edit-admin');
-    Route::get('/admin/edituser/{user}', [AdminController::class, 'editUser'])->name('admin.edit-user');
+    Route::get('/admin/edituser/{id}', [AdminController::class, 'editUser'])->name('admin.edit-user');
 
     Route::put('/admin/restoreuser/{id}', [AdminController::class, 'restoreUser'])->name('admin.restore-user');
     Route::put('/admin/restoreledger/{id}', [AdminController::class, 'restoreLedger'])->name('admin.restore-ledger');
-
+    Route::put('/admin/forcechangepass', [AuthController::class, 'forceChangePass'])->name('auth.force-change-pass');
+    
     Route::delete('/admin/deleteaccount/{id}', [AdminController::class, 'deleteAccount'])->name('admin.delete-account');
     Route::get('/admin/ledger/{id}/transactions', [AdminController::class, 'showLedgerTransactions'])->name('admin.ledger.transactions');
 });
