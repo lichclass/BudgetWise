@@ -1,16 +1,15 @@
 import Main from "@/Layouts/Main";
-import { useEffect, useState } from "react";
 import { Head } from "@inertiajs/react";
 import UsersVisitsChart from "@/Components/UsersVisitsChart";
-import { format, subMonths, getMonth, getYear } from "date-fns";
+import { computePercentUsers, computePercentVisits } from "@/Components/ComputeUsersVisits";
 
 function Dashboard({ users, visits, transactions }) {
     const userCount = users.length;
     const visitorCount = visits.length;
     const transactionCount = transactions.length;
 
-    const [percentUsers, setPercentUsers] = useState(0);
-    const [percentVisits, setPercentVisits] = useState(0);
+    const percentUsers = computePercentUsers({ users });
+    const percentVisits = computePercentVisits({ visits });
 
     return (
         <>
