@@ -50,7 +50,7 @@ Route::middleware(['admin'])->group(function(){
     Route::inertia('/admin/dashboard', 'Admin/Dashboard')->name('admin.dashboard');
     Route::inertia('/admin/settings', 'Admin/AdminSettings')->name('admin.settings');
     Route::inertia('/admin/userprofile', 'Admin/UserProfile')->name('admin.user-profile');
-    Route::inertia('/admin/createAdmin', 'Admin/CreateAdmin')->name('admin.create-admin');
+    Route::inertia('/admin/createadmin', 'Admin/CreateAdmin')->name('admin.create-admin');
 
     Route::post('/admin/registerAdmin', [AdminController::class, 'registerAdmin'])->name('admin.registerAdmin');
     
