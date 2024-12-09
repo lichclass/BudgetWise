@@ -12,6 +12,7 @@ function ModalA({
     onSubmit,
     disableBtn = false,
     error="",
+    deleteBtnCustom="Delete"
 }) {
     return (
         <form onSubmit={onSubmit}>
@@ -41,7 +42,7 @@ function ModalA({
 
                         <div className="flex justify-between space-x-4 pb-2 pt-2 w-full">
                             <DeleteBtn
-                                text="Delete"
+                                text={deleteBtnCustom}
                                 width="w-1/2"
                                 isSubmit={true}
                                 onClick={onSubmit}
