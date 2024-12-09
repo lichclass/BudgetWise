@@ -48,22 +48,26 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['admin'])->group(function(){
     Route::inertia('/admin/dashboard', 'Admin/Dashboard')->name('admin.dashboard');
-    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
     Route::inertia('/admin/settings', 'Admin/AdminSettings')->name('admin.settings');
     Route::inertia('/admin/userprofile', 'Admin/UserProfile')->name('admin.user-profile');
+    Route::inertia('/admin/createAdmin', 'Admin/CreateAdmin')->name('admin.create-admin');
 
+    Route::post('/admin/registerAdmin', [AdminController::class, 'registerAdmin'])->name('admin.registerAdmin');
+    
+    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
     Route::get('/admin/showuser/{user}', [AdminController::class, 'showUser'])->name('admin.show-user');
     Route::get('/admin/editadmin/{id}', [AdminController::class, 'editAdmin'])->name('admin.edit-admin');
     Route::get('/admin/edituser/{id}', [AdminController::class, 'editUser'])->name('admin.edit-user');
-
+    Route::get('/admin/ledger/{id}/transactions', [AdminController::class, 'showLedgerTransactions'])->name('admin.ledger.transactions');
+    
     Route::put('/admin/restoreuser/{id}', [AdminController::class, 'restoreUser'])->name('admin.restore-user');
     Route::put('/admin/restoreledger/{id}', [AdminController::class, 'restoreLedger'])->name('admin.restore-ledger');
     Route::put('/admin/forcechangepass', [AuthController::class, 'forceChangePass'])->name('auth.force-change-pass');
-    Route::put('admin/promoteToAdmin/{id}', [AdminController::class, 'promoteToAdmin'])->name('admin.promote-to-admin');
-    Route::put('admin/demoteToUser/{id}', [AdminController::class, 'demoteToUser'])->name('admin.demote-to-user');
-    
+    Route::put('/admin/promoteToAdmin/{id}', [AdminController::class, 'promoteToAdmin'])->name('admin.promote-to-admin');
+    Route::put('/admin/demoteToUser/{id}', [AdminController::class, 'demoteToUser'])->name('admin.demote-to-user');
+
     Route::delete('/admin/deleteaccount/{id}', [AdminController::class, 'deleteAccount'])->name('admin.delete-account');
-    Route::get('/admin/ledger/{id}/transactions', [AdminController::class, 'showLedgerTransactions'])->name('admin.ledger.transactions');
+    
 });
 
 Route::middleware(['auth', 'user'])->group(function () {

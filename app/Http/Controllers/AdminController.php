@@ -7,8 +7,33 @@ use App\Models\LedgerCategoryView;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
+// use Illuminate\Support\Facades\Auth;
+
 class AdminController extends Controller
-{
+{   
+
+    public function registerAdmin(Request $request)
+    {
+        // Validate the request
+        $fields = $request->validate([
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'min:3', 'confirmed'],
+        ]);
+    
+        // Create a new user with the last_login field set to the current timestamp
+        $user = User::create(array_merge($fields, [
+            'last_login' => Carbon::now(),
+            'role' => 'admin'
+        ]));
+    
+        // Login the user
+        // Auth::login($user);
+
+        // Redirect the user
+        return redirect()->route('admin.dashboard');
+    }
     public function showLedgerTransactions($id)
     {
         $ledger = Ledger::withTrashed()->findOrFail($id);
