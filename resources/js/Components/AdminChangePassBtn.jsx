@@ -7,7 +7,6 @@ function AdminChangePassBtn({ user }) {
 
     const { data, setData, put, processing, errors } = useForm({
         user_id: user.user_id,
-        current_password: "",
         new_password: "",
         new_password_confirmation: "",
     });
@@ -19,10 +18,9 @@ function AdminChangePassBtn({ user }) {
 
     function submit(e) {
         e.preventDefault();
-        put(route("change-pass", user.user_id), {
+        put(route("admin.force-change-pass", user.user_id), {
             onSuccess: () => {
                 setIsChangePassModalOpen(false);
-                data.current_password = "";
                 data.new_password = "";
                 data.new_password_confirmation = "";
             },
@@ -47,19 +45,6 @@ function AdminChangePassBtn({ user }) {
                 disableBtn={processing}
             >
                 <div className="space-y-5">
-                    <MainInputField
-                        label="Current Password"
-                        htmlFor="current-password"
-                        type="password"
-                        name="current-password"
-                        placeholder="Enter your current password"
-                        value={data.current_password}
-                        onChange={(e) =>
-                            setData("current_password", e.target.value)
-                        }
-                        errorDisplay={errors.current_password}
-                    />
-
                     <MainInputField
                         label="New Password"
                         htmlFor="New-password"
