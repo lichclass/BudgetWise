@@ -25,7 +25,7 @@ class AdminController extends Controller
         // Create a new user with the last_login field set to the current timestamp
         $user = User::create(array_merge($fields, [
             'last_login' => Carbon::now(),
-            'role' => 'admin'
+            'role' => 'admin',
         ]));
     
         // Login the user

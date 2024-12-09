@@ -5,7 +5,7 @@ import EditCatBtn from "./EditCatBtn";
 import { downscale } from "@/utilityFunctions";
 import { usePage } from "@inertiajs/react";
 
-function CategoryCard({ category, budget }) {
+function CategoryCard({ category, budget, selectedMonth }) {
     
     const { transactions, ledger } = usePage().props;
 
@@ -13,8 +13,10 @@ function CategoryCard({ category, budget }) {
 
     const total_amount = transactions.filter(
         (transaction) =>
-            transaction.ledger_id === ledger.ledger_id &&
-            transaction.category_id === category.category_id
+            transaction.ledger_id === ledger.ledger_id 
+        && transaction.category_id === category.category_id
+        && new Date(transaction.transaction_date).getMonth() === selectedMonth.getMonth()
+        && new Date(transaction.transaction_date).getFullYear() === selectedMonth.getFullYear()
     )
     .reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0);
 

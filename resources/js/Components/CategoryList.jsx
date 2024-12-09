@@ -4,7 +4,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import AddCategoryBtn from "./AddCategoryBtn";
 import { usePage } from "@inertiajs/react";
 
-function CategoryList({ type, categories, searchTerm, selectedLedger }) {
+function CategoryList({ type, categories, searchTerm, selectedLedger, selectedMonth }) {
     
     const { budgets, ledger } = usePage().props;
     
@@ -91,6 +91,7 @@ function CategoryList({ type, categories, searchTerm, selectedLedger }) {
                                     <CategoryCard
                                         category={category}
                                         budget={budgetedExpenses.find(budget => budget.category_id === category.category_id)}
+                                        selectedMonth={selectedMonth}
                                     />
                                 </div>
                             ))
