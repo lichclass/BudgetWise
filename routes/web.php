@@ -46,10 +46,21 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
+Route::middleware(['auth', 'user'])->group(function () {
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('check.ledger');
+    Route::post('/home/create-new-ledger', [HomeController::class, 'createNewLedger'])->name('create-new-ledger');
+    Route::put('/home/add-goal-money/{id}', [HomeController::class, 'addGoalMoney'])->name('goals.add');
+    Route::put('/home/withdraw-goal-money/{id}', [HomeController::class, 'withdrawGoalMoney'])->name('goals.withdraw');
+
+    Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
+
+    Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
+});
+
 Route::middleware(['admin'])->group(function(){
     Route::get('/admin/dashboard', [AdminController::class, 'showDashboardData'])->name('admin.dashboard');
     Route::inertia('/admin/settings', 'Admin/AdminSettings')->name('admin.settings');
-    Route::inertia('/admin/userprofile', 'Admin/UserProfile')->name('admin.user-profile');
     Route::inertia('/admin/createadmin', 'Admin/CreateAdmin')->name('admin.create-admin');
 
     Route::post('/admin/registerAdmin', [AdminController::class, 'registerAdmin'])->name('admin.registerAdmin');
@@ -67,21 +78,6 @@ Route::middleware(['admin'])->group(function(){
     Route::put('/admin/demoteToUser/{id}', [AdminController::class, 'demoteToUser'])->name('admin.demote-to-user');
 
     Route::delete('/admin/deleteaccount/{id}', [AdminController::class, 'deleteAccount'])->name('admin.delete-account');
-    
-});
-
-Route::middleware(['auth', 'user'])->group(function () {
-
-    Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('check.ledger');
-    Route::post('/home/create-new-ledger', [HomeController::class, 'createNewLedger'])->name('create-new-ledger');
-    Route::put('/home/add-goal-money/{id}', [HomeController::class, 'addGoalMoney'])->name('goals.add');
-    Route::put('/home/withdraw-goal-money/{id}', [HomeController::class, 'withdrawGoalMoney'])->name('goals.withdraw');
-
-    Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
-
-    Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
-    
-    
 });
 
 

@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "../../../css/SidebarStyles.module.css"
 import icons from "./SidebarIcons.jsx";
 import { useRoute } from "../../../../vendor/tightenco/ziggy/src/js";

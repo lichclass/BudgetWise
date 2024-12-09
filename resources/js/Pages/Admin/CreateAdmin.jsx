@@ -22,7 +22,7 @@ function CreateAdmin() {
         <>
         <Head title="Create Admin" />
 
-        <Main>
+        <Main isAdmin={true}>
 
             <div className='h-full w-full py-5 overflow-auto'>
 
