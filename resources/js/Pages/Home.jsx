@@ -8,6 +8,7 @@ import CategoryList from "@/Components/CategoryList";
 import LedgersDropdown from "@/Components/LedgersDropdown";
 import SearchBar from "@/Components/SearchBar";
 import CreateLedgerBtn from "@/Components/CreateLedgerBtn";
+import MonthPicker from "@/Components/MonthPicker";
 
 function Home() {
     const { auth, ledger, transactions, categories, goals, ledgers, flash } =
@@ -15,6 +16,7 @@ function Home() {
     const [searchTerm, setSearchTerm] = useState("");
     const [activeLedger, setActiveLedger] = useState(ledger);
     const isInitialRender = useRef(true);
+    const [selectedMonth, setSelectedMonth] = useState(new Date());
 
     const { data, setData, post } = useForm({
         ledger: activeLedger,
@@ -60,7 +62,7 @@ function Home() {
                     {/* Top */}
                     <div className="flex flex-col items-center lg:flex-row justify-between gap-10 lg:gap-3 mb-3">
                         <SearchBar onSearch={handleSearch} />
-
+                        <MonthPicker selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
                         <div className="flex justify-center md:justify-end gap-4">
                             <CreateLedgerBtn />
                             <LedgersDropdown
@@ -80,12 +82,14 @@ function Home() {
                                 categories={categories}
                                 searchTerm={searchTerm}
                                 selectedLedger={activeLedger}
+                                selectedMonth={selectedMonth}
                             />
                             <CategoryList
                                 type="income"
                                 categories={categories}
                                 searchTerm={searchTerm}
                                 selectedLedger={activeLedger}
+                                selectedMonth={selectedMonth}
                             />
                         </div>
 
