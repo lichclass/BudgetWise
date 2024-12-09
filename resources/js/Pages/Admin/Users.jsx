@@ -14,9 +14,16 @@ function Users({ users }) {
     const handleSearch = (value) => setSearchTerm(value);
 
     const handleToggleFilter = () => {
-        setFilterState((prevState) =>
-            prevState === "all" ? "existing" : prevState === "existing" ? "deleted" : "all"
-        );
+        setFilterState((currentState) => {
+            const nextState =
+                currentState === "all"
+                    ? "existing"
+                    : currentState === "existing"
+                    ? "deleted"
+                    : "all";
+    
+            return nextState; // Directly update to the next state
+        });
     };
 
     const filteredUsers = users.filter((user) => {
@@ -44,18 +51,21 @@ function Users({ users }) {
                     <div className="w-full flex flex-col items-center lg:flex-row gap-6 justify-between">
                     {/* Search Bar */}
                     <SearchBar onSearch={handleSearch} />
-
-                    {/* Toggle Button */}
-                    <button
-                        onClick={handleToggleFilter}
-                        className="h-9 bg-[#2D7E9BBD] text-white px-5 py-3 rounded-md flex items-center hover:bg-[#2d7e9b68] transition-all duration-200 ease-in-out"
-                    >
-                        {filterState === "all"
-                            ? "Show Existing"
-                            : filterState === "existing"
-                            ? "Show Deleted"
-                            : "Show All"}
-                    </button>
+                        <div className="flex flex-row items-center gap-3">
+                            <p>Currently Showing: </p>
+                            {/* Toggle Button */}
+                            <button
+                                onClick={handleToggleFilter}
+                                className="h-9 bg-[#2D7E9BBD] text-white px-4 py-3 rounded-md flex items-center hover:bg-[#2d7e9b68] transition-all duration-200 ease-in-out"
+                            >
+                                {filterState === "all"
+                                    ? "All"
+                                    : filterState === "existing"
+                                    ? "Existing"
+                                    : "Deleted"}
+                            </button>
+                        </div>
+                    
                     </div>
 
                     {/* User Lists */}
