@@ -16,7 +16,7 @@ function SearchBar({ onSearch }) {
                 type="text"
                 value={searchTerm}
                 onChange={handleSearch}
-                placeholder="Search Category"
+                placeholder="Search..."
                 className="w-full h-full pl-16 pr-2 rounded-[13px] border border-[#A9ADAE] bg-[#07131E4F] shadow-md transition duration-300 ease-in-out 
                 focus:outline-none focus:ring-2 focus:ring-[#A9ADAEA1] focus:border-transparent hover:shadow-lg hover:border-[#A9ADAEA1]
                 text-white placeholder-gray-400"
