@@ -7,8 +7,9 @@ import AddCategoryBtn from "./AddCategoryBtn";
 import CategoryItemV2 from "./CategoryItemV2";
 import DeleteLedgerBtn from "./DeleteLedgerBtn";
 
-function AdminEditLedgerBtn() {
-    const { ledger, categories } = usePage().props;
+function AdminEditLedgerBtn({ ledger, categories }) {
+
+    // const { ledger, categories } = usePage().props;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const { data, setData, put, processing } = useForm({

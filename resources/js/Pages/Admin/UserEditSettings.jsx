@@ -15,8 +15,6 @@ function Settings({ user }) {
     const [editUsername, setEditUsername] = useState(false);
 
     const [isDeleteAccModalOpen, setIsDeleteAccModalOpen] = useState(false);
-    const showDeleteAccModal = () => setIsDeleteAccModalOpen(true);
-    const handleCancelDeleteAccModal = () => setIsDeleteAccModalOpen(false);
 
     const { data, setData, put } = useForm({
         username: user.username,
@@ -117,7 +115,7 @@ function Settings({ user }) {
                 </div>
 
                 <div className='py-10 mr-44 flex justify-between'>
-                    <AdminDeleteAccountBtn />
+                    <AdminDeleteAccountBtn user={user} />
                 </div>
 
 

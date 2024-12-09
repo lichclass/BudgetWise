@@ -61,7 +61,11 @@ class AuthController extends Controller
             $request->session()->put('ledger', $first_ledger);
     
             // Redirect the user
-            return redirect()->route('home');
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('home');
+            }
         }
     }
 

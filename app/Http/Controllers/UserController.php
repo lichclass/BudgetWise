@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::withTrashed()->get();
         return Inertia::render('Admin/Users', [
             'users' => $users
         ]);
@@ -66,9 +66,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return Inertia::render('Admin/UserEditSettings', [
-            'user' => $user
-        ]);
+       
     }
 
     /**
@@ -86,8 +84,8 @@ class UserController extends Controller
      */
     public function destroy($userId)
     {
-        $users = User::findOrFail($userId);
-        $users->delete();
-        return redirect()->route('login');
+        // $users = User::findOrFail($userId);
+        // $users->delete();
+        // return redirect()->route('login');
     }
 }

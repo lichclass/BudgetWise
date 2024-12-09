@@ -7,7 +7,7 @@ import GreenBtnMed from '@/Components/GreenBtnMed';
 import { useForm } from "@inertiajs/react";
 import DeleteAccountBtn from '@/Components/DeleteAccountBtn';
 
-function Settings() {
+function AdminSettings() {
 
     const { auth } = usePage().props;
     const [email, setEmail] = useState(auth.user.email);
@@ -130,4 +130,4 @@ function Settings() {
     )
 }
 
-export default Settings;
+export default AdminSettings;

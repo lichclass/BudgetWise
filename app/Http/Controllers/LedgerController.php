@@ -61,7 +61,7 @@ class LedgerController extends Controller
         $fields = $request->validate([
             'ledger_name' => ['required', 'string'],
         ]);
-        $ledger = Ledger::find($id);
+        $ledger = Ledger::findOrFail($id);
         $ledger->update($fields);
 
         session([
@@ -76,7 +76,7 @@ class LedgerController extends Controller
      */
     public function destroy($id)
     {
-        $ledger = Ledger::find($id);
+        $ledger = Ledger::findOrFail($id);
         $ledger->delete();
 
         $ledgers = Auth::user()->ledgers;

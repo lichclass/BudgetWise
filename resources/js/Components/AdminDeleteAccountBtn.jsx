@@ -14,7 +14,7 @@ function AdminDeleteAccountBtn({ user }) {
 
     const handleDelete = (e) => {
         e.preventDefault();
-        destroy(route("user.destroy", {id: user.user_id}), {
+        destroy(route("admin.delete-account", {id: user.user_id}), {
             onSuccess: () => {
                 setIsModalOpen(false);
             }
