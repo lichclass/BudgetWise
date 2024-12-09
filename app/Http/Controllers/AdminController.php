@@ -67,6 +67,22 @@ class AdminController extends Controller
         return redirect()->route('admin.users');
     }
 
+    public function promoteToAdmin($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->role = 'admin';
+        $user->save();
+        return redirect()->route('admin.users');
+    }
+
+    public function demoteToUser($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->role = 'user';
+        $user->save();
+        return redirect()->route('admin.users');
+    }
+
     public function deleteAccount($id)
     {
         $user = User::findOrFail($id);

@@ -59,6 +59,8 @@ Route::middleware(['admin'])->group(function(){
     Route::put('/admin/restoreuser/{id}', [AdminController::class, 'restoreUser'])->name('admin.restore-user');
     Route::put('/admin/restoreledger/{id}', [AdminController::class, 'restoreLedger'])->name('admin.restore-ledger');
     Route::put('/admin/forcechangepass', [AuthController::class, 'forceChangePass'])->name('auth.force-change-pass');
+    Route::put('admin/promoteToAdmin/{id}', [AdminController::class, 'promoteToAdmin'])->name('admin.promote-to-admin');
+    Route::put('admin/demoteToUser/{id}', [AdminController::class, 'demoteToUser'])->name('admin.demote-to-user');
     
     Route::delete('/admin/deleteaccount/{id}', [AdminController::class, 'deleteAccount'])->name('admin.delete-account');
     Route::get('/admin/ledger/{id}/transactions', [AdminController::class, 'showLedgerTransactions'])->name('admin.ledger.transactions');
