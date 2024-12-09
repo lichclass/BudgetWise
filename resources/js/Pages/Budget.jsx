@@ -40,39 +40,36 @@ function Budget() {
                 {/*Main Content*/}
                 <div className="h-full w-full flex flex-col gap-4 lg:gap-0 overflow-auto">
                     {/* Top */}
-                    <div className="flex flex-col gap-4 lg:flex-row lg:gap-0">
-                        {/* Left */}
-                        <div className="flex flex-col gap-5 lg:flex-row w-full lg:w-1/2 lg:border-r-0 border border-gray-600 rounded-xl lg:rounded-r-none lg:rounded-b-none justify-evenly py-4 items-center">
-                            {/* Meter */}
-                            <PieChartBudget budgets={budgetedExpenses} />
-                        </div>
+                    <div className="flex flex-col gap-5 lg:h-1/2 lg:flex-row border border-gray-600 rounded-xl lg:rounded-b-none lg:border-b-0 justify-evenly py-4 items-center overflow-auto">
+                        {/* Meter */}
+                        <PieChartBudget budgets={budgetedExpenses} />
+                    </div>
 
-                        {/* Right */}
-                        <div className="flex flex-col h-96 w-full lg:w-1/2 border border-gray-600 rounded-xl lg:rounded-l-none lg:rounded-b-none px-6 py-6 gap-4 bg-[#143445] overflow-auto">
-                            {/* Monthly Budget Card */}
-                            <MonthlyBudget
-                                budgetedExpenses={budgetedExpenses}
-                            />
+                    {/* Bottom */}
+                    <div className="flex flex-col max-h-full lg:h-1/2 border border-gray-600 rounded-xl lg:rounded-t-none px-6 py-6 gap-4 bg-[#143445] overflow-auto">
+                        {/* Monthly Budget Card */}
+                        <MonthlyBudget
+                            budgetedExpenses={budgetedExpenses}
+                        />
 
-                            {/* Expenses Overview */}
-                            <div className="h-full md:w-full flex flex-col gap-2">
-                                {budgetedExpenses.map((budget) => (
-                                    <BudgetCat
-                                        key={budget.category_id}
-                                        category={{
-                                            category_name: budget.category_name,
-                                        }}
-                                        budget={budget}
-                                        isSet={true}
-                                    />
-                                ))}
-                                {nonBudgetedExpenses.map((category) => (
-                                    <BudgetCat
-                                        key={category.category_id}
-                                        category={category}
-                                    />
-                                ))}
-                            </div>
+                        {/* Expenses Overview */}
+                        <div className="h-full md:w-full flex flex-col gap-2">
+                            {budgetedExpenses.map((budget) => (
+                                <BudgetCat
+                                    key={budget.category_id}
+                                    category={{
+                                        category_name: budget.category_name,
+                                    }}
+                                    budget={budget}
+                                    isSet={true}
+                                />
+                            ))}
+                            {nonBudgetedExpenses.map((category) => (
+                                <BudgetCat
+                                    key={category.category_id}
+                                    category={category}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>
