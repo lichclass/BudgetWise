@@ -2,7 +2,7 @@ import Main from "@/Layouts/Main";
 import { Head } from '@inertiajs/react';
 import GreenBtnLg from '@/Components/GreenBtnLg';
 import { useForm } from '@inertiajs/react'
-import AuthInputField from "@/Components/MainInputField";
+import MainInputField from "@/Components/MainInputField";
 
 function CreateAdmin() {
 
@@ -15,7 +15,7 @@ function CreateAdmin() {
 
     function submit(e) {
         e.preventDefault();
-        post(route('admin.registerAdsmin'));
+        post(route('admin.registerAdmin'));
     }
 
     return (
@@ -29,11 +29,11 @@ function CreateAdmin() {
                 {/* Sign-In Field Header */}
                 <div className='w-full flex items-center justify-between mb-8'>
                     <div>
-                        <h1 className='text-3xl sm:text-4xl font-black tracking-tighter text-white drop-shadow-md pr-8'>
-                            Register
+                        <h1 className='w-full text-3xl sm:text-4xl font-black tracking-tighter text-white drop-shadow-md whitespace-nowrap'>
+                            Create Admin
                         </h1>
                     </div>
-                    <div className='md:px-0 w-full'>
+                    <div className='w-full pl-8'>
                         <hr className='border-gray-500 text-opacity-50 border shadow-sm w-full' />
                     </div>
                 </div>
@@ -44,7 +44,7 @@ function CreateAdmin() {
 
                     <div className="w-full flex flex-col gap-4">
                         {/* Email */}
-                        <AuthInputField 
+                        <MainInputField 
                             label='Email' 
                             htmlFor='email' 
                             type='text' 
@@ -56,7 +56,7 @@ function CreateAdmin() {
                         />
 
                         {/* Username */}
-                        <AuthInputField 
+                        <MainInputField 
                             label='Username' 
                             htmlFor='username' 
                             type='text' 
@@ -68,7 +68,7 @@ function CreateAdmin() {
                         />
 
                         {/* Password */}
-                        <AuthInputField 
+                        <MainInputField 
                             label='Password' 
                             htmlFor='password' 
                             type='password' 
@@ -80,7 +80,7 @@ function CreateAdmin() {
                         />
 
                         {/* Confirm Password */}
-                        <AuthInputField 
+                        <MainInputField 
                             label='Confirm Password' 
                             htmlFor='confirm-password' 
                             type='password' 
@@ -94,7 +94,7 @@ function CreateAdmin() {
 
                     {/* Submit Button */}
                     <GreenBtnLg 
-                        text='Sign-up' 
+                        text='Create' 
                         type="submit" 
                         disabled={processing} 
                     />
