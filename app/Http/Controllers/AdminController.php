@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Ledger;
 use App\Models\LedgerCategoryView;
+use App\Models\SiteVisits;
+use App\Models\Transaction;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -114,5 +116,16 @@ class AdminController extends Controller
         $user->delete();
         return redirect()->route('admin.users');
     }
-    
+
+    public function showDashboardData()
+    {
+        $users = User::all();
+        $visits = SiteVisits::all();
+        $transactions = Transaction::all();
+        return Inertia::render('Admin/Dashboard', [
+            'users' => $users,
+            'visits' => $visits,
+            'transactions' => $transactions
+        ]);
+    }
 }

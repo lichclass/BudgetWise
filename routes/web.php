@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['admin'])->group(function(){
-    Route::inertia('/admin/dashboard', 'Admin/Dashboard')->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'showDashboardData'])->name('admin.dashboard');
     Route::inertia('/admin/settings', 'Admin/AdminSettings')->name('admin.settings');
     Route::inertia('/admin/userprofile', 'Admin/UserProfile')->name('admin.user-profile');
     Route::inertia('/admin/createadmin', 'Admin/CreateAdmin')->name('admin.create-admin');
