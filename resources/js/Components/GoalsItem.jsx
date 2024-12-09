@@ -115,14 +115,32 @@ function GoalsItem({
                             disabledBtn={processing || !canAddMoney}
                         >
                             <div className="flex flex-col gap-4 pb-5">
-                                <div className="flex justify-center gap-2 p-4">
-                                    <h1 className="text-white text-2xl">
-                                        Ledger Balance:
-                                    </h1>
-                                    <h1 className="text-white text-2xl font-bold">
-                                        {formaterr.format(ledger.balance)}
-                                    </h1>
-                                </div>
+                                {/* Start of Header */}
+                                <div className="flex flex-col justify-center items-center gap-5 p-4">
+                                    <div className="flex gap-3">
+                                        <h1 className="text-white text-2xl">
+                                            Ledger Balance:
+                                        </h1>
+
+                                        <h1 className="text-white text-2xl font-bold">
+                                            {formaterr.format(ledger.balance)}
+                                        </h1>
+                                    </div>
+                                    
+                                    {/* Progress Bar */}
+                                    <div className="w-full">
+                                        <span className="flex text-gray-300 pb-1">{formaterr.format(current)} / {formaterr.format(target)} </span>
+                                        <div className="w-full h-6 rounded-full bg-[#0A1C29] bg-opacity-25 flex items-center">
+                                            <div
+                                                className={`h-6 bg-blue-600 ${
+                                                    completion < 100 ? "rounded-l-full" : "rounded-full"
+                                                } bg-gradient-to-r from-[#79BAA8] to-[#195676]`}
+                                                style={{ width: `${completion}%` }}
+                                            ></div>
+                                        </div>
+                                    </div>
+                                </div>              
+                                {/* End of Header */}                  
 
                                 <InputField
                                     label="Amount"
@@ -167,14 +185,28 @@ function GoalsItem({
                             disabledBtn={processing || !canWithdrawMoney}
                         >
                             <div className="flex flex-col gap-4 pb-5">
-                                <div className="flex justify-center gap-2 p-4">
-                                    <h1 className="text-white text-2xl">
-                                        Goal Balance:
-                                    </h1>
-                                    {/* 'current' is used for now as ledger balance is not passed properly from home */}
-                                    <h1 className="text-white text-2xl font-bold">
-                                        {formaterr.format(parseFloat(current))}
-                                    </h1>
+                                <div className="flex flex-col justify-center items-center gap-5 p-4">
+                                    <div className="flex gap-3">
+                                        <h1 className="text-white text-2xl">
+                                            Goal Balance:
+                                        </h1>
+                                        {/* 'current' is used for now as ledger balance is not passed properly from home */}
+                                        <h1 className="text-white text-2xl font-bold">
+                                            {formaterr.format(parseFloat(current))}
+                                        </h1>
+                                    </div>
+
+                                    <div className="w-full">
+                                        <span className="flex text-gray-300 pb-1">{formaterr.format(current)} / {formaterr.format(target)} </span>
+                                        <div className="w-full h-6 rounded-full bg-[#0A1C29] bg-opacity-25 flex items-center">
+                                            <div
+                                                className={`h-6 bg-blue-600 ${
+                                                    completion < 100 ? "rounded-l-full" : "rounded-full"
+                                                } bg-gradient-to-r from-[#79BAA8] to-[#195676]`}
+                                                style={{ width: `${completion}%` }}
+                                            ></div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <InputField
