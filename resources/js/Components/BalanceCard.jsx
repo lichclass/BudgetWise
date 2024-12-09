@@ -13,8 +13,8 @@ function BalanceCard({ balance=0 }) {
     const [fontSize, setFontSize] = useState();
 
     useEffect(() => {
-        const expectedMaxLength = 7; // Example expected maximum length
-        const baseFontSize = 64; // Example base font size
+        const expectedMaxLength = 32; // Example expected maximum length
+        const baseFontSize = 48; // Example base font size
         const minFontSize = 16; // Example minimum font size
 
         const newFontSize = downscale(balance.toString().length, expectedMaxLength, baseFontSize, minFontSize);
