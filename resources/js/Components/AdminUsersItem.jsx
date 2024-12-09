@@ -12,11 +12,11 @@ function AdminUsersItem({ user }) {
                 </div>
                 <button className="text-white text-opacity-80 transition-all duration-200 ease-in-out hover:scale-110">
                     {(user.role == 'admin') ?
-                        <a href={route('admin.edit-user', {id: user.user_id})}> 
+                        <a href={route('admin.edit-admin', {id: user.user_id})}> 
                             <FaRegEdit /> 
                         </a> 
                     :
-                        <a href={route('admin.edit-user', {id: user.user_id})}>
+                        <a href={route('admin.show-user', {id: user.user_id})}>
                             <FaRegEye />
                         </a>
                     } 
