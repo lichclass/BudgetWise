@@ -18,7 +18,7 @@ function AdminChangePassBtn({ user }) {
 
     function submit(e) {
         e.preventDefault();
-        put(route("admin.force-change-pass", user.user_id), {
+        put(route("auth.force-change-pass", user.user_id), {
             onSuccess: () => {
                 setIsChangePassModalOpen(false);
                 data.new_password = "";

@@ -37,7 +37,7 @@ function UserProfile({ user, ledgers, deletedLedgers, categories }) {
 
                         <div className="flex space-x-3">
                             <button>
-                                <a href={route("admin.edit-user", user)} className="bg-[#2D7E9BBD] text-center my-4 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
+                                <a href={route("admin.edit-user",{id: user.user_id})} className="bg-[#2D7E9BBD] text-center my-4 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
                                     Edit
                                 </a>
                             </button>

@@ -42,8 +42,9 @@ class AdminController extends Controller
         ]);     
     }
 
-    public function editUser(User $user)
+    public function editUser($userId)
     {
+        $user = User::withTrashed()->findOrFail($userId);
         return Inertia::render('Admin/UserEditSettings', [
             'user' => $user
         ]);
