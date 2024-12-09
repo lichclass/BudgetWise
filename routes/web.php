@@ -33,12 +33,14 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/starter', [StarterController::class, 'showCategories'])->name('starter')->middleware('check.ledger');
     Route::post('/starter', [StarterController::class, 'submit'])->name('starter.submit');
+    Route::put('/settings/{id}', [AuthController::class, "changePass"])->name('change-pass');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::middleware(['admin'])->group(function(){
     Route::inertia('/admin/dashboard', 'Admin/Dashboard')->name('admin.dashboard');
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
-    Route::inertia('/admin/settings', 'Admin/Settings')->name('admin.settings');
+    Route::inertia('/admin/settings', 'Admin/AdminSettings')->name('admin.settings');
     Route::inertia('/admin/userprofile', 'Admin/UserProfile')->name('admin.user-profile');
 
 
@@ -48,7 +50,7 @@ Route::middleware(['admin'])->group(function(){
 
     Route::put('/admin/restoreuser/{id}', [AdminController::class, 'restoreUser'])->name('admin.restore-user');
     Route::put('/admin/restoreledger/{id}', [AdminController::class, 'restoreLedger'])->name('admin.restore-ledger');
-    
+
     Route::delete('/admin/deleteaccount/{id}', [AdminController::class, 'deleteAccount'])->name('admin.delete-account');
     Route::get('/admin/ledger/{id}/transactions', [AdminController::class, 'showLedgerTransactions'])->name('admin.ledger.transactions');
 });
@@ -71,8 +73,8 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::resource('ledger-category', LedgerCategoryController::class);
 
     Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
-    Route::put('/settings/{id}', [AuthController::class, "changePass"])->name('change-pass');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    
+    
 });
 
 

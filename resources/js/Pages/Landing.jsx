@@ -34,7 +34,7 @@ function Landing() {
                 <div className='inline-flex items-center text-sm md:text-lg'>
                     {
                         auth.user 
-                            ? <a href={route('home')} className='text-white'>{auth.user.username}</a>
+                            ? <a href={(auth.user.role == 'admin')? route('admin.dashboard'):route('home')} className='text-white'>{auth.user.username}</a>
                             : (
                                 <>
                                     <a href={route('login')} className='text-white'>Sign-in</a>
