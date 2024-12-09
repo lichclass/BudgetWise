@@ -1,16 +1,14 @@
 import Main from "@/Layouts/Main";
 import { Head } from '@inertiajs/react';
-import UserItem from "@/Components/AdminUsersItem";
+import UsersVisitsChart from "@/Components/UsersVisitsChart";
 
-function Dashboard() {
+function Dashboard({ users=10, visits=10 }) {
 
-
-    const users = 10;
+    // const users = 10;
     const visitors = 25;
     const percentIncreaseUsers = 10;
     const percentIncreaseVisits = 20;
     const transactions = 300;
-
 
     return (
         <>
@@ -53,7 +51,7 @@ function Dashboard() {
                             "linear-gradient(259deg, rgba(74, 167, 200, 0.12) -9.8%, rgba(13, 33, 47, 0.12) 119.45%)",
                     }}
                 >
-                            <h1>Graph Here...</h1>
+                    <UsersVisitsChart />
                 </div>
 
             </Main>
