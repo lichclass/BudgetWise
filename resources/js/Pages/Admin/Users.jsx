@@ -3,6 +3,7 @@ import { Head, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import UserList from "@/Components/AdminUsersList";
 import SearchBar from "@/Components/SearchBar";
+import { FaPlus } from "react-icons/fa";
 
 function Users({ users }) {
 
@@ -49,23 +50,28 @@ function Users({ users }) {
 
 
                     <div className="w-full flex flex-col items-center lg:flex-row gap-6 justify-between">
-                    {/* Search Bar */}
-                    <SearchBar onSearch={handleSearch} />
-                        <div className="flex flex-row items-center gap-3">
-                            <p>Currently Showing: </p>
-                            {/* Toggle Button */}
-                            <button
-                                onClick={handleToggleFilter}
-                                className="h-9 bg-[#2D7E9BBD] text-white px-4 py-3 rounded-md flex items-center hover:bg-[#2d7e9b68] transition-all duration-200 ease-in-out"
-                            >
-                                {filterState === "all"
-                                    ? "All"
-                                    : filterState === "existing"
-                                    ? "Existing"
-                                    : "Deleted"}
-                            </button>
-                        </div>
-                    
+                        {/* Search Bar */}
+                        <SearchBar onSearch={handleSearch} />
+                        
+                        {/* <div className="flex flex-row items-center gap-5"> */}
+                            <div className="flex flex-row items-center gap-3">
+                                <p>Currently Showing: </p>
+                                {/* Toggle Button */}
+                                <button
+                                    onClick={handleToggleFilter}
+                                    className="h-9 bg-[#2D7E9BBD] text-white px-4 py-3 rounded-md flex items-center hover:bg-[#2d7e9b68] transition-all duration-200 ease-in-out"
+                                >
+                                    {filterState === "all"
+                                        ? "All"
+                                        : filterState === "existing"
+                                        ? "Existing"
+                                        : "Deleted"}
+                                </button>
+                                <a href={route('admin.create-admin')} className="h-9 bg-[#2D7E9BBD] text-white px-4 py-3 rounded-md flex items-center hover:bg-[#2d7e9b68] transition-all duration-200 ease-in-out gap-1">
+                                        <FaPlus className="text-xs"/>Create Admin
+                                </a>
+                            </div>
+                        {/* </div> */}
                     </div>
 
                     {/* User Lists */}
