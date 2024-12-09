@@ -21,7 +21,6 @@ Route::inertia('/test', 'Test')->name('test');
 // Route for Landing Page
 Route::inertia('/', 'Landing')->name('landing');
 
-
 Route::middleware('guest')->group(function () {
     Route::inertia('/login', 'Login')->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login');

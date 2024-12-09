@@ -138,6 +138,7 @@ function Starter({ categories }) {
         };
         setCategories((prev) => [...prev, newCategoryObject]);
         setNewCategories((prev) => [...prev, newCategoryObject]);
+        setData("newCategoriesSelected", [...data.newCategoriesSelected, newCategoryObject]);
         setNewCategoryName("");
         setIsModalOpen(false);
     };
