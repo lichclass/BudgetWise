@@ -31,8 +31,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/starter', [StarterController::class, 'showCategories'])->name('starter')->middleware('check.ledger');
-    Route::post('/starter', [StarterController::class, 'submit'])->name('starter.submit');
+   
 
     Route::resource('category', CategoryController::class);
     Route::resource('ledger', LedgerController::class);
@@ -47,7 +46,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'user'])->group(function () {
-
+    Route::get('/starter', [StarterController::class, 'showCategories'])->name('starter')->middleware('check.ledger');
+    Route::post('/starter', [StarterController::class, 'submit'])->name('starter.submit');
+    
     Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('check.ledger');
     Route::post('/home/create-new-ledger', [HomeController::class, 'createNewLedger'])->name('create-new-ledger');
     Route::put('/home/add-goal-money/{id}', [HomeController::class, 'addGoalMoney'])->name('goals.add');

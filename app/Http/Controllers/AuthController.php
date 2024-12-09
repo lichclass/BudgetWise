@@ -53,20 +53,21 @@ class AuthController extends Controller
         $user->save();
     
         // Check if the user has any ledgers
-        if ($user->ledgers->isEmpty()) {
-            return redirect()->route('starter');
-        } else {
-            // Put the first ledger in the session
+        if ($user->role === 'user') {
+            if ($user->ledgers->isEmpty()) {
+                return redirect()->route('starter');
+            } else {
+                // Put the first ledger in the session
             $first_ledger = $user->ledgers->first();
             $request->session()->put('ledger', $first_ledger);
     
             // Redirect the user
-            if ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard');
-            } else {
-                return redirect()->route('home');
+            return redirect()->route('home');
             }
-        }
+            
+        } else {
+            return redirect()->route('admin.dashboard');  
+        } 
     }
 
     public function logout(Request $request){
