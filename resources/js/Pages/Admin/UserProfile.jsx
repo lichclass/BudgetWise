@@ -8,7 +8,6 @@ import TransactItem from "@/Components/AdminTransactionsItem";
 
 function UserProfile({ user, ledgers, deletedLedgers }) {
 
-    const isDeleted = 1;
     const usernameFormatted = user.username[0].toUpperCase() + user.username.slice(1);
 
     return (
@@ -39,7 +38,7 @@ function UserProfile({ user, ledgers, deletedLedgers }) {
                                     Edit
                                 </a>
                             </button>
-                            {isDeleted === 1 && (
+                            {user.deleted_at && (
                                 <button>
                                     <a className="bg-[#2D7E9BBD] text-center my-4 md:mt-0 py-4 px-11 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
                                         Restore

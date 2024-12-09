@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::withTrashed()->get();
         return Inertia::render('Admin/Users', [
             'users' => $users
         ]);
@@ -46,7 +46,7 @@ class UserController extends Controller
     public function show($userId)
     {
         // dd($userId);
-        $user = User::findOrFail($userId);
+        $user = User::withTrashed()->findOrFail($userId);
         $deletedLedgers = Ledger::onlyTrashed()->where('user_id', $userId)->get();
         if($user->role == 'admin') {
             return Inertia::render('Admin/EditAdmin', [

@@ -21,6 +21,7 @@ function AdminUsersItem({ user }) {
                         </a>
                     } 
                 </button>
+                {user.deleted_at && <span>Deleted</span>}
             </div>
         </>
     );
