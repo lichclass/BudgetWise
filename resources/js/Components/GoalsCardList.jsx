@@ -40,7 +40,7 @@ function GoalsCard({ goals, selectedLedger }) {
     });
 
     return (
-        <div className="bg-[#174A65D1] rounded-lg shadow-lg w-full h-full flex flex-col overflow-auto max-h-[570px]">
+        <div className="bg-[#174A65D1] rounded-lg shadow-lg w-full h-full min-h-[285px] flex flex-col overflow-auto">
             {/* Header */}
             <div className="sticky top-0 z-10 flex justify-between bg-[#195676] rounded-t-lg px-4 py-3">
                 <h1

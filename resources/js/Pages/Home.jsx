@@ -94,7 +94,7 @@ function Home() {
                         </div>
 
                         {/* Right Side */}
-                        <div className="flex flex-col gap-10 lg:gap-3 flex-grow py-3">
+                        <div className="flex flex-col gap-10 lg:gap-3 flex-grow py-3 min-h-full max-h-f">
                             <BalanceCard balance={ledger.balance} />
                             <GoalsCardList
                                 goals={goals}

@@ -68,10 +68,13 @@ function GoalsItem({
 
     return (
         <>
-            <div className="bg-[#0F3A51] rounded-lg px-8 pb-5 pt-3 flex flex-col gap-y-2 border border-transparent hover:border-white/30 transition-all duration-200 ease-in-out shadow-sm">
+            <div className={`${completion >= 100 ? "bg-[#0722309b]" : "bg-[#0F3A51]"} rounded-lg px-8 pb-5 pt-3 flex flex-col gap-y-2 border border-transparent hover:border-white/30 transition-all duration-200 ease-in-out shadow-sm`}>
                 {/* Header */}
                 <div className="flex justify-between gap-1">
-                    <h1 className="">{title}</h1>
+                    <div className="flex flex-row items-center gap-2">
+                        <h1 className={`${completion >= 100 ? "text-[#a2a7aab6]" : "text-white"}`}>{title}</h1>
+                        {completion >= 100 && <h1 className="text-[#a2a7aab6]">Completed</h1>}
+                    </div>
 
                     {/* Edit Modal */}
                     <EditGoalBtn
@@ -86,9 +89,9 @@ function GoalsItem({
                 {/* Progress Bar */}
                 <div className="w-full h-6 rounded-full bg-[#0A1C29] bg-opacity-25 flex items-center">
                     <div
-                        className={`h-6 bg-blue-600 ${
+                        className={`h-6 ${
                             completion < 100 ? "rounded-l-full" : "rounded-full"
-                        } bg-gradient-to-r from-[#79BAA8] to-[#195676]`}
+                        } ${completion >= 100 ? "bg-gradient-to-r from-[#3a6771] to-[#0d4274]" : "bg-gradient-to-r from-[#79BAA8] to-[#195676]"}`}
                         style={{ width: `${completion}%` }}
                     ></div>
                 </div>
@@ -96,7 +99,7 @@ function GoalsItem({
                 <div className="flex flex-col-reverse sm:flex-row-reverse justify-between items-center gap-5">
                     <div className="flex gap-1">
                         <button
-                            className={`${buttonStyle}`}
+                            className={`${buttonStyle} ${completion >= 100 ? "text-[#a2a7aab6]" : "text-white"}`}
                             onClick={showAddBalanceModal}
                         >
                             <FaPlus className="text-xs" />
@@ -165,7 +168,7 @@ function GoalsItem({
                         {/* End of Add Balance Modal */}
 
                         <button
-                            className={`${buttonStyle}`}
+                            className={`${buttonStyle} ${completion >= 100 ? "text-[#a2a7aab6]" : "text-white"}`}
                             onClick={showWithdrawBalanceModal}
                         >
                             <FaMinus className="text-xs" />
@@ -230,7 +233,7 @@ function GoalsItem({
                         {/* End of Withdraw Balance Modal */}
                     </div>
 
-                    <p className="text-[#E8EAE69E] font-thin text-xs sm:text-sm self-start">
+                    <p className={`${completion >= 100 ? "text-[#a2a7aab6]" : "text-[#E8EAE69E]"} font-thin text-xs sm:text-sm self-start`}>
                         {isDeadlineSet
                             ? "Days Remaining: " + deadline
                             : "No Deadline Set"}
