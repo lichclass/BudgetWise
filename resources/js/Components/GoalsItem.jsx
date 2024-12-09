@@ -219,7 +219,7 @@ function GoalsItem({
                                     onChange={(e) => {
                                         setData("amount", e.target.value);
                                         setCanWithdrawMoney(
-                                            parseFloat(e.target.value) < current
+                                            parseFloat(e.target.value) < current && e.target.value > 0
                                         );
                                     }}
                                     min={0}
