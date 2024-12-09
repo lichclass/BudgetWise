@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ledger;
+use App\Models\LedgerCategoryView;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -20,7 +21,7 @@ class AdminController extends Controller
 
     public function editAdmin($userId){
         $user = User::withTrashed()->findOrFail($userId);
-        return Inertia::render('Admin/EditAdmin', [
+        return Inertia::render('Admin/AdminEditSettings', [
             'user' => $user
         ]);
     }
@@ -29,16 +30,21 @@ class AdminController extends Controller
     {
         // dd($userId);
         $user = User::withTrashed()->findOrFail($userId);
+        $ledgers = Ledger::where('user_id', $userId)->get();
         $deletedLedgers = Ledger::onlyTrashed()->where('user_id', $userId)->get();
+        $ledgerCategories = LedgerCategoryView::where('ledger_owner', $userId)->get();
        
         return Inertia::render("Admin/UserProfile", [
             'user' => $user,
-            'deletedLedgers' => $deletedLedgers
+            'ledgers' => $ledgers,
+            'deletedLedgers' => $deletedLedgers,
+            'categories' => $ledgerCategories
         ]);     
     }
 
-    public function editUser(User $user)
+    public function editUser($userId)
     {
+        $user = User::withTrashed()->findOrFail($userId);
         return Inertia::render('Admin/UserEditSettings', [
             'user' => $user
         ]);
@@ -58,6 +64,22 @@ class AdminController extends Controller
         if($ledger->trashed()){
             $ledger->restore();
         }
+        return redirect()->route('admin.users');
+    }
+
+    public function promoteToAdmin($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->role = 'admin';
+        $user->save();
+        return redirect()->route('admin.users');
+    }
+
+    public function demoteToUser($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->role = 'user';
+        $user->save();
         return redirect()->route('admin.users');
     }
 

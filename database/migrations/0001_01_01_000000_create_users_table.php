@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    protected $currency = ["PHP", "USD", "CNY", "JPY", "EUR"]; //Replace later
+   
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('first_name');
-            $table->string('last_name');
             $table->timestamp('last_login')->nullable();
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('password');

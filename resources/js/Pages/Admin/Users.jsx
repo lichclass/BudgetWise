@@ -1,10 +1,13 @@
 import Main from "@/Layouts/Main";
-import { Head } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import UserList from "@/Components/AdminUsersList";
 import SearchBar from "@/Components/SearchBar";
 
 function Users({ users }) {
+
+    const { auth } = usePage().props;
+
     const [searchTerm, setSearchTerm] = useState("");
     const [filterState, setFilterState] = useState("all"); 
 
@@ -59,7 +62,9 @@ function Users({ users }) {
                     <div className="h-full w-full flex flex-col lg:flex-row gap-6">
                         <UserList
                             className="w-1/2"
-                            users={filteredUsers.filter((u) => u.role === "admin")}
+                            users={filteredUsers.filter((u) => 
+                                u.role === "admin" && u.user_id !== auth.user.user_id
+                            )}
                             title="Admin Accounts"
                             searchTerm={searchTerm}
                         />

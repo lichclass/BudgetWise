@@ -7,8 +7,6 @@ import { useRoute } from '../../../vendor/tightenco/ziggy'
 function Login() {
 
     const { data, setData, post, errors, processing  } = useForm({
-        first_name: '',
-        last_name: '',
         email: '',
         username: '',
         password: '',
@@ -44,7 +42,7 @@ function Login() {
             <form onSubmit={submit} className='flex flex-col space-y-4'>
 
                 {/* First Name and Last Name */}
-                <div className='flex w-full space-x-3'>
+                {/* <div className='flex w-full space-x-3'>
                     <AuthInputField 
                         label='First Name' 
                         htmlFor='first-name' 
@@ -67,7 +65,7 @@ function Login() {
                         onChange={(e) => setData('last_name', e.target.value)}
                         errorDisplay={errors.last_name}
                     />
-                </div>
+                </div> */}
 
                 {/* Email */}
                 <AuthInputField 

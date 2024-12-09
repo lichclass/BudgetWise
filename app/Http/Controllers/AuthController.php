@@ -100,7 +100,25 @@ class AuthController extends Controller
             return back()->withErrors(['new_password' => 'The new password cannot be the same as the current password']);
         }
 
-        $user = Auth::user();
+         
+        $user->password = Hash::make($fields['new_password']);
+        $user->save();
+
+        return redirect()->back();
+    }
+
+    public function forceChangePass(Request $request){
+        
+        $fields = $request->validate([
+            'new_password' => ['required', 'string', 'min:3', 'confirmed'],
+        ]);
+        
+        $user = User::withTrashed()->findOrFail($request->user_id);
+
+        if(Hash::check($fields['new_password'], $user->password)){
+            return back()->withErrors(['new_password' => 'The new password cannot be the same as the current password']);
+        }
+    
         $user->password = Hash::make($fields['new_password']);
         $user->save();
 

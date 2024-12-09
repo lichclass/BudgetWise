@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { usePage, useForm } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import { FaRegEdit } from "react-icons/fa";
 import MainInputField from "@/Components/MainInputField";
 import ModalC from "@/Layouts/ModalC";
-import AddCategoryBtn from "./AddCategoryBtn";
+import AdminAddCategoryBtn from "./AdminAddCategoryBtn";
 import CategoryItemV2 from "./CategoryItemV2";
 import DeleteLedgerBtn from "./DeleteLedgerBtn";
 
 function AdminEditLedgerBtn({ ledger, categories }) {
 
-    // const { ledger, categories } = usePage().props;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const { data, setData, put, processing } = useForm({
@@ -65,7 +64,7 @@ function AdminEditLedgerBtn({ ledger, categories }) {
                         Edit Categories
                     </h1>
                     <div>
-                        <AddCategoryBtn />
+                        <AdminAddCategoryBtn categories={categories}  />
                     </div>
                 </div>
                 <div className="border border-slate-400 rounded-lg min-h-96 flex flex-row">

@@ -33,6 +33,15 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/starter', [StarterController::class, 'showCategories'])->name('starter')->middleware('check.ledger');
     Route::post('/starter', [StarterController::class, 'submit'])->name('starter.submit');
+
+    Route::resource('category', CategoryController::class);
+    Route::resource('ledger', LedgerController::class);
+    Route::resource('transaction', TransactionController::class);
+    Route::resource('budget', BudgetController::class);
+    Route::resource('goals', GoalController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('ledger-category', LedgerCategoryController::class);
+
     Route::put('/settings/{id}', [AuthController::class, "changePass"])->name('change-pass');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
@@ -43,14 +52,16 @@ Route::middleware(['admin'])->group(function(){
     Route::inertia('/admin/settings', 'Admin/AdminSettings')->name('admin.settings');
     Route::inertia('/admin/userprofile', 'Admin/UserProfile')->name('admin.user-profile');
 
-
     Route::get('/admin/showuser/{user}', [AdminController::class, 'showUser'])->name('admin.show-user');
     Route::get('/admin/editadmin/{id}', [AdminController::class, 'editAdmin'])->name('admin.edit-admin');
-    Route::get('/admin/edituser/{user}', [AdminController::class, 'editUser'])->name('admin.edit-user');
+    Route::get('/admin/edituser/{id}', [AdminController::class, 'editUser'])->name('admin.edit-user');
 
     Route::put('/admin/restoreuser/{id}', [AdminController::class, 'restoreUser'])->name('admin.restore-user');
     Route::put('/admin/restoreledger/{id}', [AdminController::class, 'restoreLedger'])->name('admin.restore-ledger');
-
+    Route::put('/admin/forcechangepass', [AuthController::class, 'forceChangePass'])->name('auth.force-change-pass');
+    Route::put('admin/promoteToAdmin/{id}', [AdminController::class, 'promoteToAdmin'])->name('admin.promote-to-admin');
+    Route::put('admin/demoteToUser/{id}', [AdminController::class, 'demoteToUser'])->name('admin.demote-to-user');
+    
     Route::delete('/admin/deleteaccount/{id}', [AdminController::class, 'deleteAccount'])->name('admin.delete-account');
     Route::get('/admin/ledger/{id}/transactions', [AdminController::class, 'showLedgerTransactions'])->name('admin.ledger.transactions');
 });
@@ -63,14 +74,6 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::put('/home/withdraw-goal-money/{id}', [HomeController::class, 'withdrawGoalMoney'])->name('goals.withdraw');
 
     Route::post('/set-current-ledger', [HomeController::class, 'setCurrentLedger'])->name('set-current-ledger');
-
-    Route::resource('ledger', LedgerController::class);
-    Route::resource('transaction', TransactionController::class);
-    Route::resource('budget', BudgetController::class);
-    Route::resource('category', CategoryController::class);
-    Route::resource('goals', GoalController::class);
-    Route::resource('user', UserController::class);
-    Route::resource('ledger-category', LedgerCategoryController::class);
 
     Route::inertia('/settings', 'Settings')->name('settings')->middleware('check.ledger');
     

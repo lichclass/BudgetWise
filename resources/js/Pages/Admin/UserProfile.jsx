@@ -3,7 +3,7 @@ import { Head, useForm } from '@inertiajs/react';
 import LedgersList from "@/Components/AdminUserLedgersList";
 import DeletedLedgers from"@/Components/AdminUserDeletedLedgers";
 
-function UserProfile({ user, ledgers, deletedLedgers }) {
+function UserProfile({ user, ledgers, deletedLedgers, categories }) {
 
     const usernameFormatted = user.username[0].toUpperCase() + user.username.slice(1);
     const { put } = useForm();
@@ -37,7 +37,7 @@ function UserProfile({ user, ledgers, deletedLedgers }) {
 
                         <div className="flex space-x-3">
                             <button>
-                                <a href={route("admin.edit-user", user)} className="bg-[#2D7E9BBD] text-center my-4 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
+                                <a href={route("admin.edit-user",{id: user.user_id})} className="bg-[#2D7E9BBD] text-center my-4 md:mt-0 py-4 px-14 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
                                     Edit
                                 </a>
                             </button>
@@ -53,9 +53,11 @@ function UserProfile({ user, ledgers, deletedLedgers }) {
                     <div className="flex flex-col lg:flex-row h-full max-h-full overflow-auto gap-6">
                         <LedgersList className="w-1/2"
                             ledgers={ledgers}
+                            categories={categories}
                         />
                         <DeletedLedgers className="w-1/2"
                             ledgers={deletedLedgers}
+                            categories={categories}
                         />
                     </div>
 

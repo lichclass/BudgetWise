@@ -1,4 +1,4 @@
-import AdminEditLedgerBtn from "@/Components/EditLedgerBtn";
+import AdminEditLedgerBtn from "@/Components/AdminEditLedgerBtn";
 
 function AdminLedgerItem({ ledger, categories }) {
     return (

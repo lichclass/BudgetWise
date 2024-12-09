@@ -7,7 +7,7 @@ import GreenBtnMed from '@/Components/GreenBtnMed';
 import { useForm } from "@inertiajs/react";
 import AdminDeleteAccountBtn from '@/Components/AdminDeleteAccountBtn';
 
-function UserEditSettings({ user }) {
+function AdminEditSettings({ user }) {
 
     const [email, setEmail] = useState(user.email);
     const [username, setUsername] = useState(user.username);
@@ -53,13 +53,13 @@ function UserEditSettings({ user }) {
     return (
         <>
         
-            <Head title="User Edit" />
+            <Head title="Edit Admin" />
 
             {/* Main Settings Content */}
             <Main isSettings={true} isAdmin={true}>
 
                 {/* Account Settings Header */}
-                <h1 className='text-4xl font-bold mb-10' style={{ color: "rgba(229, 239, 221, 0.95)" }}>User Settings</h1>
+                <h1 className='text-4xl font-bold mb-10' style={{ color: "rgba(229, 239, 221, 0.95)" }}>Admin Edit</h1>
 
                 {/* Account Settings Section */}
                 <div className='flex flex-col space-y-7'>
@@ -125,4 +125,4 @@ function UserEditSettings({ user }) {
     )
 }
 
-export default UserEditSettings;
+export default AdminEditSettings;

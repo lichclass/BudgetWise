@@ -45,20 +45,7 @@ class UserController extends Controller
      */
     public function show($userId)
     {
-        // dd($userId);
-        $user = User::findOrFail($userId);
-        $deletedLedgers = Ledger::onlyTrashed()->where('user_id', $userId)->get();
-        if($user->role == 'admin') {
-            return Inertia::render('Admin/EditAdmin', [
-                'user' => $user
-            ]);
-        } else {
-            return Inertia::render("Admin/UserProfile", [
-                'user' => $user,
-                'deletedLedgers' => $deletedLedgers
-            ]);
-        }
-        
+        //
     }
 
     /**
@@ -84,8 +71,8 @@ class UserController extends Controller
      */
     public function destroy($userId)
     {
-        // $users = User::findOrFail($userId);
-        // $users->delete();
-        // return redirect()->route('login');
+        $users = User::findOrFail($userId);
+        $users->delete();
+        return redirect()->route('login');
     }
 }
