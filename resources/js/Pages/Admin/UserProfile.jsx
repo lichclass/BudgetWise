@@ -3,7 +3,7 @@ import { Head, useForm } from '@inertiajs/react';
 import LedgersList from "@/Components/AdminUserLedgersList";
 import DeletedLedgers from"@/Components/AdminUserDeletedLedgers";
 
-function UserProfile({ user, ledgers, deletedLedgers }) {
+function UserProfile({ user, ledgers, deletedLedgers, categories }) {
 
     const usernameFormatted = user.username[0].toUpperCase() + user.username.slice(1);
     const { put } = useForm();
@@ -53,9 +53,11 @@ function UserProfile({ user, ledgers, deletedLedgers }) {
                     <div className="flex flex-col lg:flex-row h-full max-h-full overflow-auto gap-6">
                         <LedgersList className="w-1/2"
                             ledgers={ledgers}
+                            categories={categories}
                         />
                         <DeletedLedgers className="w-1/2"
                             ledgers={deletedLedgers}
+                            categories={categories}
                         />
                     </div>
 

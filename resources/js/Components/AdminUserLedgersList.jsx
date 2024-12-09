@@ -1,6 +1,7 @@
 import LedgerItem from "@/Components/AdminLedgerItem";
 
-function AdminUserLedgersList({ ledgers }) {
+function AdminUserLedgersList({ ledgers, categories }) {
+
     return (
         <>
             <div className="bg-[#143445] rounded-lg shadow-lg w-full h-full flex flex-col overflow-auto border border-[#E7EAE64F]">
@@ -19,7 +20,7 @@ function AdminUserLedgersList({ ledgers }) {
                 {/* Items */}
                 <div className="flex flex-col gap-3 px-8 py-5 overflow-y-auto flex-grow">
                     {ledgers.map((ledger) => (
-                        <LedgerItem key={ledger.ledger_id} ledger={ledger} />
+                        <LedgerItem key={ledger.ledger_id} ledger={ledger} categories={categories} />
                     ))}
                 </div>
             </div>

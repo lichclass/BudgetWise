@@ -100,7 +100,7 @@ class AuthController extends Controller
             return back()->withErrors(['new_password' => 'The new password cannot be the same as the current password']);
         }
 
-        $user = Auth::user();
+         
         $user->password = Hash::make($fields['new_password']);
         $user->save();
 
