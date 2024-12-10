@@ -70,19 +70,38 @@ function GoalsCard({ goals, selectedLedger }) {
                         No goals set yet.
                     </p>
                 ) : (
-                    filteredGoals.map((goal) => (
-                        <GoalsItem
-                            key={goal.goal_id}
-                            id={goal.goal_id}
-                            title={goal.title}
-                            target={goal.target_income}
-                            current={goal.current_saving}
-                            targetDate={goal.target_date}
-                            deadline={daysRemaining(goal.target_date)}
-                            isDeadlineSet={goal.target_date !== null}
-                        />
-                    ))
+                    <>
+                    {filteredGoals
+                        .filter((goal) => goal.current_saving < goal.target_income)
+                        .map((goal) => (
+                            <GoalsItem
+                                key={goal.goal_id}
+                                id={goal.goal_id}
+                                title={goal.title}
+                                target={goal.target_income}
+                                current={goal.current_saving}
+                                targetDate={goal.target_date}
+                                deadline={daysRemaining(goal.target_date)}
+                                isDeadlineSet={goal.target_date !== null}
+                            />
+                        ))}
+                    {filteredGoals
+                        .filter((goal) => goal.current_saving >= goal.target_income)
+                        .map((goal) => (
+                            <GoalsItem
+                                key={goal.goal_id}
+                                id={goal.goal_id}
+                                title={goal.title}
+                                target={goal.target_income}
+                                current={goal.current_saving}
+                                targetDate={goal.target_date}
+                                deadline={daysRemaining(goal.target_date)}
+                                isDeadlineSet={goal.target_date !== null}
+                            />
+                        ))}
+                    </>
                 )}
+
             </div>
         </div>
     );

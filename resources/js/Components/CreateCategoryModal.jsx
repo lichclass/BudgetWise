@@ -46,16 +46,8 @@ function CreateCategoryModal({
     const handleIsCustomChange = (e) => {
         const isChecked = e.target.checked;
         setIsCustom(isChecked);
-
-        if (isChecked) {
-            // When checking custom category
-            setData("def_cat", "");
-            setData("custom_name", ""); // Ensure custom_name is cleared when first checking
-        } else {
-            // When unchecking custom category
-            setData("custom_name", ""); // Explicitly clear custom_name
-            setData("def_cat", initialDefCat);
-        }
+        console.log(isChecked);
+        isChecked ? setData("def_cat", "") : setData("custom_name", "");
     };
 
     const handleTypeChange = (e) => {
@@ -69,6 +61,8 @@ function CreateCategoryModal({
         post(route("ledger-category.store"), {
             onSuccess: () => {
                 handleCancel();
+                setData("custom_name", "");
+                setData("def_cat", initialDefCat);
             },
         });
     }
@@ -107,7 +101,7 @@ function CreateCategoryModal({
                     type="text"
                     name="custom-name"
                     placeholder="Enter Category Name"
-                    value={data.custom_name}
+                    value={isCustom ? data.custom_name : ""}
                     onChange={(e) => setData("custom_name", e.target.value)}
                     isReadOnly={!isCustom}
                     errorDisplay={errors.custom_name}

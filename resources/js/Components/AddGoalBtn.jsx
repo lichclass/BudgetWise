@@ -15,6 +15,7 @@ function AddGoalBtn() {
     const [isDeadlineSet, setDeadlineEnable] = useState(false);
 
     const [isCreateGoalsModalOpen, setIsCreateGoalsModalOpen] = useState(false);
+
     const showCreateGoalsModal = () => {
         setIsCreateGoalsModalOpen(true);
     };
@@ -27,6 +28,9 @@ function AddGoalBtn() {
         post(route("goals.store"), {
             onSuccess: () => {
                 setIsCreateGoalsModalOpen(false);
+                setData("title", "");
+                setData("target_income", "");
+                setData("target_date", "");
             },
         });
     }
@@ -94,9 +98,7 @@ function AddGoalBtn() {
                         <Checkbox
                             name="setDeadline"
                             className="text-md font-semibold text-gray-300"
-                            onChange={(e) =>
-                                setDeadlineEnable(e.target.checked)
-                            }
+                            onChange={(e) => setDeadlineEnable(e.target.checked)}
                         >
                             Set Deadline
                         </Checkbox>
