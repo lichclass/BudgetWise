@@ -42,6 +42,7 @@ function CategoryCard({ category, budget, selectedMonth }) {
 
     const completion = budget && (total_amount / budget.amount_limit) * 100;
 
+
     return (
         <Card
             title={
@@ -56,7 +57,7 @@ function CategoryCard({ category, budget, selectedMonth }) {
                     {category.category_name}
                 </div>
             }
-            className="w-[194px] h-[249px] shadow-xl rounded-2xl px-3 border border-white/40 hover:border-white transition-all duration-300"
+            className={`w-[194px] h-[249px] shadow-xl rounded-2xl px-3 border border-white/40 ${completion > 100 ? "hover:border-[#ab2511bc]" : "hover:border-white"} transition-all duration-300`}
             style={{
                 background:
                     "linear-gradient(147deg, rgba(71, 255, 148, 0.99) -144.14%, #195676 34.46%, rgba(92, 22, 103, 0.58) 214.5%)",
@@ -66,17 +67,22 @@ function CategoryCard({ category, budget, selectedMonth }) {
             <div className="flex flex-col justify-between items-center h-full">
                 <div className="flex flex-col justify-center items-center flex-grow">
                     <p
-                        className="text-center text-4xl font-bold text-[#E8EAE6DB] py-5 pb-9"
+                        className={`${completion > 100 ? "text-[#9c0505c2] pt-1" : "text-[#E8EAE6DB] py-5"} text-center text-4xl font-bold pb-9`}
                         style={{
                             fontSize: `${fontSize}px`,
                         }}
                     >
+                        {completion > 100 &&
+                            <h1 className="text-[#861f0f] text-sm font-semibold">
+                                Exceeding Budget
+                            </h1>
+                        }
                         {formaterr.format(total_amount)}
                     </p>
                 </div>
 
                 {/* Buttons */}
-                <Space className="flex flex-shrink-0 justify-between flex-grow-0 px-1 mb-2">
+                <Space className="flex flex-shrink-0 justify-between flex-grow-0 px-1">
                     <AddTransactionBtn
                         cat_id={category.category_id}
                         type={category.category_type}
