@@ -27,7 +27,7 @@ function CategoryCard({ category, budget, selectedMonth }) {
     });
 
     useEffect(() => {
-        const expectedMaxLength = 6; // Example expected maximum length
+        const expectedMaxLength = 10; // Example expected maximum length
         const baseFontSize = 48; // Example base font size
         const minFontSize = 16; // Example minimum font size
 
