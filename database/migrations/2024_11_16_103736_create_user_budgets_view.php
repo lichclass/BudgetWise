@@ -23,7 +23,7 @@ return new class extends Migration
             FROM 
                 users u 
             JOIN ledgers l ON u.user_id = l.user_id
-            JOIN budgets b ON l.user_id = b.ledger_id
+            JOIN budgets b ON l.ledger_id = b.ledger_id
             JOIN categories c ON b.category_id = c.category_id;");
     }
 

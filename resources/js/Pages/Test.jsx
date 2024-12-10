@@ -1,39 +1,20 @@
 import Main from "@/Layouts/Main";
-import { usePage } from '@inertiajs/react';
-import { Head } from '@inertiajs/react';
-import BudgetTable from '@/Components/BudgetTable';
-import ExpensesCard from '@/Components/ExpensesCard';
-import LegendCard from '@/Components/LegendBtn';
-import MonthlyBudget from '@/Components/MonthlyBudgetCard';
-import { FaRegEdit } from "react-icons/fa";
-import ModalC from "@/Layouts/ModalC";
+import { Head } from "@inertiajs/react";
 import { useState } from "react";
+import MonthPicker from "@/Components/MonthPicker";
 
-// Temporary
-import BudgetCat from "@/Components/BudgetCat";
-import MainInputField from "@/Components/MainInputField";
-
-import EditLedgerBtn from "@/Components/EditLedgerBtn";
-
-function Test(){
-    
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const showModal = () => setIsModalOpen(true);
-    const handleCancel = () => setIsModalOpen(false);
+function Dashboard() {
+    const [selectedMonth, setSelectedMonth] = useState(new Date());
 
     return (
         <>
-            <Head title="Budget"/>
+            <Head title="Dashboard" />
 
-            <Main navbarMsg={'Budget'}>
-                
-                <EditLedgerBtn />
-                
+            <Main navbarMsg={"Welcome back, Admin"} isAdmin={true}>
+                <MonthPicker selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
             </Main>
-            
         </>
     );
 }
 
-export default Test;
+export default Dashboard;

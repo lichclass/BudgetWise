@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import InputField from "@/Components/MainInputField";
 
-function AddBudgetBtn({category}){
+function AddBudgetBtn({ category }){
 
-    const {data, setData, post} = useForm({
-        budget_amount: "",
+    const {data, setData, post, processing} = useForm({
+        amount_limit: "",
         category_id: category.category_id   
     });
 
@@ -17,7 +17,11 @@ function AddBudgetBtn({category}){
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("budget.store"));
+        post(route("budget.store"), {
+            onSuccess: () => {
+                setisSetBudgetModalOpen(false);
+            }
+        });
     };
 
     return (
@@ -36,6 +40,7 @@ function AddBudgetBtn({category}){
                 handleCancel={handleSetBudgetCancel}
                 large={false}
                 onSubmit={submit}
+                disabledBtn={processing}
             >
                 <div className="flex flex-col pt-3 pb-7">
                     <InputField
@@ -45,7 +50,7 @@ function AddBudgetBtn({category}){
                         name="budget_amount"
                         placeholder="Enter Amount"
                         value={data.budget_amount}
-                        onChange={(e) => setData('budget_amount', e.target.value)}
+                        onChange={(e) => setData('amount_limit', e.target.value)}
                     />                                    
                 </div>
             </SetBudgetModal>

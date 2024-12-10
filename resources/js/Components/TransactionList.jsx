@@ -6,6 +6,28 @@ function TransactionList({ transactionData, selectedDate }) {
         "en-CA"
     );
 
+    const total_income = transactionData
+        .filter((transaction) => {
+            return (
+                transaction.transaction_type === "income" &&
+                new Date(transaction.transaction_date).toLocaleDateString(
+                    "en-CA"
+                ) === formattedSelectedDate
+            );
+        })
+        .reduce((acc, curr) => acc + parseFloat(curr.amount), 0);
+
+    const total_expenses = transactionData
+        .filter((transaction) => {
+            return (
+                transaction.transaction_type === "expense" &&
+                new Date(transaction.transaction_date).toLocaleDateString(
+                    "en-CA"
+                ) === formattedSelectedDate
+            );
+        })
+        .reduce((acc, curr) => acc + parseFloat(curr.amount), 0);
+
     return (
         <div className="flex flex-col h-full space-y-2">
             {/* Date */}
@@ -22,22 +44,18 @@ function TransactionList({ transactionData, selectedDate }) {
 
             {/* Day Summary */}
             <div
-                className="rounded-2xl flex justify-between py-4 px-10"
+                className="rounded-2xl flex justify-center space-x-32 py-4 px-10"
                 style={{
                     backgroundColor: "#174A65",
                 }}
             >
                 <div className="text-center">
                     <p className="text-sm font-bold">Income</p>
-                    <p className="text-green-500 font-bold text-lg">₱1,000</p>
+                    <p className="text-green-500 font-bold text-lg">₱{total_income.toLocaleString("en-CA")}</p>
                 </div>
                 <div className="text-center">
                     <p className="text-sm font-bold">Expenses</p>
-                    <p className="text-red-500 font-bold text-lg">₱1,000</p>
-                </div>
-                <div className="text-center">
-                    <p className="text-sm font-bold">Balance</p>
-                    <p className="font-bold text-lg">₱1,000</p>
+                    <p className="text-red-500 font-bold text-lg">₱{total_expenses.toLocaleString("en-CA")}</p>
                 </div>
             </div>
 

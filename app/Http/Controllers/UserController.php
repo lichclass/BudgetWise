@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Ledger;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -16,7 +18,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::withTrashed()->get();
+        return Inertia::render('Admin/Users', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -38,7 +43,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $users)
+    public function show($userId)
     {
         //
     }
@@ -46,18 +51,19 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $users)
+    public function edit(User $user)
     {
-        //
+       
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $users)
+    public function update(Request $request, User $user)
     {
-        //
-        dd($request);
+        // $user = User::findOrFail($userId);
+        $user->update($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -65,7 +71,6 @@ class UserController extends Controller
      */
     public function destroy($userId)
     {
-        dd($userId);
         $users = User::findOrFail($userId);
         $users->delete();
         return redirect()->route('login');

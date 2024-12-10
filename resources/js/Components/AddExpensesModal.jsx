@@ -1,11 +1,22 @@
 import ModalB from "@/Layouts/ModalB";
 import MainInputField from "@/Components/MainInputField";
+import ProgressBar from "@/Components/ExpenseProgressBar";
 import { useForm, usePage } from "@inertiajs/react";
+import React, { useEffect } from "react";
 
-function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCancel }) {
+function AddExpensesModal({
+    name,
+    cat_id,
+    isModalOpen,
+    setIsModalOpen,
+    handleCancel,
+    total_amount,
+    budget,
+    completion,
+}) {
     const { ledger } = usePage().props;
-    
-    const { data, setData, post } = useForm({
+
+    const { data, setData, post, processing, errors } = useForm({
         ledger_id: ledger.ledger_id,
         category_id: cat_id,
         amount: "",
@@ -16,13 +27,21 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
 
     function submit(e) {
         e.preventDefault();
-        // console.log(data);
-        post(route("transaction.store"));
+        post(route("transaction.store"), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            },
+        });
         data.amount = "";
         data.transaction_description = "";
         data.transaction_date = "";
-        setIsModalOpen(false);
     }
+
+    const formaterr = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "PHP",
+        minimumFractionDigits: 2,
+    });
 
     return (
         <ModalB
@@ -32,17 +51,26 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
             handleCancel={handleCancel}
             large="true"
             onSubmit={submit}
+            disabledBtn={processing}
         >
             <div className="flex flex-row">
                 <div className="w-1/2 flex flex-col pl-2">
                     <div className="h-1/2">
-                        <h1 className="text-xl text-gray-50">Budget</h1>
+                        <h1 className="text-xl text-gray-50 font-bold">Budget</h1>
+                        <div className="h-3/4 flex flex-col justify-center pr-8"><ProgressBar completion={completion} budget={budget} /></div>
                     </div>
                     <div className="h-1/2">
-                        <h1 className="text-xl text-gray-50">Spent</h1>
-                        <h1 className="text-4xl text-green-300">
-                            ₱ 900 / ₱ 1,000
-                        </h1>
+                        <h1 className="text-xl text-gray-50 font-bold">Spent</h1>
+                        {budget == 0 &&
+                            <p className={`h-3/4 flex flex-col justify-center text-xl font-bold text-[#51657d]`}>
+                                * Your budget has not been set
+                            </p>
+                        }
+                        {budget != 0 &&
+                            <p className={`h-3/4 flex flex-col justify-center text-4xl font-bold ${completion > 100 ? "text-[#D46060]" : "text-[#79BAA8]"}`}>
+                                {formaterr.format(total_amount)} / {formaterr.format(budget)}
+                            </p>
+                        }
                     </div>
                 </div>
 
@@ -53,8 +81,10 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
                         type="number"
                         name="input-amount"
                         placeholder="Enter Amount"
-                        value = {data.amount}
+                        value={data.amount}
                         onChange={(e) => setData("amount", e.target.value)}
+                        min={1}
+                        errorDisplay={errors.amount}
                     />
 
                     <MainInputField
@@ -63,10 +93,11 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
                         type="text"
                         name="description"
                         placeholder="Enter Description"
-                        value = {data.transaction_description}
+                        value={data.transaction_description}
                         onChange={(e) =>
                             setData("transaction_description", e.target.value)
                         }
+                        errorDisplay={errors.transaction_description}
                     />
 
                     <MainInputField
@@ -76,16 +107,16 @@ function AddExpensesModal({ name, cat_id, isModalOpen, setIsModalOpen, handleCan
                         type="date"
                         name="input-date"
                         placeholder="Enter the Date"
-                        value = {data.transaction_date}
+                        value={data.transaction_date}
                         onChange={(e) =>
                             setData("transaction_date", e.target.value)
                         }
+                        errorDisplay={errors.transaction_date}
                     />
                 </div>
             </div>
         </ModalB>
     );
-
 }
 
 export default AddExpensesModal;

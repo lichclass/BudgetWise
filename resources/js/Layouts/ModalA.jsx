@@ -10,6 +10,9 @@ function ModalA({
     isModalOpen,
     handleCancel,
     onSubmit,
+    disableBtn = false,
+    error="",
+    deleteBtnCustom="Delete"
 }) {
     return (
         <form onSubmit={onSubmit}>
@@ -31,18 +34,27 @@ function ModalA({
                 open={isModalOpen}
                 onCancel={handleCancel}
                 footer={
-                    <div className="flex justify-between space-x-4 pb-2 pt-14 w-full">
-                        <DeleteBtn
-                            text="Delete"
-                            width="w-1/2"
-                            isSubmit={true}
-                            onClick={onSubmit}
+                    <div className = "flex flex-col pt-3">
+
+                        <div>
+                            <span className="text-red-500 pr-3">{error}</span>
+                        </div>
+
+                        <div className="flex justify-between space-x-4 pb-2 pt-2 w-full">
+                            <DeleteBtn
+                                text={deleteBtnCustom}
+                                width="w-1/2"
+                                isSubmit={true}
+                                onClick={onSubmit}
+                                disable={disableBtn}
                         />
-                        <GreenBtnCancel
-                            text="Cancel"
-                            width="w-1/2"
-                            onClick={handleCancel}
-                        />
+                            <GreenBtnCancel
+                                text="Cancel"
+                                width="w-1/2"
+                                onClick={handleCancel}
+                            />
+                        </div>
+
                     </div>
                 }
                 className="main-modal-style text-white"

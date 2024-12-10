@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
 function DeleteGoalBtn({ goal_id }) {
-    const { data, setData, delete:destroy } = useForm({
+    const { data, setData, delete:destroy, processing } = useForm({
         goal_id: goal_id,
     });
 
@@ -15,8 +15,11 @@ function DeleteGoalBtn({ goal_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log("Data to delete (Goal): " + data.goal_id);
-        destroy(route("goals.destroy", goal_id));
+        destroy(route("goals.destroy", goal_id), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     };
 
     return (
@@ -28,6 +31,7 @@ function DeleteGoalBtn({ goal_id }) {
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 onSubmit={handleSubmit}
+                disableBtn = {processing}
             />
         </>
     );

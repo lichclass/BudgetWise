@@ -2,39 +2,6 @@ import Calendar from 'react-calendar';
 import '../../css/customCalendar.css'
 import { useState } from 'react';
 
-const data = [
-    {
-        date: '2024-10-27',
-        expenses: 500,
-        income: 0,
-    },
-    {
-        date: '2024-11-24',
-        expenses: 1000,
-        income: 100,
-    }, 
-    {
-        date: '2024-11-17',
-        expenses: 300,
-        income: 500,
-    },
-    {
-        date: '2024-11-03',
-        expenses: 300,
-        income: 200,
-    },
-    {
-        date: '2024-11-04',
-        expenses: 0,
-        income: 500,
-    },
-    {
-        date: '2024-11-10',
-        expenses: 1400,
-        income: 600,
-    },
-]
-
 function TransactionCalendar({ transactions, onDateChange }) {
     const [selectedDate, setSelectedDate] = useState(new Date());
 

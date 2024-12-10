@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTransactionRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateTransactionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,10 @@ class UpdateTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'amount' => ['required', 'numeric'],
+            'transaction_description' => ['nullable', 'string', 'max:255'],
+            'transaction_date' => ['nullable', 'date'],
+            'transaction_type' => ['required', Rule::in(['expense', 'income'])],
         ];
     }
 }

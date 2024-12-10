@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The primary key associated with the table.
@@ -28,8 +30,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'email',
-        'first_name',
-        'last_name',
+        'role',
         'currency_preference',
         'password',
     ];

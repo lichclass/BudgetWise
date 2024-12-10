@@ -1,90 +1,79 @@
 import Main from "@/Layouts/Main";
-import { useEffect } from "react";
-import { usePage } from '@inertiajs/react';
-import { Head } from '@inertiajs/react';
-
-import BudgetTable from '@/Components/BudgetTable';
-import ExpensesCard from '@/Components/ExpensesCard';
-import LegendBtn from '@/Components/LegendBtn';
-import MonthlyBudget from '@/Components/MonthlyBudgetCard';
+import { usePage } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
+import MonthlyBudget from "@/Components/MonthlyBudgetCard";
+import PieChartBudget from "@/Components/PieChartBudget";
 
 // Temporary
 import BudgetCat from "@/Components/BudgetCat";
-import DeleteBudgetBtn from "@/Components/DeleteBudgetBtn";
 
-function Budget({ budgets, expenses }) {
-    
-    const { categories } = usePage().props;
+function Budget() {
+    const { budgets, categories, ledger } = usePage().props;
 
-    useEffect(() => {
-        console.log("Budgets: ", budgets);
-        console.log("Expenses: ", expenses);
-    }, []);
+    const expenses = categories.filter((category) => {
+        return (
+            category.category_type === "expense" &&
+            category.ledger_id === ledger.ledger_id
+        );
+    });
+
+    const { budgetedExpenses, nonBudgetedExpenses } = expenses.reduce(
+        (acc, category) => {
+            const budget = budgets.find(
+                (budget) => budget.category_id === category.category_id
+            );
+            if (budget) {
+                acc.budgetedExpenses.push(budget);
+            } else {
+                acc.nonBudgetedExpenses.push(category);
+            }
+            return acc;
+        },
+        { budgetedExpenses: [], nonBudgetedExpenses: [] }
+    );
 
     return (
         <>
-            <Head title="Budget"/>
+            <Head title="Budget" />
 
-            <Main navbarMsg={'Budget'}>
-                {
-                    <div className="h-full md:w-full flex flex-row">   
-                
-                        {/*Main Content*/}   
-                    <div className="h-full w-full m-0 relative flex flex-col rounded-xl">
-                
-                        <div className="h-7 flex flex-row text-white justify-between pt-3 px-8">
-                            <h1>-Expenses-</h1>
-                            <h1>-Budget-</h1>
-                            <h1>-Personal- -Date-</h1>
-                        </div>
-                
+            <Main navbarMsg={"Budget"}>
+                {/*Main Content*/}
+                <div className="h-full w-full flex flex-col gap-4 lg:gap-0 overflow-auto">
                     {/* Top */}
-                        <div className="h-64 md:border md:border-gray-600 flex flex-col md:flex-row m-6 pt-2 px-0 rounded-t-xl">
-                            
-                        {/* Left */}
-                            <div className="w-full md:w-1/2 border border-gray-600 md:border-l-0 md:border-t-0 md:border-b-0 md:border-r-1 rounded-none flex flex-row justify-between pt-3 px-6">
-                            
-                            {/* Meter */}
-                                <div>
-                                    <h1>-----Meter-----</h1>
-                                </div>
-                
-                            {/* Legend */}
-                                <div className="w-1/2 flex flex-wrap">
-                                    <LegendBtn></LegendBtn>
-                                </div>
-                
-                            </div>
-                
-                        {/* Right */}
-                            <div className="w-full md:w-1/2 border border-gray-600 md:border-0 flex flex-col mt-9 md:-mt-2 pt-4 px-5 rounded-none md:rounded-tr-xl"
-                            style={{
-                                backgroundColor: "rgba(26, 66, 87, 0.28)"
-                            }}>
-                                {/* Monthly Budget Card */}
-                                    <MonthlyBudget />
-                                    
-                                {/* Expenses Overview */}
-                                <div className="h-full md:w-full pt-2 flex flex-col">
-                                </div>
-                
-                            </div>
-                
-                        </div>
-                
-                        {/* Bottom */}
-                        <div className="h-72 w-full md:w-auto border border-gray-600 flex flex-col md:flex-row mt-40 md:-mt-6 mb-6 mx-6 pt-1 px-2 rounded-none md:rounded-b-xl">    
-                            <BudgetTable></BudgetTable>
-                        </div>
-                
-                            
-                        </div>
-                
+                    <div className="flex flex-col gap-5 lg:h-1/2 lg:flex-row border border-gray-600 rounded-xl lg:rounded-b-none lg:border-b-0 justify-evenly py-4 items-center overflow-auto">
+                        {/* Meter */}
+                        <PieChartBudget budgets={budgetedExpenses} />
                     </div>
-                
-                }
-            </Main>
 
+                    {/* Bottom */}
+                    <div className="flex flex-col max-h-full lg:h-1/2 border border-gray-600 rounded-xl lg:rounded-t-none px-6 py-6 gap-4 bg-[#143445] overflow-auto">
+                        {/* Monthly Budget Card */}
+                        <MonthlyBudget
+                            budgetedExpenses={budgetedExpenses}
+                        />
+
+                        {/* Expenses Overview */}
+                        <div className="h-full md:w-full flex flex-col gap-2">
+                            {budgetedExpenses.map((budget) => (
+                                <BudgetCat
+                                    key={budget.category_id}
+                                    category={{
+                                        category_name: budget.category_name,
+                                    }}
+                                    budget={budget}
+                                    isSet={true}
+                                />
+                            ))}
+                            {nonBudgetedExpenses.map((category) => (
+                                <BudgetCat
+                                    key={category.category_id}
+                                    category={category}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </Main>
         </>
     );
 }

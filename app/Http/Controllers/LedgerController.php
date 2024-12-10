@@ -6,6 +6,7 @@ use App\Models\Ledger;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLedgerRequest;
 use App\Http\Requests\UpdateLedgerRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use Inertia\Inertia;
@@ -17,12 +18,7 @@ class LedgerController extends Controller
      */
     public function index()
     {
-        //pass all the ledgers based on user id
-        // $ledgers = Ledgers::where('user_id', Auth::id())->get();
-      
-        // return Inertia::render('Home', [
-        //     'ledgers' => $ledgers
-        // ]);
+        // 
     }
 
     /**
@@ -60,18 +56,38 @@ class LedgerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLedgerRequest $request, Ledger $ledgers)
+    public function update(Request $request, $id)
     {
-        //
+        $fields = $request->validate([
+            'ledger_name' => ['required', 'string'],
+        ]);
+        $ledger = Ledger::findOrFail($id);
+        $ledger->update($fields);
+
+        session([
+            'ledger' => $ledger
+        ]);
+        
+        return redirect()->back()->with('reload', true);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ledger $ledgers)
+    public function destroy($id)
     {
-        dd($ledgers);
-        $ledgers->delete();
-        return redirect()->route('home');
+        $ledger = Ledger::findOrFail($id);
+        $ledger->delete();
+
+        $ledgers = Auth::user()->ledgers;
+        if ($ledgers->count() > 0) {
+            session([
+                'ledger' => $ledgers->first()
+            ]);
+        } else {
+            return redirect()->route('starter');
+        }
+
+        return redirect()->route('home')->with('reload', true);
     }
 }

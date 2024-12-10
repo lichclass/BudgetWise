@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Budget;
-use App\Models\UserBudgetView;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBudgetRequest;
 use App\Http\Requests\UpdateBudgetRequest;
@@ -20,10 +19,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $budgets = UserBudgetView::where('user_id', Auth::id())->get();
-        return Inertia::render('Budget', [
-            'budgets' => $budgets
-        ]);
+        return Inertia::render('Budget');
     }
 
     /**
@@ -39,8 +35,21 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        dd($request);
+        
+        $fields = $request->validate([
+            "category_id" => ['required', 'numeric'],
+            "amount_limit" => ['required', 'numeric'],
+        ]);
+
+        $ledgerId = session('ledger.ledger_id');
+        if(!$ledgerId) {
+            return redirect()->back();
+        }
+
+        $fields['ledger_id'] = $ledgerId;
+        Budget::create($fields);
+
+        return redirect()->back();
     }
 
     /**
@@ -62,18 +71,26 @@ class BudgetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Budget $budgets)
+    public function update(Request $request, $id)
     {
-        //
-        dd($request);
+        $fields = $request->validate([
+            "category_id" => ['required', 'numeric'],
+            "amount_limit" => ['required', 'numeric'],
+        ]);
+
+        $budget = Budget::find($id);
+        $budget->update($fields);
+
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $budgets)
+    public function destroy($id)
     {
-        //
-        dd($budgets);
+        $budget = Budget::find($id);
+        $budget->delete();  
+        return redirect()->back();
     }
 }

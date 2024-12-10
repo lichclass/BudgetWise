@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\LedgerCategoryView;
 use App\Models\UserTransactionView;
 use App\Models\UserGoalView;
+use App\Models\UserBudgetView;
 
 class ShareInertiaData
 {
@@ -28,6 +29,7 @@ class ShareInertiaData
             $categories = LedgerCategoryView::where('ledger_owner', Auth::id())->get();
             $transactions = UserTransactionView::where('user_id', Auth::id())->get();
             $goals = UserGoalView::where('user_id', Auth::id())->get();
+            $budgets = UserBudgetView::where('user_id', Auth::id())->get();
 
             Inertia::share([
                 'ledgers' => $ledgers,
@@ -35,6 +37,7 @@ class ShareInertiaData
                 'categories' => $categories,
                 'transactions' => $transactions,
                 'goals' => $goals,
+                'budgets' => $budgets,
             ]);
         }
 

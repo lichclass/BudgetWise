@@ -5,7 +5,7 @@ import { useForm } from "@inertiajs/react";
  
 function DeleteCatBtn({ cat_id }) {
 
-    const { data, setData, delete: destroy} = useForm({
+    const { data, setData, delete: destroy, processing} = useForm({
         category_id: cat_id,
     });
 
@@ -16,8 +16,12 @@ function DeleteCatBtn({ cat_id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //console.log("Data to delete (Category): " + data.category_id);
-        destroy(route("category.destroy", data.category_id));
+        setIsModalOpen(false);
+        destroy(route("ledger-category.destroy", data.category_id), {
+            onSuccess: () => {
+                setIsModalOpen(false);
+            }
+        });
     }
 
     return (
@@ -29,6 +33,7 @@ function DeleteCatBtn({ cat_id }) {
                 isModalOpen={isModalOpen}
                 handleCancel={handleCancel}
                 onSubmit={handleSubmit}
+                disableBtn={processing}
             />
         </>
     );

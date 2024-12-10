@@ -8,13 +8,15 @@ import CategoryList from "@/Components/CategoryList";
 import LedgersDropdown from "@/Components/LedgersDropdown";
 import SearchBar from "@/Components/SearchBar";
 import CreateLedgerBtn from "@/Components/CreateLedgerBtn";
+import MonthPicker from "@/Components/MonthPicker";
 
 function Home() {
-    const { auth, ledger, transactions, categories, goals, ledgers } =
+    const { auth, ledger, transactions, categories, goals, ledgers, flash } =
         usePage().props;
     const [searchTerm, setSearchTerm] = useState("");
     const [activeLedger, setActiveLedger] = useState(ledger);
     const isInitialRender = useRef(true);
+    const [selectedMonth, setSelectedMonth] = useState(new Date());
 
     const { data, setData, post } = useForm({
         ledger: activeLedger,
@@ -30,6 +32,14 @@ function Home() {
         }
     }, [activeLedger]);
 
+    // Check for the reload flash message and reload the page if it exists
+    useEffect(() => {
+        if (flash.reload) {
+            console.log("reload");
+            window.location.reload();
+        }
+    }, [flash.reload]);
+
     const handleSearch = (value) => setSearchTerm(value);
 
     const handleLedgerChange = (ledger) => {
@@ -42,12 +52,17 @@ function Home() {
             {/* Home */}
             <Head title="Home" />
 
-            <Main navbarMsg={`Welcome back, ${auth.user.username}`}>
+            <Main
+                navbarMsg={`Welcome back, ${
+                    auth.user.username[0].toUpperCase() +
+                    auth.user.username.slice(1)
+                }!`}
+            >
                 <div className="flex flex-col h-full gap-3 px-4">
                     {/* Top */}
                     <div className="flex flex-col items-center lg:flex-row justify-between gap-10 lg:gap-3 mb-3">
                         <SearchBar onSearch={handleSearch} />
-
+                        <MonthPicker selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} />
                         <div className="flex justify-center md:justify-end gap-4">
                             <CreateLedgerBtn />
                             <LedgersDropdown
@@ -67,18 +82,20 @@ function Home() {
                                 categories={categories}
                                 searchTerm={searchTerm}
                                 selectedLedger={activeLedger}
+                                selectedMonth={selectedMonth}
                             />
                             <CategoryList
                                 type="income"
                                 categories={categories}
                                 searchTerm={searchTerm}
                                 selectedLedger={activeLedger}
+                                selectedMonth={selectedMonth}
                             />
                         </div>
 
                         {/* Right Side */}
-                        <div className="flex flex-col gap-10 lg:gap-3 flex-grow py-3">
-                            <BalanceCard balance={activeLedger.balance} />
+                        <div className="flex flex-col gap-10 lg:gap-3 flex-grow py-3 min-h-full max-h-f">
+                            <BalanceCard balance={ledger.balance} />
                             <GoalsCardList
                                 goals={goals}
                                 selectedLedger={activeLedger}
