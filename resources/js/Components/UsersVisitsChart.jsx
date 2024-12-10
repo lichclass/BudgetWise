@@ -1,8 +1,11 @@
 import ReactECharts from "echarts-for-react";
 
 function UsersVisitsChart({ users, visits }) {
+
+    const userFilter = users.filter((user) => user.role === "user");
+
     // Group users data by date
-    const groupedUsersData = users.reduce((acc, user) => {
+    const groupedUsersData = userFilter.reduce((acc, user) => {
         const date = user.created_at.split("T")[0]; // Extract the date part
         if (!acc[date]) {
             acc[date] = { date, total_users: 0 };

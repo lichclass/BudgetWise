@@ -29,9 +29,6 @@ class AdminController extends Controller
             'last_login' => Carbon::now(),
             'role' => 'admin',
         ]));
-    
-        // Login the user
-        // Auth::login($user);
 
         // Redirect the user
         return redirect()->route('admin.dashboard');

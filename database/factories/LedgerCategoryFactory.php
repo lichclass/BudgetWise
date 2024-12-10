@@ -17,7 +17,8 @@ class LedgerCategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'ledger_id' => $this->faker->randomDigitNot(0),
+            'category_id' => $this->faker->randomDigitNot(0),
         ];
     }
 }

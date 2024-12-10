@@ -8,7 +8,8 @@ export function computePercentUsers({ users }) {
         const userDate = new Date(user.created_at);
         return (
             getMonth(userDate) === getMonth(currentMonth) &&
-            getYear(userDate) === getYear(currentMonth)
+            getYear(userDate) === getYear(currentMonth) && 
+            user.role === "user"
         );
     }).length;
 
@@ -16,7 +17,8 @@ export function computePercentUsers({ users }) {
         const userDate = new Date(user.created_at);
         return (
             getMonth(userDate) === getMonth(lastMonth) &&
-            getYear(userDate) === getYear(lastMonth)
+            getYear(userDate) === getYear(lastMonth) &&
+            user.role === "user"
         );
     }).length;
 

@@ -11,8 +11,6 @@ function Landing() {
 
     const { auth } = usePage().props;
 
-    console.log(auth);
-
     return (
         <LandingLayout>
             {/* Navigation Bar */}
@@ -32,7 +30,7 @@ function Landing() {
                     {auth.user ? (
                         <a
                             href={
-                                auth.user.role == "admin"
+                                auth.user.role == "admin" || auth.user.role == "super"
                                     ? route("admin.dashboard")
                                     : route("home")
                             }

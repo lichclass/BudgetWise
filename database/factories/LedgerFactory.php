@@ -17,7 +17,9 @@ class LedgerFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => $this->faker->randomDigitNot(0),
+            'ledger_name' => $this->faker->word(),
+            'balance' => $this->faker->randomFloat(2, 0, 10000),
         ];
     }
 }

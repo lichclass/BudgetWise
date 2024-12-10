@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('transaction_description')->nullable();   
             $table->timestamp('transaction_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->enum('transaction_type', ['expense', 'income']);
-            $table->boolean('is_deleted')->default(false);  
             $table->timestamps();
         });
     }

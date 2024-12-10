@@ -4,12 +4,14 @@ import UsersVisitsChart from "@/Components/UsersVisitsChart";
 import { computePercentUsers, computePercentVisits } from "@/Components/ComputeUsersVisits";
 
 function Dashboard({ users, visits, transactions }) {
-    const userCount = users.length;
+    const userCount = users.filter((user) => user.role === "user").length;
     const visitorCount = visits.length;
     const transactionCount = transactions.length;
 
     const percentUsers = computePercentUsers({ users });
     const percentVisits = computePercentVisits({ visits });
+
+    console.log(percentUsers);
 
     return (
         <>
@@ -30,7 +32,7 @@ function Dashboard({ users, visits, transactions }) {
                         </h1>
                         <h1 className="font-extrabold text-5xl">{userCount}</h1>
                         <h1>
-                            {percentUsers}% increase from last month
+                            {percentUsers}% from last month
                         </h1>
                     </div>
 
@@ -42,7 +44,7 @@ function Dashboard({ users, visits, transactions }) {
                             {visitorCount}
                         </h1>
                         <h1>
-                            {percentVisits}% increase from last month
+                            {percentVisits}% from last month
                         </h1>
                     </div>
 

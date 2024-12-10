@@ -29,6 +29,7 @@ class CategorySeeder extends Seeder
             ['name' => 'Freelance', 'type' => 'income'],
             ['name' => 'Investments', 'type' => 'income'],
             ['name' => 'Savings', 'type' => 'income'],
+            ['name' => 'Allowance', 'type' => 'income'],
         ];
 
         foreach ($categories as $category) {
