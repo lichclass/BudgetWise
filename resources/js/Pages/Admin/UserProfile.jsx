@@ -2,16 +2,11 @@ import Main from "@/Layouts/Main";
 import { Head, useForm } from '@inertiajs/react';
 import LedgersList from "@/Components/AdminUserLedgersList";
 import DeletedLedgers from"@/Components/AdminUserDeletedLedgers";
+import UserRestoreWarning from "@/Components/UserRestoreWarning";
 
 function UserProfile({ user, ledgers, deletedLedgers, categories }) {
 
     const usernameFormatted = user.username[0].toUpperCase() + user.username.slice(1);
-    const { put } = useForm();
-
-    const submitRestore = (e) => {
-        e.preventDefault();
-        put(route("admin.restore-user", {id: user.user_id}));
-    }
 
     return (
         <>
@@ -42,9 +37,7 @@ function UserProfile({ user, ledgers, deletedLedgers, categories }) {
                                 </a>
                             </button>
                             {user.deleted_at && (
-                                <button onClick={submitRestore} className="bg-[#2D7E9BBD] text-center my-4 md:mt-0 py-4 px-11 rounded-xl hover:bg-[#2d7e9b91] transition-all duration-200">
-                                    Restore
-                                </button>
+                                <UserRestoreWarning user = {user}></UserRestoreWarning>
                             )}
                         </div>
 
