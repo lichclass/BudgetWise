@@ -65,7 +65,7 @@ function TestChart({ transactionData }) {
                         ? item.value[1]
                         : item.value;
                     tooltipContent += `${item.marker} ${item.seriesName}: ${
-                        value || 0
+                        value.toFixed(2) || 0
                     }<br/>`;
                 });
                 return tooltipContent;

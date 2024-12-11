@@ -12,7 +12,7 @@ function CreateCategoryModal({
     handleCancel,
     locked = false,
 }) {
-    const { default_cat, categories } = usePage().props;
+    const { default_cat, categories, ledger } = usePage().props;
     const [isCustom, setIsCustom] = useState(false);
     const [selectedType, setSelectedType] = useState(type || "");
 
@@ -22,6 +22,7 @@ function CreateCategoryModal({
                   cat.category_type === selectedType &&
                   !categories.some(
                       (existingCat) =>
+                          existingCat.ledger_id === ledger.ledger_id &&
                           existingCat.category_id === cat.category_id
                   )
           )
@@ -61,8 +62,8 @@ function CreateCategoryModal({
         post(route("ledger-category.store"), {
             onSuccess: () => {
                 handleCancel();
-                setData("custom_name", "");
-                setData("def_cat", initialDefCat);
+                
+                setIsCustom(false);
             },
         });
     }
@@ -111,6 +112,7 @@ function CreateCategoryModal({
                     name="custom-cat"
                     className="text-md font-extralight text-white"
                     onChange={handleIsCustomChange}
+                    checked={isCustom}
                 >
                     Custom Category
                 </Checkbox>

@@ -1,5 +1,4 @@
 function LegendBtn(categories) {
-    console.log(categories);
     return (
         <div className="flex flex-col border border-gray-600 shadow-xl h-full w-full rounded-lg hover:border-gray-400 transition-all duration-300">
             <div className="border-b border-gray-600 text-white h-10 w-full rounded-t-lg text-1xl font-extrabold py-2 px-4">

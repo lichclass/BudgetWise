@@ -36,7 +36,7 @@ function BalanceCard({ balance=0 }) {
             <p
                 className="text-center font-bold text-6xl text-white break-words"
                 style={{ 
-                    color: "#79BAA8",
+                    color: balance >= 0 ? "#79BAA8" : "#ff3333",
                     fontSize: `${fontSize}px` 
                 }}
             >

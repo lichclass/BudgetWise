@@ -1,36 +1,51 @@
 import { IoIosAdd } from "react-icons/io";
 import CreateGoalsModal from "@/Layouts/ModalB";
 import InputField from "@/Components/MainInputField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Checkbox } from "antd";
 import { useForm } from "@inertiajs/react";
 
 function AddGoalBtn() {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         title: "",
         target_income: "",
         target_date: "",
     });
 
     const [isDeadlineSet, setDeadlineEnable] = useState(false);
-
     const [isCreateGoalsModalOpen, setIsCreateGoalsModalOpen] = useState(false);
 
     const showCreateGoalsModal = () => {
         setIsCreateGoalsModalOpen(true);
     };
+
     const handleCreateGoalsCancel = () => {
         setIsCreateGoalsModalOpen(false);
+        setDeadlineEnable(false);
     };
 
     function submitAddGoal(e) {
         e.preventDefault();
+        
+        // Collect current form data with target date
+        const submissionData = {
+            ...data,
+            target_date: isDeadlineSet
+                ? document.querySelector('input[name="goal_date"]').value
+                : null
+        };
+
         post(route("goals.store"), {
+            data: submissionData,
             onSuccess: () => {
+                // Explicit reset of form fields
+                setData({
+                    title: "",
+                    target_income: "",
+                    target_date: "",
+                });
+                setDeadlineEnable(false);
                 setIsCreateGoalsModalOpen(false);
-                setData("title", "");
-                setData("target_income", "");
-                setData("target_date", "");
             },
         });
     }
@@ -61,7 +76,7 @@ function AddGoalBtn() {
                         type="text"
                         name="goal_name"
                         placeholder="Enter a goal name"
-                        value={data.goalName}
+                        value={data.title}
                         onChange={(e) => setData("title", e.target.value)}
                         errorDisplay={errors.title}
                     />
@@ -72,7 +87,7 @@ function AddGoalBtn() {
                         type="number"
                         name="goal_limit"
                         placeholder="Set amount limit"
-                        value={data.goalLimit}
+                        value={data.target_income}
                         onChange={(e) =>
                             setData("target_income", e.target.value)
                         }
@@ -87,7 +102,7 @@ function AddGoalBtn() {
                             type="date"
                             name="goal_date"
                             placeholder="dd/mm/yy"
-                            value={data.goalDate}
+                            value={data.target_date}
                             onChange={(e) =>
                                 setData("target_date", e.target.value)
                             }
@@ -97,8 +112,11 @@ function AddGoalBtn() {
 
                         <Checkbox
                             name="setDeadline"
+                            checked={isDeadlineSet}
                             className="text-md font-semibold text-gray-300"
-                            onChange={(e) => setDeadlineEnable(e.target.checked)}
+                            onChange={(e) =>
+                                setDeadlineEnable(e.target.checked)
+                            }
                         >
                             Set Deadline
                         </Checkbox>

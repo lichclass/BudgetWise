@@ -63,7 +63,7 @@ class LedgerCategoryController extends Controller
             'category_id' => $catId,
         ]);
        
-        return redirect()->back();
+        return redirect()->back()->with('reload', true);
     }
 
     /**
@@ -121,7 +121,7 @@ class LedgerCategoryController extends Controller
                 $budget->delete();
             }
         }
-        return redirect()->back();
+        return redirect()->back()->with('reload', true);
     }
     
 }

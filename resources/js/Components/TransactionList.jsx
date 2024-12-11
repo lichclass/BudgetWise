@@ -51,11 +51,23 @@ function TransactionList({ transactionData, selectedDate }) {
             >
                 <div className="text-center">
                     <p className="text-sm font-bold">Income</p>
-                    <p className="text-green-500 font-bold text-lg">₱{total_income.toLocaleString("en-CA")}</p>
+                    <p className="text-green-500 font-bold text-lg">
+                        ₱
+                        {total_income.toLocaleString("en-CA", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                        })}
+                    </p>
                 </div>
                 <div className="text-center">
                     <p className="text-sm font-bold">Expenses</p>
-                    <p className="text-red-500 font-bold text-lg">₱{total_expenses.toLocaleString("en-CA")}</p>
+                    <p className="text-red-500 font-bold text-lg">
+                        ₱
+                        {total_expenses.toLocaleString("en-CA", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                        })}
+                    </p>
                 </div>
             </div>
 

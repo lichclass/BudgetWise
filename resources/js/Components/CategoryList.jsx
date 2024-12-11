@@ -4,10 +4,15 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import AddCategoryBtn from "./AddCategoryBtn";
 import { usePage } from "@inertiajs/react";
 
-function CategoryList({ type, categories, searchTerm, selectedLedger, selectedMonth }) {
-    
+function CategoryList({
+    type,
+    categories,
+    searchTerm,
+    selectedLedger,
+    selectedMonth,
+}) {
     const { budgets, ledger } = usePage().props;
-    
+
     const carouselRef = useRef(null);
 
     const scrollLeft = () => {
@@ -28,14 +33,20 @@ function CategoryList({ type, categories, searchTerm, selectedLedger, selectedMo
         }
     };
 
-    const expenses = categories.filter((category) => { 
-        return category.category_type === "expense" 
-        && category.ledger_id === ledger.ledger_id 
-    }); 
-    
+    const expenses = categories.filter((category) => {
+        return (
+            category.category_type === "expense" &&
+            category.ledger_id === ledger.ledger_id
+        );
+    });
+
     const { budgetedExpenses, nonBudgetedExpenses } = expenses.reduce(
         (acc, category) => {
-            const budget = budgets.find(budget => budget.category_id === category.category_id);
+            const budget = budgets.find(
+                (budget) =>
+                    budget.category_id === category.category_id &&
+                    budget.ledger_id === ledger.ledger_id
+            );
             if (budget) {
                 acc.budgetedExpenses.push(budget);
             } else {
@@ -61,9 +72,7 @@ function CategoryList({ type, categories, searchTerm, selectedLedger, selectedMo
 
     return (
         <>
-
             <div className="flex flex-col w-full">
-
                 {/* Header */}
                 <div className="flex items-center gap-2">
                     <hr className="w-1/6 border-t-1 border-gray-300 my-4 border-opacity-30" />
@@ -90,7 +99,11 @@ function CategoryList({ type, categories, searchTerm, selectedLedger, selectedMo
                                 <div key={index} className="snap-center">
                                     <CategoryCard
                                         category={category}
-                                        budget={budgetedExpenses.find(budget => budget.category_id === category.category_id)}
+                                        budget={budgetedExpenses.find(
+                                            (budget) =>
+                                                budget.category_id ===
+                                                category.category_id
+                                        )}
                                         selectedMonth={selectedMonth}
                                     />
                                 </div>
@@ -101,12 +114,10 @@ function CategoryList({ type, categories, searchTerm, selectedLedger, selectedMo
                             </div>
                         )}
                     </div>
-                    
+
                     <button onClick={scrollRight}>
                         <IoIosArrowForward className="flex text-4xl text-white opacity-55 hover:opacity-65 hover:scale-110 active:opacity-100 transition-transform duration-300 ease-in-out" />
                     </button>
-
-
                 </div>
             </div>
         </>

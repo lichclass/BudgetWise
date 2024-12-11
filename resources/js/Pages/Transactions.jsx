@@ -7,11 +7,11 @@ import { useState, useEffect } from "react";
 import TestChart from "@/Components/TestChart";
 
 function Transactions() {
-    
     const { ledger, transactions } = usePage().props;
+
     const [selectedDate, setSelectedDate] = useState(new Date());
     const transactionData = transactions.filter(
-        (transaction) => transaction.ledger_id !== ledger.id
+        (transaction) => transaction.ledger_id === ledger.ledger_id
     );
 
     const expenses = transactionData.filter(
@@ -29,7 +29,7 @@ function Transactions() {
         (acc, curr) => acc + parseFloat(curr.amount),
         0
     );
-    const balance = ledger.balance;
+    const balance = parseFloat(ledger.balance);
 
     const handleDateChange = (date) => setSelectedDate(date);
 
@@ -63,7 +63,11 @@ function Transactions() {
                                         Income
                                     </p>
                                     <p className="text-green-500 font-bold text-lg">
-                                        ₱{total_income.toLocaleString("en-CA")}
+                                        ₱
+                                        {total_income.toLocaleString("en-CA", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        })}
                                     </p>
                                 </div>
                                 <div className="text-center">
@@ -72,7 +76,13 @@ function Transactions() {
                                     </p>
                                     <p className="text-red-500 font-bold text-lg">
                                         ₱
-                                        {total_expenses.toLocaleString("en-CA")}
+                                        {total_expenses.toLocaleString(
+                                            "en-CA",
+                                            {
+                                                minimumFractionDigits: 2,
+                                                maximumFractionDigits: 2,
+                                            }
+                                        )}
                                     </p>
                                 </div>
                                 <div className="text-center">
@@ -80,7 +90,11 @@ function Transactions() {
                                         Balance
                                     </p>
                                     <p className="font-bold text-lg">
-                                        ₱{balance.toLocaleString("en-CA")}
+                                        ₱
+                                        {balance.toLocaleString("en-CA", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        })}
                                     </p>
                                 </div>
                             </div>

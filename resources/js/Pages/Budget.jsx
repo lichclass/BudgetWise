@@ -20,7 +20,9 @@ function Budget() {
     const { budgetedExpenses, nonBudgetedExpenses } = expenses.reduce(
         (acc, category) => {
             const budget = budgets.find(
-                (budget) => budget.category_id === category.category_id
+                (budget) =>
+                    budget.category_id === category.category_id &&
+                    budget.ledger_id === ledger.ledger_id
             );
             if (budget) {
                 acc.budgetedExpenses.push(budget);
@@ -48,9 +50,7 @@ function Budget() {
                     {/* Bottom */}
                     <div className="flex flex-col max-h-full lg:h-1/2 border border-gray-600 rounded-xl lg:rounded-t-none px-6 py-6 gap-4 bg-[#143445] overflow-auto">
                         {/* Monthly Budget Card */}
-                        <MonthlyBudget
-                            budgetedExpenses={budgetedExpenses}
-                        />
+                        <MonthlyBudget budgetedExpenses={budgetedExpenses} />
 
                         {/* Expenses Overview */}
                         <div className="h-full md:w-full flex flex-col gap-2">

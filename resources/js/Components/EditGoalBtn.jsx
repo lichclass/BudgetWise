@@ -86,7 +86,7 @@ function EditGoalModal({ id, title, target, targetDate, isDeadlineSet }) {
                             name="goal_date"
                             value={data.target_date || targetDate}
                             onChange={(e) =>
-                                setData("target_income", e.target.value)
+                                setData("target_date", e.target.value)
                             }
                             isReadOnly={!isDeadlineInputSet}
                             errorDisplay={errors.target_date}

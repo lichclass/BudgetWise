@@ -18,7 +18,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        session(['ledger' => Ledger::where('user_id', Auth::id())->first()]);
+        // session(['ledger' => Ledger::where('user_id', Auth::id())->first()]);
         return Inertia::render('Home');
     }
 
@@ -72,7 +72,10 @@ class HomeController extends Controller
            LedgerCategory::create($Ledger_categoryFields);
         }
 
-        return redirect()->route('home');
+        $newLedger = Ledger::find($ledgerID);
+        session(['ledger' => $newLedger]);
+
+        return redirect()->route('home')->with('reload', true);
     }
 
     public function addGoalMoney(Request $request, $id){
@@ -81,10 +84,14 @@ class HomeController extends Controller
         $addMoneyField = $request->validate([
             'amount' => ['required', 'numeric'],
         ]);
+
+        
+
         $ledger->balance -= $addMoneyField['amount'];
         $ledger->save();
         $goals->current_saving += $addMoneyField['amount'];
         $goals->save();
+
         session(['ledger' => $ledger]);
         return redirect()->route('home');
     }

@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import TestChart from "@/Components/TestChart";
 
 function LedgerTransactions({ ledger, transactions }) {
-
     const [selectedDate, setSelectedDate] = useState(new Date());
     const transactionData = transactions.filter(
         (transaction) => transaction.ledger_id !== ledger.id
@@ -29,7 +28,7 @@ function LedgerTransactions({ ledger, transactions }) {
         0
     );
 
-    const balance = ledger.balance;
+    const balance = parseFloat(ledger.balance);
 
     const handleDateChange = (date) => setSelectedDate(date);
 
@@ -39,7 +38,10 @@ function LedgerTransactions({ ledger, transactions }) {
             <Head title="Transactions" />
 
             {/* Modify the navbarMsg, use the one from Figma */}
-            <Main navbarMsg={`(${ledger.ledger_name}) Transactions`} isAdmin={true}>
+            <Main
+                navbarMsg={`(${ledger.ledger_name}) Transactions`}
+                isAdmin={true}
+            >
                 <div className="flex flex-col h-full gap-y-3 py-3 overflow-y-auto ">
                     <div className="flex gap-x-3 flex-col gap-y-3 md:flex-row">
                         {/* Calendar Card */}
@@ -63,7 +65,11 @@ function LedgerTransactions({ ledger, transactions }) {
                                         Income
                                     </p>
                                     <p className="text-green-500 font-bold text-lg">
-                                        ₱{total_income.toLocaleString("en-CA")}
+                                        ₱
+                                        {total_income.toLocaleString("en-CA", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        })}
                                     </p>
                                 </div>
                                 <div className="text-center">
@@ -72,7 +78,13 @@ function LedgerTransactions({ ledger, transactions }) {
                                     </p>
                                     <p className="text-red-500 font-bold text-lg">
                                         ₱
-                                        {total_expenses.toLocaleString("en-CA")}
+                                        {total_expenses.toLocaleString(
+                                            "en-CA",
+                                            {
+                                                minimumFractionDigits: 2,
+                                                maximumFractionDigits: 2,
+                                            }
+                                        )}
                                     </p>
                                 </div>
                                 <div className="text-center">
@@ -80,7 +92,11 @@ function LedgerTransactions({ ledger, transactions }) {
                                         Balance
                                     </p>
                                     <p className="font-bold text-lg">
-                                        ₱{balance.toLocaleString("en-CA")}
+                                        ₱
+                                        {balance.toLocaleString("en-CA", {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        })}
                                     </p>
                                 </div>
                             </div>
